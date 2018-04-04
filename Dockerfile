@@ -21,7 +21,7 @@ RUN ./sdk/make.sh
 
 RUN ./sdk/bridge/make.sh
 
-# update pip and install pythong sdk
+# update pip and install python sdk
 
 RUN pip install sdk/bridge/dist/python
 RUN pip install --upgrade pip
