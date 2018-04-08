@@ -1,0 +1,16 @@
+FROM ubuntu:16.04
+
+RUN apt-get update && apt-get install -y \
+  git \
+  ca-certificates \
+  python-pip \
+  curl \
+  wget \
+  ipython \
+  tree
+
+RUN pip install wheel 
+
+RUN wget https://storage.googleapis.com/flywheel-dist/sdk/alphas/flywheel_sdk-2.1.1rc2-py2.py3-none-any.whl
+
+RUN pip install wheel *.whl
