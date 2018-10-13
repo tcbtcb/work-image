@@ -21,6 +21,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'pearofducks/ansible-vim'
 " 
 " " All of your Plugins must be added before the following line
 "

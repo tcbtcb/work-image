@@ -10,9 +10,10 @@ RUN apt-get update && apt-get install -y \
 	ca-certificates \
   python-dev \
   python3 \
-  python3-dev
+  python3-dev \
   python3-pip \
-  cmake
+  cmake \
+  libncurses5-dev
 
 # install ansible and flywheel sdk using pip
 
@@ -27,7 +28,8 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 ## config vim plugins
 
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vundle.vim
-COPY .vimrc /root/.vimrc
+RUN wget -P /root/ https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
+#COPY .vimrc /root/.vimrc
 RUN vim -c 'PluginInstall' -c 'qa!'
 RUN python3 /root/.vim/bundle/YouCompleteMe/install.py
 
