@@ -1,33 +1,25 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-"
-" " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-"
+call plug#begin('~/.vim/plugged')
+
 " github plugins
 "
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'raimondi/delimitmate'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-jdaddy'
-Plugin 'scrooloose/syntastic'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'pearofducks/ansible-vim'
-" 
-" " All of your Plugins must be added before the following line
-"
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'raimondi/delimitmate'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-jdaddy'
+Plug 'scrooloose/syntastic'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'pearofducks/ansible-vim'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+
+call plug#end()
+
 syntax on
 set clipboard=unnamed
 
