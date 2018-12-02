@@ -6,6 +6,7 @@ WORKDIR /home
 RUN apt-get update && apt-get install -y \
   git \
 	curl \ 
+  tree \
 	wget \
 	ca-certificates \
   python-dev \
@@ -33,6 +34,7 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 RUN wget -P /root/ https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
 RUN vim -c 'PlugInstall' -c 'qa!'
 RUN python3 /root/.vim/plugged/YouCompleteMe/install.py
+RUN find ~/.vim -type d -name "doc" -exec vim +helptags {} +qall \;
 
 # install gcloud sdk
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
