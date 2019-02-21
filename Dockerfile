@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 
 # install ansible and flywheel sdk using pip
 
-RUN pip3 install google-api-python-client flywheel-sdk requests google-auth git+https://github.com/ansible/ansible.git@devel
+RUN pip3 install google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth git+https://github.com/ansible/ansible.git@devel
 
 # get and build vim
 
