@@ -1,24 +1,24 @@
 set nocompatible              " be iMproved, required
 
-call plug#begin('~/.vim/plugged')
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " github plugins
 "
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'raimondi/delimitmate'
-Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-jdaddy'
-Plug 'scrooloose/syntastic'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'pearofducks/ansible-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'raimondi/delimitmate'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-jdaddy'
+Plugin 'scrooloose/syntastic'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'pearofducks/ansible-vim'
 
-
-call plug#end()
+call vundle#end() 
 
 syntax on
 set clipboard=unnamed
