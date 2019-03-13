@@ -1,14 +1,15 @@
-FROM ubuntu:18.10
+FROM ubuntu:18.04
 WORKDIR /home
 
 # install some basics
 
 RUN apt-get update && apt-get install -y \
   git \
-	curl \ 
+  curl \ 
   tree \
-	wget \
-	ca-certificates \
+  wget \
+  entr \
+  ca-certificates \
   python-dev \
   python3 \
   python3-dev \
@@ -19,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 # install ansible and flywheel sdk using pip
 
-RUN pip3 install google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth git+https://github.com/ansible/ansible.git@devel
+RUN pip3 install google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
 
 # get and build vim
 
@@ -29,11 +30,10 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 
 ## config/compile vim plugins
 
-#RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vundle.vim
-RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vundle.vim
 RUN wget -P /root/ https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
-RUN vim -c 'PlugInstall' -c 'qa!'
-RUN python3 /root/.vim/plugged/YouCompleteMe/install.py
+RUN vim +PluginInstall +qall
+RUN python3 /root/.vim/bundle/YouCompleteMe/install.py
 RUN find ~/.vim -type d -name "doc" -exec vim +helptags {} +qall \;
 
 # install gcloud sdk
