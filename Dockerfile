@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 # install ansible and flywheel sdk using pip
 
-RUN pip3 install google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
+RUN pip3 ansible pydicom install google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
 
 # get and build vim
 
