@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
   wget \
   entr \
   ca-certificates \
+  nmap \
   python-dev \
   python3 \
   python3-dev \
@@ -40,4 +41,3 @@ RUN find ~/.vim -type d -name "doc" -exec vim +helptags {} +qall \;
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
-
