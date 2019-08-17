@@ -11,12 +11,6 @@ Plugin 'raimondi/delimitmate'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-jdaddy'
-Plugin 'scrooloose/syntastic'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'pearofducks/ansible-vim'
 
 call vundle#end() 
 
@@ -37,10 +31,6 @@ set hidden
 set autoread
 set history=1000
 set backspace=indent,eol,start
-
-set wildmenu
-set wildmode=longest,full
-set wildignore+=tmp,.bundle,.sass-cache,.git,.svn,.hg,doc,coverage,vendor,node_modules,deps
 
 set scrolloff=3
 set splitright
@@ -120,17 +110,6 @@ au BufNewFile,BufRead *.py
 """""""""""""""""""""
 "" Plugin settings ""
 """""""""""""""""""""
-" Ultisnips config
-
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" YouCompleteMe
-
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 " fugitive mappings
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
@@ -144,24 +123,3 @@ nmap <leader>gbr :Gbrowse<CR>
 nmap <leader>gp :Gpush<CR>
 nmap <leader>gl :Glog<CR>
 
-" syntastic sesttings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_javascript_checkers=[ 'jshint' ]
-let g:syntastic_python_checkers=[ 'pylint' ]
-let g:syntastic_json_checkers=[ 'jsonlint' ]
-let g:syntastic_html_checkers=[ 'tidy' ]
-nmap <leader>pr :SyntasticCheck proselint
-nmap <leader>sn :SyntasticToggleMode<CR>
-
-" ultisnips
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
