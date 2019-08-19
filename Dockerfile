@@ -1,5 +1,5 @@
-FROM ubuntu:18.04
-WORKDIR /home
+#FROM ubuntu:18.04
+FROM golang:1.12.9-buster
 
 # install some basics
 
@@ -21,7 +21,12 @@ RUN apt-get update && apt-get install -y \
 
 # install ansible and flywheel sdk using pip
 
-RUN pip3 install pymongo ansible pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
+RUN pip3 install pymongo jedi ansible pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
+
+# install node and additional packages
+
+RUN curl -sL install-node.now.sh/lts | bash -s -- -y
+RUN npm install --unsafe -g bash-language-server dockerfile-language-server-nodejs
 
 # get and build vim
 
@@ -31,11 +36,15 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 
 ## config/compile vim plugins
 
-RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vundle.vim
-RUN wget -P /root/ https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
-RUN vim +PluginInstall +qall
-RUN python3 /root/.vim/bundle/YouCompleteMe/install.py
-RUN find ~/.vim -type d -name "doc" -exec vim +helptags {} +qall \;
+COPY .vimrc /root/.vimrc
+COPY packages.sh /root/packages.sh
+RUN /root/packages.sh
+RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+COPY coc-settings.json /root/.vim/
+RUN vim +PlugInstall +qall
+RUN vim '+CocInstall -sync coc-json coc-yaml coc-python coc-tsserver' +qall
+RUN vim '+helptags ALL' +qall
 
 # install gcloud sdk
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
