@@ -37,8 +37,6 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 ## config/compile vim plugins
 
 COPY .vimrc /root/.vimrc
-COPY packages.sh /root/packages.sh
-RUN /root/packages.sh
 RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 COPY coc-settings.json /root/.vim/
@@ -50,3 +48,7 @@ RUN vim '+helptags ALL' +qall
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
+
+# install flywheel golang skd
+RUN go get github.com/flywheel-io/sdk/api
+
