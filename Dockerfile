@@ -36,10 +36,10 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 
 ## config/compile vim plugins
 
-COPY .vimrc /root/.vimrc
+RUN curl -fLo /root/.vimrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
 RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-COPY coc-settings.json /root/.vim/
+RUN curl -fLo /root/.vim/coc-settings.json https://raw.githubusercontent.com/tcbtcb/work-image/master/coc-settings.json
 RUN vim +PlugInstall +qall
 RUN vim '+CocInstall -sync coc-json coc-yaml coc-python coc-tsserver' +qall
 RUN vim '+helptags ALL' +qall
