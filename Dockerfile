@@ -49,6 +49,6 @@ RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
 
-# install flywheel golang skd
+# install flywheel golang sdk 
 RUN go get github.com/flywheel-io/sdk/api
 

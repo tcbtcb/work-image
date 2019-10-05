@@ -8,6 +8,8 @@ Plug 'raimondi/delimitmate'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-unimpaired'
+Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 
@@ -122,7 +124,12 @@ nmap <leader>gbr :Gbrowse<CR>
 nmap <leader>gp :Gpush<CR>
 nmap <leader>gl :Glog<CR>
 
+" nerdtree settings
+
+map <leader>n :NERDTreeToggle<CR>
+"
 " coc settings
+" 
 
 " Better display for messages
 set cmdheight=2
@@ -241,3 +248,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+
+" remap build/run/test
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
