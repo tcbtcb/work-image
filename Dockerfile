@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
   tree \
   wget \
   entr \
+  tmux \
   ca-certificates \
   nmap \
   python-dev \
