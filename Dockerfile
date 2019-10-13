@@ -1,4 +1,3 @@
-#FROM ubuntu:18.04
 FROM golang:1.12.9-buster
 
 # install some basics
@@ -22,12 +21,12 @@ RUN apt-get update && apt-get install -y \
 
 # install ansible and flywheel sdk using pip
 
-RUN pip3 install pymongo jedi ansible pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
+RUN pip3 install pymongo jedi pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
 
 # install node and additional packages
 
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
-RUN npm install --unsafe -g bash-language-server dockerfile-language-server-nodejs
+RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 
 # get and build vim
 
