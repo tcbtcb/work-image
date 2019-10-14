@@ -34,7 +34,7 @@ RUN cd /tmp && git clone https://github.com/vim/vim.git
 RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
 RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 
-## config/compile vim plugins
+# config/compile vim plugins
 
 RUN curl -fLo /root/.vimrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
 RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
@@ -53,3 +53,7 @@ RUN apt-get update && apt-get install -y google-cloud-sdk
 # install flywheel golang sdk 
 RUN go get github.com/flywheel-io/sdk/api
 
+# install a few dot files
+
+RUN curl -fLo /root/.bashrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.bashrc
+RUN curl -fLo /root/.tmux.conf https://raw.githubusercontent.com/tcbtcb/work-image/master/.tmux.conf
