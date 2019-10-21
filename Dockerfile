@@ -50,9 +50,10 @@ RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
 
-# install flywheel golang sdk 
+# install flywheel golang sdk + other tools 
 RUN go get github.com/flywheel-io/sdk/api
-
+RUN go get github.com/gohugoio/hugo  
+RUN go get github.com/spf13/cobra
 # install a few dot files
 
 RUN curl -fLo /root/.bashrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.bashrc
