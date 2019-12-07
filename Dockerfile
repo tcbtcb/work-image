@@ -1,4 +1,4 @@
-FROM golang:1.12.9-buster
+FROM golang:1.13-buster
 
 # install some basics
 
