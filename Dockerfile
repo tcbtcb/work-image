@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
   python3-pip \
   ipython3 \
   cmake \
+  google-cloud-sdk-app-engine-go \
   libncurses5-dev
 
 # install ansible and flywheel sdk using pip
