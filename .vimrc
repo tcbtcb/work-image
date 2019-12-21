@@ -12,6 +12,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
