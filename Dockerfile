@@ -19,6 +19,10 @@ RUN apt-get update && apt-get install -y \
   cmake \
   libncurses5-dev
 
+# update certs
+
+RUN update-ca-certificates
+
 # install ansible and flywheel sdk using pip
 
 RUN pip3 install pymongo jedi pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient
@@ -46,7 +50,7 @@ RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
 # install gcloud sdk
-RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
 
