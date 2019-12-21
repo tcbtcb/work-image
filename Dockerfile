@@ -54,6 +54,8 @@ RUN apt-get update && apt-get install -y google-cloud-sdk
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get github.com/gohugoio/hugo  
 RUN go get github.com/spf13/cobra
+RUN go get github.com/labstack/echo
+
 # install a few dot files
 
 RUN curl -fLo /root/.bashrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.bashrc
