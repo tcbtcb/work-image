@@ -36,7 +36,7 @@ RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 
 RUN cd /tmp && git clone https://github.com/vim/vim.git
 RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
-RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
+RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
 # config/compile vim plugins
 
