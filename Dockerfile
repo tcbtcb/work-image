@@ -63,4 +63,3 @@ RUN go get github.com/labstack/echo
 # install a few dot files
 
 RUN curl -fLo /root/.bashrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.bashrc
-RUN curl -fLo /root/.tmux.conf https://raw.githubusercontent.com/tcbtcb/work-image/master/.tmux.conf
