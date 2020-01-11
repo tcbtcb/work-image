@@ -45,7 +45,7 @@ RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN curl -fLo /root/.vim/coc-settings.json https://raw.githubusercontent.com/tcbtcb/work-image/master/coc-settings.json
 RUN vim +PlugInstall +qall
-RUN vim '+CocInstall -sync coc-json coc-yaml coc-python' +qall
+RUN vim '+CocInstall -sync coc-ultisnips coc-json coc-yaml coc-python' +qall
 RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
