@@ -23,9 +23,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN update-ca-certificates
 
-# install ansible and flywheel sdk using pip
+# install some python stuff
 
-RUN pip3 install pymongo jedi pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient PyYAML
+RUN pip3 install pymongo jedi pylint pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient PyYAML
 
 # install node and additional packages
 
