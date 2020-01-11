@@ -45,7 +45,7 @@ RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN curl -fLo /root/.vim/coc-settings.json https://raw.githubusercontent.com/tcbtcb/work-image/master/coc-settings.json
 RUN vim +PlugInstall +qall
-RUN vim '+CocInstall -sync coc-json coc-yaml coc-python coc-tsserver' +qall
+RUN vim '+CocInstall -sync coc-json coc-yaml coc-python' +qall
 RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
@@ -54,9 +54,8 @@ RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | tee 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
 
-# install flywheel golang sdk + other tools 
+# install flywheel golang sdk + other tools
 RUN go get github.com/flywheel-io/sdk/api
-RUN go get github.com/gohugoio/hugo  
 RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 
