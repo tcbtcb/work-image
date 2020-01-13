@@ -1,5 +1,11 @@
 FROM golang:1.13-buster
 
+# set modules on and platform for golang
+
+ENV GO111MODULE=on \
+    GOOS=linux \
+    GOARCH=amd64
+
 # install some basics
 
 RUN apt-get update && apt-get install -y \
