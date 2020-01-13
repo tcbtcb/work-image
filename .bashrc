@@ -49,8 +49,9 @@ alias gad='gcloud app deploy'
 
 # Go modules
 
-export GO111MODULES=on
+export GO111MODULE=on
 
+# tmux stuff
 
-
-
+export PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export TERM=xterm-256color
