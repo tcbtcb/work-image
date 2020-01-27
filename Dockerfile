@@ -68,3 +68,4 @@ RUN go get github.com/labstack/echo
 # install a few dot files
 
 RUN curl -fLo /root/.bashrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.bashrc
+RUN curl -fLo /root/.bash_profile https://raw.githubusercontent.com/tcbtcb/work-image/master/.bash_profile
