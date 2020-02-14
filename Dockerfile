@@ -26,30 +26,28 @@ RUN apt-get update && apt-get install -y \
   libncurses5-dev
 
 # update certs
-
 RUN update-ca-certificates
 
 # install some python stuff
-
 RUN pip3 install pymongo jedi pylint pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient PyYAML
 
 # install node and additional packages
-
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 
 # get and build vim
-
 RUN cd /tmp && git clone https://github.com/vim/vim.git
 RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
 RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
-# config/compile vim plugins
+# clone repo locally
+RUN cd /root && git clone https://github.com/tcbtcb/work-image.git
 
-RUN curl -fLo /root/.vimrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.vimrc
+# config/compile vim plugins
+RUN cp /root/work-image/.vimrc /root/
 RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-RUN curl -fLo /root/.vim/coc-settings.json https://raw.githubusercontent.com/tcbtcb/work-image/master/coc-settings.json
+RUN cp /root/work-image/coc-settings.json /root/.vim/
 RUN vim +PlugInstall +qall
 RUN vim '+CocInstall -sync coc-ultisnips coc-json coc-yaml coc-python' +qall
 RUN vim '+GoInstallBinaries' +qall
@@ -65,7 +63,7 @@ RUN go get github.com/flywheel-io/sdk/api
 RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 
-# install a few dot files
+# install bash files
+RUN cp /root/work-image/.bashrc /root/
+RUN cp /root/work-image/.bash_profile /root/
 
-RUN curl -fLo /root/.bashrc https://raw.githubusercontent.com/tcbtcb/work-image/master/.bashrc
-RUN curl -fLo /root/.bash_profile https://raw.githubusercontent.com/tcbtcb/work-image/master/.bash_profile
