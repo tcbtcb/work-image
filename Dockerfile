@@ -44,7 +44,7 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 RUN cd /root && git clone https://github.com/tcbtcb/work-image.git
 
 # config/compile vim plugins
-RUN cp /root/work-image/.vimrc /root/
+RUN cp /root/work-image/vimrc /root/.vimrc
 RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN cp /root/work-image/coc-settings.json /root/.vim/
