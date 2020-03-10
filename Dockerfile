@@ -64,6 +64,7 @@ RUN apt-get update && apt-get install -y google-cloud-sdk
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
+RUN go get github.com/justjanne/powerline-go
 
 # install bash files
 RUN cp /root/work-image/bashrc /root/.bashrc
