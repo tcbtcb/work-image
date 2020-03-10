@@ -14,6 +14,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'junegunn/goyo.vim'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -113,7 +115,9 @@ au BufNewFile,BufRead *.py
 """""""""""""""""""""
 "" Plugin settings ""
 """""""""""""""""""""
-" fugitive mappings
+
+" FUGITIVE
+
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gd :Gdiff<CR>
@@ -126,11 +130,19 @@ nmap <leader>gbr :Gbrowse<CR>
 nmap <leader>gp :Gpush<CR>
 nmap <leader>gl :Glog<CR>
 
-" nerdtree settings
+" NERDTREE 
 
 map <leader>n :NERDTreeToggle<CR>
+
+" AIRLINE
+
+let g:airline_theme='minimalist'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline_powerline_fonts=1
+
 "
-" coc settings
+" COC.VIM 
 " 
 
 " Better display for messages
