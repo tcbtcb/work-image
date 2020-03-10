@@ -56,7 +56,6 @@ export GO111MODULE=on
 export PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TERM=xterm
 export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
 alias tmux='tmux -2'
 
 # GOPATH and powerline
@@ -64,7 +63,7 @@ alias tmux='tmux -2'
 GOPATH=/go
 
 function _update_ps1() {
-    PS1="$($GOPATH/bin/powerline-go -error $?)"
+    PS1="$($GOPATH/bin/powerline-go -modules "venv,time,docker,ssh,cwd,git,jobs,exit,root"  -error $?)"
   }
 
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
