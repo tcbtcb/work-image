@@ -23,7 +23,8 @@ RUN apt-get update && apt-get install -y \
   python3-pip \
   ipython3 \
   cmake \
-  libncurses5-dev
+  libncurses5-dev \
+  apt-utils
 
 # update certs
 RUN update-ca-certificates
@@ -64,6 +65,6 @@ RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 
 # install bash files
-RUN cp /root/work-image/.bashrc /root/
-RUN cp /root/work-image/.bash_profile /root/
+RUN cp /root/work-image/bashrc /root/.bashrc
+RUN cp /root/work-image/bash_profile /root/.bash_profile
 
