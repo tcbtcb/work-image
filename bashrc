@@ -63,7 +63,7 @@ alias tmux='tmux -2'
 GOPATH=/go
 
 function _update_ps1() {
-    PS1="$($GOPATH/bin/powerline-go -modules "venv,time,docker,ssh,cwd,git,jobs,exit,root"  -error $?)"
+    PS1="$($GOPATH/bin/powerline-go -modules "venv,user,time,docker,ssh,cwd,git,jobs,exit,root"  -error $?)"
   }
 
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
