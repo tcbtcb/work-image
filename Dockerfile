@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
   cmake \
   libncurses5-dev \
   apt-utils \
+  fontconfig \
   fonts-powerline
 
 # update certs
@@ -41,6 +42,14 @@ RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 RUN cd /tmp && git clone https://github.com/vim/vim.git
 RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
 RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
+
+# get and install powerline fonts
+
+RUN cd /root && git clone https://github.com/powerline/fonts && \
+    mv fonts .fonts && \
+    cd .fonts && \
+    ./install.sh && \
+    fc-cache -vf /root/.fonts/
 
 # clone repo locally
 RUN cd /root && git clone https://github.com/tcbtcb/work-image.git
