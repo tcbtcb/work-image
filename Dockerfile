@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
   ipython3 \
   cmake \
   libncurses5-dev \
-  apt-utils
+  apt-utils \
+  fonts-powerline
 
 # update certs
 RUN update-ca-certificates
