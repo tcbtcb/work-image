@@ -26,7 +26,9 @@ RUN apt-get update && apt-get install -y \
   libncurses5-dev \
   apt-utils \
   fontconfig \
-  fonts-powerline
+  fonts-powerline \
+  less \
+  bsdmainutils
 
 # update certs
 RUN update-ca-certificates
