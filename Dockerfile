@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install pymongo jedi pylint pydicom google-cloud google-cloud-storage google-api-python-client flywheel-sdk requests google-auth oauthclient PyYAML
+RUN pip3 install pymongo jedi pylint pydicom google-cloud google-cloud-storage flywheel-sdk requests google-auth oauthclient PyYAML
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
@@ -77,8 +77,12 @@ RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 RUN go get github.com/justjanne/powerline-go
 
+
+
 # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN cp /root/work-image/bash_profile /root/.bash_profile
-RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf
+RUN cd /root && git clone https://github.com/gpakosz/.tmux.git
+RUN ln -s -f .tmux/.tmux.conf
+RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf.local
 
