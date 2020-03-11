@@ -77,7 +77,8 @@ RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 RUN go get github.com/justjanne/powerline-go
 
-# install bash files
+# install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN cp /root/work-image/bash_profile /root/.bash_profile
+RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf
 
