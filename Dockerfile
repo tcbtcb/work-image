@@ -77,12 +77,13 @@ RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 RUN go get github.com/justjanne/powerline-go
 
-
-
 # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN cp /root/work-image/bash_profile /root/.bash_profile
 RUN cd /root && git clone https://github.com/gpakosz/.tmux.git
-RUN ln -s -f .tmux/.tmux.conf
+RUN cp .tmux/.tmux.conf . 
 RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf.local
+
+
+
 
