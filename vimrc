@@ -143,7 +143,7 @@ let g:airline_powerline_fonts=1
 
 " TERRAFORM
 
-autocmd BufNewFile,BufRead *.tf set filetype=terraform¬
+au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 
 "
 " COC.VIM 
