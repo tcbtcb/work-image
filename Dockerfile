@@ -82,7 +82,7 @@ RUN go get github.com/juliosueiras/terraform-lsp
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN cp /root/work-image/bash_profile /root/.bash_profile
 RUN cd /root && git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
-RUN cd /root ln -s -f .tmux/.tmux.conf
+RUN cd /root && ln -s -f .tmux/.tmux.conf
 RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf.local
 
 
