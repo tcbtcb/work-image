@@ -77,6 +77,7 @@ RUN go get github.com/spf13/cobra
 RUN go get github.com/labstack/echo
 RUN go get github.com/justjanne/powerline-go
 RUN go get github.com/juliosueiras/terraform-lsp
+RUN go get github.com/hashicorp/terraform
 
 # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
