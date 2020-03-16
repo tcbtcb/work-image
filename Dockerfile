@@ -74,6 +74,7 @@ RUN apt-get update && apt-get install -y google-cloud-sdk
 # install flywheel golang sdk + other tools
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get github.com/spf13/cobra
+RUN go get github.com/spf13/hugo
 RUN go get github.com/labstack/echo
 RUN go get github.com/justjanne/powerline-go
 RUN go get github.com/juliosueiras/terraform-lsp
