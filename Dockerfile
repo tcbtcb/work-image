@@ -46,14 +46,13 @@ RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-
 RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
 # get and install powerline fonts
-
 RUN cd /root && git clone https://github.com/powerline/fonts && \
     mv fonts .fonts && \
     cd .fonts && \
     ./install.sh && \
     fc-cache -vf /root/.fonts/
 
-# clone repo locally
+# clone settings repo locally
 RUN cd /root && git clone https://github.com/tcbtcb/work-image.git
 
 # config/compile vim plugins

@@ -22,7 +22,9 @@ call plug#end()
 syntax on
 set clipboard=unnamed
 
-let mapleader =','
+" temporarily trying the default leader key
+" let mapleader =','
+
 set path+=**
 """"""""""""""""""""""
 "" General settings ""
