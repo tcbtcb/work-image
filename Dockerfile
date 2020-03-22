@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install pymongo jedi pylint pydicom google-cloud google-cloud-storage flywheel-sdk requests google-auth oauthclient PyYAML
+RUN pip3 install pymongo ansible awscli jedi pylint google-cloud google-cloud-storage flywheel-sdk requests google-auth oauthclient PyYAML
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
