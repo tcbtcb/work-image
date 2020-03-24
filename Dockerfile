@@ -17,11 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tmux \
     ca-certificates \
     nmap \
-    python-dev \
-    python3 \
-    python3-dev \
-    python3-pip \
-    python3-setuptools \
     ipython3 \
     cmake \
     libncurses5-dev \
@@ -30,6 +25,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-powerline \
     less \
     bsdmainutils \
+  && apt-get clean
+
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-dev \
+    python3-pip \
   && apt-get clean
 
 # update certs
