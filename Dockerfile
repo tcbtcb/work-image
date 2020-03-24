@@ -8,7 +8,7 @@ ENV GO111MODULE=on \
 
 # install some basics
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
   curl \ 
   tree \
@@ -86,7 +86,4 @@ RUN cp /root/work-image/bash_profile /root/.bash_profile
 RUN cd /root && git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
 RUN cd /root && ln -s -f .tmux/.tmux.conf
 RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf.local
-
-
-
 
