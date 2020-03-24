@@ -9,26 +9,27 @@ ENV GO111MODULE=on \
 # install some basics
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  git \
-  curl \ 
-  tree \
-  wget \
-  entr \
-  tmux \
-  ca-certificates \
-  nmap \
-  python-dev \
-  python3 \
-  python3-dev \
-  python3-pip \
-  ipython3 \
-  cmake \
-  libncurses5-dev \
-  apt-utils \
-  fontconfig \
-  fonts-powerline \
-  less \
-  bsdmainutils
+    git \
+    curl \ 
+    tree \
+    wget \
+    entr \
+    tmux \
+    ca-certificates \
+    nmap \
+    python-dev \
+    python3 \
+    python3-dev \
+    python3-pip \
+    ipython3 \
+    cmake \
+    libncurses5-dev \
+    apt-utils \
+    fontconfig \
+    fonts-powerline \
+    less \
+    bsdmainutils \
+  && apt-get clean
 
 # update certs
 RUN update-ca-certificates
