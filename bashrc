@@ -59,8 +59,10 @@ export LANG=en_US.UTF-8
 export EDITOR=vim
 alias tmux='tmux -2'
 
-# gcp creds for terraform 
-if [ -f /root/.config/gcloud/legacy_credentials/thadbrown\@flywheel.io/adc.json ]; then
+# gcp creds for terraform
+if [ -h /root/.config/adc.json ]; then
+  export GOOGLE_APPLICATION_CREDENTIALS="/root/.config/adc.json"
+else
   ln -s /root/.config/gcloud/legacy_credentials/thadbrown\@flywheel.io/adc.json /root/.config/adc.json
   export GOOGLE_APPLICATION_CREDENTIALS="/root/.config/adc.json"
 fi
