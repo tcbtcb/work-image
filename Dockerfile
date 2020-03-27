@@ -85,7 +85,9 @@ RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 
 # retrieve/install terraform-sops provider
-RUN go get github.com/carlpett/terraform-provider-sops && cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
+RUN go get github.com/carlpett/terraform-provider-sops && \
+  mkdir -p /root/.terraform.d/plugins/ && \
+  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
 # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
