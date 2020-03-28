@@ -8,27 +8,30 @@ ENV GO111MODULE=on \
 
 # install some basics
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \ 
+    tree \
+    wget \
+    entr \
+    tmux \
+    ca-certificates \
+    nmap \
+    ipython3 \
+    cmake \
+    libncurses5-dev \
+    apt-utils \
+    fontconfig \
+    fonts-powerline \
+    less \
+    bsdmainutils \
+  && apt-get clean
+
 RUN apt-get update && apt-get install -y \
-  git \
-  curl \ 
-  tree \
-  wget \
-  entr \
-  tmux \
-  ca-certificates \
-  nmap \
-  python-dev \
-  python3 \
-  python3-dev \
-  python3-pip \
-  ipython3 \
-  cmake \
-  libncurses5-dev \
-  apt-utils \
-  fontconfig \
-  fonts-powerline \
-  less \
-  bsdmainutils
+    python3 \
+    python3-dev \
+    python3-pip \
+  && apt-get clean
 
 # update certs
 RUN update-ca-certificates
@@ -79,6 +82,12 @@ RUN go get github.com/justjanne/powerline-go
 RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/hashicorp/terraform
 RUN go get github.com/cespare/reflex
+RUN go get go.mozilla.org/sops/v3/cmd/sops
+
+# retrieve/install terraform-sops provider
+RUN go get github.com/carlpett/terraform-provider-sops && \
+  mkdir -p /root/.terraform.d/plugins/ && \
+  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
 # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
@@ -86,7 +95,3 @@ RUN cp /root/work-image/bash_profile /root/.bash_profile
 RUN cd /root && git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
 RUN cd /root && ln -s -f .tmux/.tmux.conf
 RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf.local
-
-
-
-

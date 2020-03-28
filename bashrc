@@ -1,7 +1,7 @@
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    #alias ls='ls --color=auto'
+    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -40,9 +40,10 @@ alias grq='git rebase --interactive --autosquash'
 alias gs='git status -b -s --ignore-submodules=dirty'
 alias gl='git log --pretty=format:"%C(yellow)%h%C(reset)|%C(bold blue)%an%C(reset)|%s" | column -s "|" -t | less -FXRS'
 alias tmux='tmux -2'
+alias kc='kubectl'
+alias tf='terraform'
 
 # gcloud aliases
-
 alias gcil='gcloud compute instances list'
 alias gcsp='gcloud config set project'
 alias gcpl='gcloud projects list'
@@ -57,6 +58,14 @@ export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
 alias tmux='tmux -2'
+
+# gcp creds for terraform
+if [ -h /root/.config/adc.json ]; then
+  export GOOGLE_APPLICATION_CREDENTIALS="/root/.config/adc.json"
+else
+  ln -s /root/.config/gcloud/legacy_credentials/thadbrown\@flywheel.io/adc.json /root/.config/adc.json
+  export GOOGLE_APPLICATION_CREDENTIALS="/root/.config/adc.json"
+fi
 
 # GOPATH and powerline
 GOPATH=/go
