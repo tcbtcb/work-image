@@ -82,6 +82,7 @@ RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/hashicorp/terraform
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
+RUN get github.com/mikefarah/yq/v3
 
 # retrieve/install terraform-sops provider
 RUN go get github.com/carlpett/terraform-provider-sops && \
