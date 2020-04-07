@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
     fontconfig \
     fonts-powerline \
+    man \
     less \
     bsdmainutils \
   && apt-get clean

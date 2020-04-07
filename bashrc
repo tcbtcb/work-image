@@ -53,7 +53,7 @@ alias gad='gcloud app deploy'
 export GO111MODULE=on
 
 # PATH and tmux stuff
-export PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local:/usr/share:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
