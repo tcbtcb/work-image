@@ -84,6 +84,11 @@ RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN get github.com/mikefarah/yq/v3
 
+# install a version of tf
+
+RUN cd /root && git clone git@github.com:hashicorp/terraform.git
+RUN cd /root/terraform && git checkout tags/v0.12.21 && go install
+
 # retrieve/install terraform-sops provider
 RUN go get github.com/carlpett/terraform-provider-sops && \
   mkdir -p /root/.terraform.d/plugins/ && \
