@@ -86,7 +86,7 @@ RUN go get github.com/mikefarah/yq/v3
 
 # install a version of tf
 
-RUN cd /root && git clone git@github.com:hashicorp/terraform.git
+RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
 RUN cd /root/terraform && git checkout tags/v0.12.21 && go install
 
 # retrieve/install terraform-sops provider
