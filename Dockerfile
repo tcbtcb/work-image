@@ -1,4 +1,34 @@
+FROM golang:1.14-buster as gobuild
+
+# set modules on and platform for golang
+ENV GO111MODULE=on \
+    GOOS=linux \
+    GOARCH=amd64
+
+# install flywheel golang sdk + other tools
+RUN go get github.com/flywheel-io/sdk/api
+RUN go get github.com/spf13/cobra
+RUN go get github.com/gohugoio/hugo
+RUN go get github.com/labstack/echo
+RUN go get github.com/justjanne/powerline-go
+RUN go get github.com/juliosueiras/terraform-lsp
+RUN go get github.com/hashicorp/terraform
+RUN go get github.com/cespare/reflex
+RUN go get go.mozilla.org/sops/v3/cmd/sops
+RUN go get github.com/mikefarah/yq/v3
+
+# install a version of tf
+
+RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
+RUN cd /root/terraform && git checkout tags/v0.12.21 && go install
+
+# retrieve/install terraform-sops provider
+RUN go get github.com/carlpett/terraform-provider-sops && \
+  mkdir -p /root/.terraform.d/plugins/ && \
+  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
+
 FROM golang:1.14-buster
+COPY --from=gobuild /go/bin/* /go/bin/
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
@@ -24,6 +54,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     man \
     less \
     bsdmainutils \
+    vim \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -41,11 +72,12 @@ RUN pip3 install pymongo ansible awscli jedi pylint google-cloud google-cloud-st
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
-
-# get and build vim
-RUN cd /tmp && git clone https://github.com/vim/vim.git
-RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
-RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
+# 
+# # get and build vim
+# RUN cd /tmp && git clone https://github.com/vim/vim.git
+# RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
+# RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
+# 
 
 # get and install powerline fonts
 RUN cd /root && git clone https://github.com/powerline/fonts && \
@@ -71,28 +103,6 @@ RUN vim '+helptags ALL' +qall
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update && apt-get install -y google-cloud-sdk
-
-# install flywheel golang sdk + other tools
-RUN go get github.com/flywheel-io/sdk/api
-RUN go get github.com/spf13/cobra
-RUN go get github.com/gohugoio/hugo
-RUN go get github.com/labstack/echo
-RUN go get github.com/justjanne/powerline-go
-RUN go get github.com/juliosueiras/terraform-lsp
-RUN go get github.com/hashicorp/terraform
-RUN go get github.com/cespare/reflex
-RUN go get go.mozilla.org/sops/v3/cmd/sops
-RUN go get github.com/mikefarah/yq/v3
-
-# install a version of tf
-
-RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /root/terraform && git checkout tags/v0.12.21 && go install
-
-# retrieve/install terraform-sops provider
-RUN go get github.com/carlpett/terraform-provider-sops && \
-  mkdir -p /root/.terraform.d/plugins/ && \
-  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
 # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc
