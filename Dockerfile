@@ -16,9 +16,13 @@ RUN go get github.com/hashicorp/terraform
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get github.com/mikefarah/yq/v3
+RUN go get github.com/go-jira/jira/cmd/jira
+
+# install gitlab lab (per the somewhat strange instructions on the github page)
+RUN cd /root && git clone git@github.com:zaquestion/lab
+RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
 
 # install a version of tf
-
 RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
 RUN cd /root/terraform && git checkout tags/v0.12.21 && go install
 
