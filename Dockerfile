@@ -19,7 +19,7 @@ RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/go-jira/jira/cmd/jira
 
 # install gitlab lab (per the somewhat strange instructions on the github page)
-RUN cd /root && git clone git@github.com:zaquestion/lab
+RUN cd /root && git clone https://github.com/zaquestion/lab.git
 RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
 
 # install a version of tf
