@@ -103,6 +103,9 @@ RUN vim '+CocInstall -sync coc-ultisnips coc-json coc-yaml coc-python' +qall
 RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
+# install thesaurus files
+RUN cp -r /root/work-image/thesaurus /root/.vim/thesaurus
+
 # install gcloud sdk
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -

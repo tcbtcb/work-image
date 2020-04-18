@@ -16,6 +16,7 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/goyo.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ron89/thesaurus_query.vim'
 
 call plug#end()
 
@@ -147,10 +148,14 @@ let g:airline_powerline_fonts=1
 
 au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 
-"
-" COC.VIM 
-" 
+" THESAURUS_QUERY
+nnoremap <Leader>tq :ThesaurusQueryReplaceCurrentWord<CR>
+let g:tq_enabled_backends=["openoffice_en","mthesaur_txt","datamuse_com"]
+let g:tq_online_backends_timeout = 0.4
+let g:tq_mthesaur_file="/root/.vim/thesaurus/mthesaur.txt"
+let g:tq_openoffice_en_file="/root/.vim/thesaurus/th_en_US_new"
 
+" COC.VIM 
 " Better display for messages
 set cmdheight=2
 
