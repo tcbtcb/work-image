@@ -58,7 +58,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     man \
     less \
     bsdmainutils \
-    vim \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -77,11 +76,11 @@ RUN pip3 install pymongo ansible awscli jedi pylint google-cloud google-cloud-st
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 # 
-# # get and build vim
-# RUN cd /tmp && git clone https://github.com/vim/vim.git
-# RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
-# RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
-# 
+# get and build vim
+RUN cd /tmp && git clone https://github.com/vim/vim.git
+RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
+RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
+
 
 # get and install powerline fonts
 RUN cd /root && git clone https://github.com/powerline/fonts && \
