@@ -147,10 +147,7 @@ let g:airline_powerline_fonts=1
 
 au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 
-"
 " COC.VIM 
-" 
-
 " Better display for messages
 set cmdheight=2
 
