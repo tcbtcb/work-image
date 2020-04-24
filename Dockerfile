@@ -57,6 +57,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-powerline \
     man \
     less \
+    rsync \
     bsdmainutils \
   && apt-get clean
 
