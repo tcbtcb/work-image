@@ -73,9 +73,6 @@ RUN update-ca-certificates
 # install some python stuff
 RUN pip3 install pymongo ansible awscli jedi pylint google-cloud google-cloud-storage flywheel-sdk requests google-auth oauthclient PyYAML
 
-# temporarily roll back jedi to 16
-RUN pip3 install --upgrade jedi==0.16.0
-
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
