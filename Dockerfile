@@ -112,8 +112,8 @@ RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
 # install gcloud sdk
-RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 
 # install bash + tmux files for tcb and thadbrown users
