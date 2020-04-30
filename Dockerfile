@@ -18,7 +18,7 @@ RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/go-jira/jira/cmd/jira
 
-# install gitlab lab (per the somewhat strange instructions on the github page)
+# install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
 RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
 
@@ -90,30 +90,35 @@ RUN cd /root && git clone https://github.com/powerline/fonts && \
     ./install.sh && \
     fc-cache -vf /root/.fonts/
 
+# create user
+RUN useradd -m -s /bin/bash tcb
+RUN echo "tcb ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+# switch user and dir
+USER tcb
+WORKDIR /home/tcb
+
 # clone settings repo locally
-RUN cd /root && git clone https://github.com/tcbtcb/work-image.git
+RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/compile vim plugins
-RUN cp /root/work-image/vimrc /root/.vimrc
-RUN curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
+RUN cp work-image/vimrc ~/.vimrc
+RUN curl -fLo /home/tcb/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-RUN cp /root/work-image/coc-settings.json /root/.vim/
+RUN cp work-image/coc-settings.json ~/.vim/
 RUN vim +PlugInstall +qall
 RUN vim '+CocInstall -sync coc-ultisnips coc-json coc-yaml coc-python' +qall
 RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
-# install thesaurus files
-RUN cp -r /root/work-image/thesaurus /root/.vim/thesaurus
-
 # install gcloud sdk
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-RUN apt-get update && apt-get install -y google-cloud-sdk
+RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 
-# install bash + tmux files
-RUN cp /root/work-image/bashrc /root/.bashrc
-RUN cp /root/work-image/bash_profile /root/.bash_profile
-RUN cd /root && git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
-RUN cd /root && ln -s -f .tmux/.tmux.conf
-RUN cp /root/work-image/tmux.conf.local /root/.tmux.conf.local
+# install bash + tmux files for tcb and thadbrown users
+RUN cp /home/tcb/work-image/bashrc /home/tcb/.bashrc 
+RUN cp /home/tcb/work-image/bash_profile /home/tcb/.bash_profile
+RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
+RUN ln -s -f .tmux/.tmux.conf
+RUN cp /home/tcb/work-image/tmux.conf.local /home/tcb/.tmux.conf.local
