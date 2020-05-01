@@ -91,11 +91,18 @@ RUN cd /root && git clone https://github.com/powerline/fonts && \
     ./install.sh && \
     fc-cache -vf /root/.fonts/
 
-# create user
+# install gcloud sdk
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+
+# create users
+RUN useradd -m -s /bin/bash thadbrown
 RUN useradd -m -s /bin/bash tcb
 RUN echo "tcb ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "thadbrown ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-# switch user and dir
+# configure tcb user 
 USER tcb
 WORKDIR /home/tcb
 
@@ -112,14 +119,33 @@ RUN vim '+CocInstall -sync coc-ultisnips coc-json coc-yaml coc-python' +qall
 RUN vim '+GoInstallBinaries' +qall
 RUN vim '+helptags ALL' +qall
 
-# install gcloud sdk
-RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk
-
-# install bash + tmux files for tcb and thadbrown users
-RUN cp /home/tcb/work-image/bashrc /home/tcb/.bashrc 
-RUN cp /home/tcb/work-image/bash_profile /home/tcb/.bash_profile
+# install bash + tmux files
+RUN cp ~/work-image/bashrc ~/.bashrc 
+RUN cp ~/work-image/bash_profile ~/.bash_profile
 RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
 RUN ln -s -f .tmux/.tmux.conf
-RUN cp /home/tcb/work-image/tmux.conf.local /home/tcb/.tmux.conf.local
+RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
+
+# configure thadbrown user 
+USER thadbrown
+WORKDIR /home/thadbrown
+
+# clone settings repo locally
+RUN git clone https://github.com/tcbtcb/work-image.git
+
+# config/compile vim plugins
+RUN cp work-image/vimrc ~/.vimrc
+RUN curl -fLo /home/tcb/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN cp work-image/coc-settings.json ~/.vim/
+RUN vim +PlugInstall +qall
+RUN vim '+CocInstall -sync coc-ultisnips coc-json coc-yaml coc-python' +qall
+RUN vim '+GoInstallBinaries' +qall
+RUN vim '+helptags ALL' +qall
+
+# install bash + tmux files
+RUN cp ~/work-image/bashrc ~/.bashrc 
+RUN cp ~/work-image/bash_profile ~/.bash_profile
+RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
+RUN ln -s -f .tmux/.tmux.conf
+RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
