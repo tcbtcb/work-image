@@ -41,6 +41,7 @@ ENV GO111MODULE=on \
 
 # install some basics
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    sudo \
     git \
     curl \ 
     tree \
