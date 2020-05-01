@@ -72,7 +72,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install pymongo ansible awscli jedi pylint google-cloud google-cloud-storage flywheel-sdk requests google-auth oauthclient PyYAML
+RUN pip3 flywheel-cli install pymongo ansible awscli jedi pylint google-cloud google-cloud-storage flywheel-sdk requests google-auth oauthclient PyYAML
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
@@ -135,7 +135,7 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/compile vim plugins
 RUN cp work-image/vimrc ~/.vimrc
-RUN curl -fLo /home/tcb/.vim/autoload/plug.vim --create-dirs \
+RUN curl -fLo /home/thadbrown/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN cp work-image/coc-settings.json ~/.vim/
 RUN vim +PlugInstall +qall
