@@ -1,0 +1,8 @@
+steps:
+  # Build image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Building image'
+    args: ['build', '-t', 'gcr.io/tcb-web/work-image:$COMMIT_SHA', '.']
+
+images: ['gcr.io/tcb-web/work-image']
+timeout: 40m
