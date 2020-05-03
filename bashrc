@@ -72,7 +72,7 @@ GOPATH=/go
 export EXCLAMATION="%"
 
 function _update_ps1() {
-     PS1="$($GOPATH/bin/powerline-go --shell-var $EXCLAMATION -modules "shell-var,venv,user,docker,cwd,git,exit,root" -cwd-mode dironly -error $?)"
+     PS1="$($GOPATH/bin/powerline-go --shell-var EXCLAMATION -modules "shell-var,venv,user,docker,cwd,git,exit,root" -cwd-mode dironly -error $?)"
   }
 
 
