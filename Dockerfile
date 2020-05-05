@@ -98,7 +98,9 @@ RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 
 # create users
 RUN useradd -m -s /bin/bash thadbrown
+RUN useradd -m -s /bin/bash tcb
 RUN echo "thadbrown ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "tcb ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 # configure thadbrown user 
 USER thadbrown
