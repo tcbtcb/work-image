@@ -50,7 +50,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tmux \
     ca-certificates \
     nmap \
-    ipython3 \
     cmake \
     libncurses5-dev \
     apt-utils \
@@ -63,8 +62,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-dev \
     python3-pip \
   && apt-get clean
 
@@ -77,7 +74,7 @@ RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint google-cloud go
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
-# 
+
 # get and build vim
 RUN cd /tmp && git clone https://github.com/vim/vim.git
 RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 

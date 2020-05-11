@@ -75,7 +75,6 @@ function _update_ps1() {
      PS1="$($GOPATH/bin/powerline-go --shell-var SHEBANG -modules "shell-var,venv,user,docker,cwd,git,exit,root" -cwd-mode dironly -error $?)"
   }
 
-
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
       PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
