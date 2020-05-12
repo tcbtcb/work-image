@@ -24,7 +24,7 @@ RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --sh
 
 # install a version of tf
 RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /root/terraform && git checkout tags/v0.12.21 && go install
+RUN cd /root/terraform && git checkout tags/v0.12.24 && go install
 
 # retrieve/install terraform-sops provider
 RUN go get github.com/carlpett/terraform-provider-sops && \
