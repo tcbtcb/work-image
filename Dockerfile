@@ -122,3 +122,5 @@ RUN cp ~/work-image/bash_profile ~/.bash_profile
 RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
 RUN ln -s -f .tmux/.tmux.conf
 RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
+
+WORKDIR /go/src/gitlab.com/flywheel-io
