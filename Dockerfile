@@ -59,6 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     less \
     rsync \
     bsdmainutils \
+    jq \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
