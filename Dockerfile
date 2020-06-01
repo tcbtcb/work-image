@@ -17,6 +17,8 @@ RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/go-jira/jira/cmd/jira
+RUN go get github.com/derailed/k9s
+
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
