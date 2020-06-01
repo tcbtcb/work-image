@@ -61,6 +61,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     less \
     rsync \
     bsdmainutils \
+    jq \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -89,11 +90,6 @@ RUN cd /root && git clone https://github.com/powerline/fonts && \
     cd .fonts && \
     ./install.sh && \
     fc-cache -vf /root/.fonts/
-
-# install gcloud sdk
-RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-RUN sudo apt-get update && sudo apt-get install -y google-cloud-sdk
 
 # create users
 RUN useradd -m -s /bin/bash thadbrown
@@ -124,5 +120,10 @@ RUN cp ~/work-image/bash_profile ~/.bash_profile
 RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
 RUN ln -s -f .tmux/.tmux.conf
 RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
+
+# install gcloud 
+RUN curl https://sdk.cloud.google.com > install.sh
+RUN chmod +x install.sh
+RUN ./install.sh --disable-prompts
 
 WORKDIR /go/src/gitlab.com/flywheel-io

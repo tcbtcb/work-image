@@ -58,6 +58,8 @@ export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
 alias tmux='tmux -2'
+source /home/thadbrown/google-cloud-sdk/path.bash.inc
+source /home/thadbrown/google-cloud-sdk/completion.bash.inc
 
 # gcp creds for terraform
 if [ -h /home/thadbrown/.config/adc.json ]; then
