@@ -17,6 +17,8 @@ RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/go-jira/jira/cmd/jira
+RUN go get github.com/derailed/k9s
+
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -60,11 +62,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
     bsdmainutils \
     jq \
+    apt-transport-https \
+    gnupg2 \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
     python3-pip \
   && apt-get clean
+
+# install kubectl
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get update
+RUN apt-get install -y kubectl
 
 # update certs
 RUN update-ca-certificates
