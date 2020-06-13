@@ -108,8 +108,8 @@ RUN curl -fLo /home/thadbrown/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN cp work-image/coc-settings.json ~/.vim/
 RUN vim +PlugInstall +qall
-# RUN vim '+CocInstall -sync coc-snippets coc-json coc-yaml coc-python' +qall
-# RUN vim '+GoInstallBinaries' +qall
+RUN vim '+CocInstall -sync coc-snippets coc-json coc-yaml coc-python' +qall
+RUN vim '+GoInstallBinaries' +qall
 # RUN vim '+helptags ALL' +qall
 
 # install bash + tmux files
@@ -125,3 +125,34 @@ RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
 
 WORKDIR /go/src/gitlab.com/flywheel-io
+
+# configure tcb user 
+USER tcb
+WORKDIR /home/tcb
+
+# clone settings repo locally
+RUN git clone https://github.com/tcbtcb/work-image.git
+
+# config/compile vim plugins
+RUN cp work-image/vimrc ~/.vimrc
+RUN curl -fLo /home/tcb/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN cp work-image/coc-settings.json ~/.vim/
+RUN vim +PlugInstall +qall
+RUN vim '+CocInstall -sync coc-snippets coc-json coc-yaml coc-python' +qall
+RUN vim '+GoInstallBinaries' +qall
+# RUN vim '+helptags ALL' +qall
+
+# install bash + tmux files
+RUN cp ~/work-image/bashrc ~/.bashrc 
+RUN cp ~/work-image/bash_profile ~/.bash_profile
+RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
+RUN ln -s -f .tmux/.tmux.conf
+RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
+
+# install gcloud 
+RUN curl https://sdk.cloud.google.com > install.sh
+RUN chmod +x install.sh
+RUN ./install.sh --disable-prompts
+
+WORKDIR /go/src/github.com/tcbtcb
