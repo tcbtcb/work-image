@@ -18,7 +18,6 @@ RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/go-jira/jira/cmd/jira
 RUN go get github.com/derailed/k9s
-RUN go get github.com/jonwho/go-iex
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -80,7 +79,7 @@ RUN apt-get install -y kubectl
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML
+RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
@@ -108,6 +107,9 @@ RUN echo "tcb ALL=NOPASSWD: ALL" >> /etc/sudoers
 # configure thadbrown user 
 USER thadbrown
 WORKDIR /home/thadbrown
+
+# add iex go SDK
+RUN go get github.com/jonwho/go-iex
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
