@@ -63,6 +63,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     apt-transport-https \
     gnupg2 \
+    libatlas-base-dev \ 
+    gfortran \ 
+    pkg-config \
+    libfreetype6-dev \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -79,7 +83,7 @@ RUN apt-get install -y kubectl
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX
+RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas zipline
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
