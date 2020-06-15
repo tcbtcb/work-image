@@ -83,7 +83,7 @@ RUN apt-get install -y kubectl
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas zipline
+RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas zipline matplotlib
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
