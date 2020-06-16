@@ -91,3 +91,6 @@ function _update_ps1() {
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
       PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
+
+# change highlight colors (temp workaround)
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
