@@ -107,12 +107,17 @@ RUN useradd -m -s /bin/bash thadbrown
 RUN useradd -m -s /bin/bash tcb
 RUN echo "thadbrown ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN echo "tcb ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN groupadd golang
+RUN usermod -a -G golang tcb
+RUN usermod -a -G golang thadbrown
+RUN chgrp -R golang /go
+RUN chmod -R g+rwx /go
 
 # configure thadbrown user 
 USER thadbrown
 WORKDIR /home/thadbrown
 
-# add iex go SDK
+# install IEX SDK
 RUN go get github.com/jonwho/go-iex
 
 # clone settings repo locally
