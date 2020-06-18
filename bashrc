@@ -61,6 +61,17 @@ alias tmux='tmux -2'
 source /home/thadbrown/google-cloud-sdk/path.bash.inc
 source /home/thadbrown/google-cloud-sdk/completion.bash.inc
 
+# change perms on src dirs
+if [ -d /go/src/gitlab.com ] 
+then 
+  sudo chmod -R a+w /go/src/gitlab.com
+fi
+
+if [ -d /go/src/github.com ] 
+then 
+  sudo chmod -R a+w /go/src/github.com
+fi
+
 # gcp creds for terraform
 if [ -h /home/thadbrown/.config/adc.json ]; then
   export GOOGLE_APPLICATION_CREDENTIALS="/home/thadbrown/.config/adc.json"
@@ -80,3 +91,6 @@ function _update_ps1() {
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
       PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
+
+# change highlight colors (temp workaround)
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
