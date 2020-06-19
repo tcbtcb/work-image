@@ -47,6 +47,12 @@ alias gcsp='gcloud config set project'
 alias gcpl='gcloud projects list'
 alias gad='gcloud app deploy'
 
+# dir aliass
+cdf='cd /go/src/gitlab.com/flywheel-io'
+cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
+cdc='cd /go/src/gitlab.com/flywheel-io/customers'
+cdt='cd /go/src/github.com/tcbtcb'
+
 # Go modules
 export GO111MODULE=on
 
