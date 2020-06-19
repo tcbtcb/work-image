@@ -11,7 +11,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -20,7 +19,6 @@ alias lsa='ls -lhaGFr'
 alias reload='source ~/.bashrc'
 
 # git aliases
-
 alias gm='git merge --no-ff --no-commit'
 alias gmc='git ls-files --unmerged | cut -f2 | uniq' 
 alias ga='git commit -a --amend --no-edit'
