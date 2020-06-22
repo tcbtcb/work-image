@@ -63,8 +63,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     apt-transport-https \
     gnupg2 \
-    libatlas-base-dev \ 
-    gfortran \ 
     pkg-config \
     libfreetype6-dev \
   && apt-get clean
