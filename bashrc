@@ -48,10 +48,10 @@ alias gcpl='gcloud projects list'
 alias gad='gcloud app deploy'
 
 # dir aliass
-cdf='cd /go/src/gitlab.com/flywheel-io'
-cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
-cdc='cd /go/src/gitlab.com/flywheel-io/customers'
-cdt='cd /go/src/github.com/tcbtcb'
+alias cdf='cd /go/src/gitlab.com/flywheel-io'
+alias cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
+alias cdc='cd /go/src/gitlab.com/flywheel-io/customers'
+alias cdt='cd /go/src/github.com/tcbtcb'
 
 # Go modules
 export GO111MODULE=on
@@ -64,17 +64,6 @@ export EDITOR=vim
 alias tmux='tmux -2'
 source /home/thadbrown/google-cloud-sdk/path.bash.inc
 source /home/thadbrown/google-cloud-sdk/completion.bash.inc
-
-# change perms on src dirs
-if [ -d /go/src/gitlab.com ] 
-then 
-  sudo chmod -R a+w /go/src/gitlab.com
-fi
-
-if [ -d /go/src/github.com ] 
-then 
-  sudo chmod -R a+w /go/src/github.com
-fi
 
 # gcp creds for terraform
 if [ -h /home/thadbrown/.config/adc.json ]; then
