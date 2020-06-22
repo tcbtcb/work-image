@@ -2,7 +2,7 @@ steps:
   # Build image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Building image'
-    args: ['build', '-t', 'gcr.io/tcb-web/work-image', '.']
+    args: ['build', '-t', '--no-cache', 'gcr.io/tcb-web/work-image', '.']
 
 images: ['gcr.io/tcb-web/work-image']
 timeout: 60m
