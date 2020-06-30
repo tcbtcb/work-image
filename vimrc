@@ -16,6 +16,7 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/goyo.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
@@ -146,6 +147,7 @@ let g:airline_powerline_fonts=1
 " TERRAFORM
 
 au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
+let g:terraform_fmt_on_save=1
 
 " COC.VIM 
 " Better display for messages
