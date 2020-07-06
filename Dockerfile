@@ -65,21 +65,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 \
     pkg-config \
     libfreetype6-dev \
-    hub \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
     python3-pip \
   && apt-get clean
 
+# update certs
+RUN update-ca-certificates
+
+# install hub
+RUN wget https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz
+RUN tar -xvf hub-linux-amd64-2.14.2.tgz && cd hub-linux-amd64-2.14.2 && sudo ./install 
+
 # install kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN apt-get update
 RUN apt-get install -y kubectl
-
-# update certs
-RUN update-ca-certificates
 
 # install some python stuff
 RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib
