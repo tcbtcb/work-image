@@ -65,6 +65,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 \
     pkg-config \
     libfreetype6-dev \
+    hub \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
