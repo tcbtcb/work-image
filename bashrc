@@ -39,6 +39,9 @@ alias grq='git rebase --interactive --autosquash'
 alias gs='git status -b -s --ignore-submodules=dirty'
 alias gl='git log --pretty=format:"%C(yellow)%h%C(reset)|%C(bold blue)%an%C(reset)|%s" | column -s "|" -t | less -FXRS'
 alias glp='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gcm='git checkout master && git pull'
+
+# misc aliases
 alias tmux='tmux -2'
 alias kc='kubectl'
 alias tf='terraform'
@@ -63,7 +66,6 @@ export PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local:/usr/share:/usr
 export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
-alias tmux='tmux -2'
 source /home/thadbrown/google-cloud-sdk/path.bash.inc
 source /home/thadbrown/google-cloud-sdk/completion.bash.inc
 
