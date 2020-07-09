@@ -181,4 +181,6 @@ RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
 
-WORKDIR /go/src/github.com/tcbtcb
+# start w/ thadbrown user
+USER thadbrown
+WORKDIR /go/src/gitlab.com/flywheel-io
