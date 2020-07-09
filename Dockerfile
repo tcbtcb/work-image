@@ -66,7 +66,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     libfreetype6-dev \
     yamllint \
-    lab \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -87,7 +86,7 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib
+RUN pip3 install flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib sklearn numpy
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
