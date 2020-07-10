@@ -121,7 +121,7 @@ USER thadbrown
 WORKDIR /home/thadbrown
 
 # for some reason, manually set coc log location with env
-RUN mkdir /tmp/$USER
+RUN mkdir -p /tmp/$USER
 ENV NVIM_COC_LOG_FILE=/tmp/$USER
 
 # install IEX SDK
@@ -158,7 +158,7 @@ USER tcb
 WORKDIR /home/tcb
 
 # for some reason, manually set coc log location with env
-RUN mkdir /tmp/$USER
+RUN mkdir -p /tmp/$USER
 ENV NVIM_COC_LOG_FILE=/tmp/$USER
 
 # clone settings repo locally
