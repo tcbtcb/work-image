@@ -120,6 +120,10 @@ RUN chmod -R g+rwx /go
 USER thadbrown
 WORKDIR /home/thadbrown
 
+# for some reason, manually set coc log location with env
+RUN mkdir /tmp/$(id -u)
+ENV NVIM_COC_LOG_FILE=/tmp/$(id -u)
+
 # install IEX SDK
 RUN go get github.com/jonwho/go-iex
 
@@ -152,6 +156,10 @@ WORKDIR /go/src/gitlab.com/flywheel-io
 # configure tcb user 
 USER tcb
 WORKDIR /home/tcb
+
+# for some reason, manually set coc log location with env
+RUN mkdir /tmp/$(id -u)
+ENV NVIM_COC_LOG_FILE=/tmp/$(id -u)
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
