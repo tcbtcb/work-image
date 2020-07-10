@@ -156,6 +156,9 @@ WORKDIR /go/src/gitlab.com/flywheel-io
 USER tcb
 WORKDIR /home/tcb
 
+# clone settings repo locally
+RUN git clone https://github.com/tcbtcb/work-image.git
+
 # install bash + tmux files
 RUN cp ~/work-image/bashrc ~/.bashrc 
 RUN cp ~/work-image/bash_profile ~/.bash_profile
