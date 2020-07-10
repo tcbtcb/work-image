@@ -121,8 +121,7 @@ USER thadbrown
 WORKDIR /home/thadbrown
 
 # for some reason, manually set coc log location with env
-RUN mkdir -p /tmp/$USER
-ENV NVIM_COC_LOG_FILE=/tmp/$USER
+ENV NVIM_COC_LOG_FILE=/tmp/coc.log
 
 # install IEX SDK
 RUN go get github.com/jonwho/go-iex
@@ -156,23 +155,6 @@ WORKDIR /go/src/gitlab.com/flywheel-io
 # configure tcb user 
 USER tcb
 WORKDIR /home/tcb
-
-# for some reason, manually set coc log location with env
-RUN mkdir -p /tmp/$USER
-ENV NVIM_COC_LOG_FILE=/tmp/$USER
-
-# clone settings repo locally
-RUN git clone https://github.com/tcbtcb/work-image.git
-
-# config/compile vim plugins
-RUN cp work-image/vimrc ~/.vimrc
-RUN curl -fLo /home/tcb/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-RUN cp work-image/coc-settings.json ~/.vim/
-RUN mkdir -p /home/tcb/.config/coc
-RUN vim +PlugInstall +qall
-RUN vim '+CocInstall -sync coc-snippets coc-json coc-go coc-json coc-tsserver coc-python' +qall
-# RUN vim '+helptags ALL' +qall
 
 # install bash + tmux files
 RUN cp ~/work-image/bashrc ~/.bashrc 
