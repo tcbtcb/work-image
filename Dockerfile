@@ -121,8 +121,8 @@ USER thadbrown
 WORKDIR /home/thadbrown
 
 # for some reason, manually set coc log location with env
-RUN mkdir /tmp/$(id -u)
-ENV NVIM_COC_LOG_FILE=/tmp/$(id -u)
+RUN mkdir /tmp/$USER
+ENV NVIM_COC_LOG_FILE=/tmp/$USER
 
 # install IEX SDK
 RUN go get github.com/jonwho/go-iex
@@ -158,8 +158,8 @@ USER tcb
 WORKDIR /home/tcb
 
 # for some reason, manually set coc log location with env
-RUN mkdir /tmp/$(id -u)
-ENV NVIM_COC_LOG_FILE=/tmp/$(id -u)
+RUN mkdir /tmp/$USER
+ENV NVIM_COC_LOG_FILE=/tmp/$USER
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
