@@ -136,8 +136,7 @@ RUN curl -fLo /home/thadbrown/.vim/autoload/plug.vim --create-dirs \
 RUN cp work-image/coc-settings.json ~/.vim/
 RUN mkdir -p /home/thadbrown/.config/coc
 RUN vim +PlugInstall +qall
-# RUN vim '+CocInstall -sync coc-snippets coc-go coc-json coc-tsserver coc-python' +qall
-RUN vim -c 'CocUpdateSync|q'
+RUN vim '+CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qall
 
 # install bash + tmux files
 RUN cp ~/work-image/bashrc ~/.bashrc 
