@@ -58,6 +58,9 @@ alias cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
 alias cdc='cd /go/src/gitlab.com/flywheel-io/customers'
 alias cdt='cd /go/src/github.com/tcbtcb'
 
+# docker aliases
+alias mini-hugo='docker run --rm -p 1313:1313 -v $PWD:/mnt/site gcr.io/tcb-web/mini-hugo'
+
 # Go modules
 export GO111MODULE=on
 
