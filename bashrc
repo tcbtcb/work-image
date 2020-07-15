@@ -58,6 +58,9 @@ alias cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
 alias cdc='cd /go/src/gitlab.com/flywheel-io/customers'
 alias cdt='cd /go/src/github.com/tcbtcb'
 
+# ssh aliases
+alias rpenn='gcloud compute ssh upenn-production-gitlab-runner --project upenn-flywheel --zone=us-east1-b'
+
 # Go modules
 export GO111MODULE=on
 
