@@ -66,7 +66,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     libfreetype6-dev \
     yamllint \
-    lab \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -121,21 +120,23 @@ RUN chmod -R g+rwx /go
 USER thadbrown
 WORKDIR /home/thadbrown
 
+# for some reason, manually set coc log location with env
+ENV NVIM_COC_LOG_FILE=/tmp/coc.log
+
 # install IEX SDK
 RUN go get github.com/jonwho/go-iex
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
-# config/compile vim plugins
+# config/install vim plugins
 RUN cp work-image/vimrc ~/.vimrc
 RUN curl -fLo /home/thadbrown/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN cp work-image/coc-settings.json ~/.vim/
 RUN mkdir -p /home/thadbrown/.config/coc
 RUN vim +PlugInstall +qall
-RUN vim '+CocInstall -sync coc-snippets coc-json coc-python' +qall
-RUN vim '+GoInstallBinaries' +qall
+RUN vim '+CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qall
 
 # install bash + tmux files
 RUN cp ~/work-image/bashrc ~/.bashrc 
@@ -157,17 +158,6 @@ WORKDIR /home/tcb
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
-
-# config/compile vim plugins
-RUN cp work-image/vimrc ~/.vimrc
-RUN curl -fLo /home/tcb/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-RUN cp work-image/coc-settings.json ~/.vim/
-RUN mkdir -p /home/tcb/.config/coc
-RUN vim +PlugInstall +qall
-RUN vim '+CocInstall coc-snippets coc-json coc-python' +qall
-RUN vim '+GoInstallBinaries' +qall
-# RUN vim '+helptags ALL' +qall
 
 # install bash + tmux files
 RUN cp ~/work-image/bashrc ~/.bashrc 

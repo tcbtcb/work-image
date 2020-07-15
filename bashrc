@@ -58,8 +58,13 @@ alias cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
 alias cdc='cd /go/src/gitlab.com/flywheel-io/customers'
 alias cdt='cd /go/src/github.com/tcbtcb'
 
+<<<<<<< HEAD
 # ssh aliases
 alias rpenn='gcloud compute ssh upenn-production-gitlab-runner --project upenn-flywheel --zone=us-east1-b'
+=======
+# docker aliases
+alias mini-hugo='docker run --rm -p 1313:1313 -v $PWD:/mnt/site gcr.io/tcb-web/mini-hugo'
+>>>>>>> 263e4a9bcea33934767fc218fb3e96df825b5c7b
 
 # Go modules
 export GO111MODULE=on
