@@ -18,6 +18,7 @@ RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/derailed/k9s
 RUN go get github.com/tobgu/qframe
+RUN go get golang.org/x/tools/gopls@latest
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
