@@ -98,6 +98,11 @@ RUN cd /tmp && git clone https://github.com/vim/vim.git
 RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
 RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
+# install hstr
+RUN echo -e "\ndeb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
+RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | sudo apt-key add -
+RUN apt-get update
+RUN apt-get install hstr
 
 # get and install powerline fonts
 RUN cd /root && git clone https://github.com/powerline/fonts && \
