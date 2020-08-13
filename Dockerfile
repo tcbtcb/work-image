@@ -98,8 +98,8 @@ RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-
 RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
 # install hstr
-RUN echo -e "\ndeb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
-RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | sudo apt-key add -
+RUN echo -e "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
+RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | apt-key add -
 RUN apt-get update
 RUN apt-get install hstr
 
