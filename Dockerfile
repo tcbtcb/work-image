@@ -101,7 +101,7 @@ RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
 RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | apt-key add -
 RUN apt-get update
-RUN apt-get install hstr
+RUN apt-get install -y hstr
 
 # get and install powerline fonts
 RUN cd /root && git clone https://github.com/powerline/fonts && \
