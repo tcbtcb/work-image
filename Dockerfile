@@ -1,4 +1,4 @@
-FROM golang:1.14-buster as gobuild
+FROM golang:1.15-buster as gobuild
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
@@ -32,7 +32,7 @@ RUN go get github.com/carlpett/terraform-provider-sops && \
   mkdir -p /root/.terraform.d/plugins/ && \
   cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
-FROM golang:1.14-buster
+FROM golang:1.15-buster
 COPY --from=gobuild /go/bin/* /go/bin/
 
 # set modules on and platform for golang
