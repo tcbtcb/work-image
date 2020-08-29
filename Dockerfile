@@ -7,7 +7,7 @@ ENV GO111MODULE=on \
 
 # install flywheel golang sdk + other tools
 RUN go get github.com/flywheel-io/sdk/api
-RUN go get github.com/spf13/cobra
+RUN go get github.com/spf13/cobra/cobra
 RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
 RUN go get github.com/justjanne/powerline-go
@@ -19,8 +19,7 @@ RUN go get github.com/derailed/k9s
 RUN go get github.com/tobgu/qframe
 RUN go get golang.org/x/tools/gopls@latest
 RUN go get github.com/spf13/viper
-# investigate why cobra isn't auto-building later
-# RUN go get -u github.com/spf13/cobra/cobra
+RUN go get github.com/dnaeon/go-vcr/recorder
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
