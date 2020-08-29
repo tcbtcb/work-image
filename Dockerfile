@@ -18,6 +18,8 @@ RUN go get github.com/mikefarah/yq/v3
 RUN go get github.com/derailed/k9s
 RUN go get github.com/tobgu/qframe
 RUN go get golang.org/x/tools/gopls@latest
+RUN go get github.com/spf13/viper
+RUN go get -u github.com/spf13/cobra/cobra
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
