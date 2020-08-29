@@ -5,7 +5,7 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-# install flywheel golang sdk + other tools
+# install flywheel golang sdk + other tools whelp
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get github.com/spf13/cobra
 RUN go get github.com/gohugoio/hugo
