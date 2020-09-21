@@ -13,6 +13,7 @@ Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/goyo.vim'
+Plug 'ervandew/supertab'
 Plug 'hashivim/vim-terraform'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -154,6 +155,13 @@ au BufNewFile,BufRead *.py
 "" Plugin settings ""
 """""""""""""""""""""
 
+" SUPERTAB
+
+" SuperTab START
+let g:SuperTabMappingForward = '<S-tab>'
+let g:SuperTabMappingBackward = '<tab>'
+" SuperTab END
+ 
 " FUGITIVE
 
 nmap <leader>gs :Gstatus<CR>
