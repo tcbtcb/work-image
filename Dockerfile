@@ -103,8 +103,7 @@ RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 
 # get and build neovim
-RUN git clone https://github.com/neovim/neovim.git && cd neovim
-RUN make CMAKE_BUILD_TYPE=Release && make install
+RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 
 # install hstr
 RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
