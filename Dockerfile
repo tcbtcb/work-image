@@ -96,11 +96,11 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install pipenv flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib
+RUN pip3 install pynvim pipenv flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
-RUN npm install --unsafe -g  dockerfile-language-server-nodejs
+RUN npm install --unsafe -g neovim dockerfile-language-server-nodejs
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
