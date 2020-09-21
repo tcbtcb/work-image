@@ -144,7 +144,7 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
 RUN mkdir -p /home/thadbrown/.config/nvim
-RUN cp work-image/init.vim .config/nvim/
+RUN cp /home/thadbrown/work-image/init.vim /home/thadbrown/.config/nvim/
 RUN curl -fLo /home/thadbrown/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN mkdir -p /home/thadbrown/.config/coc
@@ -152,10 +152,9 @@ RUN nvim +'PlugInstall' +qa --headless
 RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qa --headless
 
 # # install bash + tmux files
-RUN cp ~/work-image/bashrc ~/.bashrc 
-RUN cp ~/work-image/bash_profile ~/.bash_profile
-RUN cp ~/work-image/tmux.conf ~/.tmux.conf
-RUN nvim +'PlugInstall' +qa --headless
+RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc 
+RUN cp /home/thadbrown/work-image/bash_profile /home/thadbrown/.bash_profile
+RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
 
 # RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
 # RUN ln -s -f .tmux/.tmux.conf
