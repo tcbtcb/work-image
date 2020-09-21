@@ -140,7 +140,7 @@ ENV NVIM_COC_LOG_FILE=/tmp/coc.log
 RUN go get github.com/jonwho/go-iex
 
 # clone settings repo locally
-RUN git clone https://github.com/tcbtcb/work-image.git
+RUN git clone -b neovim --single-branch https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
 RUN mkdir -p /home/thadbrown/.config/nvim
