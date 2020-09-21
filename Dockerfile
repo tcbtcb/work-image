@@ -46,7 +46,7 @@ ENV GO111MODULE=on \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
     git \
-    curl \ 
+    curl \
     tree \
     wget \
     entr \
@@ -68,6 +68,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     libfreetype6-dev \
     yamllint \
+    ninja-build \ 
+    gettext \
+    libtool \
+    libtool-bin \
+    autoconf \
+    automake \
+    g++ \
+    unzip \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -94,10 +102,9 @@ RUN pip3 install pipenv flywheel-cli pymongo ansible awscli jedi pylint flywheel
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 RUN npm install --unsafe -g  dockerfile-language-server-nodejs
 
-# get and build vim
-RUN cd /tmp && git clone https://github.com/vim/vim.git
-RUN cd /tmp/vim && ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-perlinterp=yes  --enable-cscope --prefix=/usr/local 
-RUN cd /tmp/vim && make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
+# get and build neovim
+RUN git clone https://github.com/neovim/neovim.git && cd neovim
+RUN make CMAKE_BUILD_TYPE=Release && make install
 
 # install hstr
 RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
@@ -137,20 +144,23 @@ RUN go get github.com/jonwho/go-iex
 RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
-RUN cp work-image/vimrc ~/.vimrc
+RUN mkdir -p /home/thadbrown/.config/nvim
+RUN cp work-image/init.vim .config/nvim/
 RUN curl -fLo /home/thadbrown/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-RUN cp work-image/coc-settings.json ~/.vim/
 RUN mkdir -p /home/thadbrown/.config/coc
-RUN vim +PlugInstall +qall
-RUN vim '+CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qall
+RUN nvim +'PlugInstall' +qa --headless
+RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qa --headless
 
-# install bash + tmux files
+# # install bash + tmux files
 RUN cp ~/work-image/bashrc ~/.bashrc 
 RUN cp ~/work-image/bash_profile ~/.bash_profile
-RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
-RUN ln -s -f .tmux/.tmux.conf
-RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
+RUN cp ~/work-image/tmux.conf ~/.tmux.conf
+RUN nvim +'PlugInstall' +qa --headless
+
+# RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
+# RUN ln -s -f .tmux/.tmux.conf
+# RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
 
 # install gcloud 
 RUN curl https://sdk.cloud.google.com > install.sh
@@ -159,25 +169,25 @@ RUN ./install.sh --disable-prompts
 
 WORKDIR /go/src/gitlab.com/flywheel-io
 
-# configure tcb user 
-USER tcb
-WORKDIR /home/tcb
-
-# clone settings repo locally
-RUN git clone https://github.com/tcbtcb/work-image.git
-
-# install bash + tmux files
-RUN cp ~/work-image/bashrc ~/.bashrc 
-RUN cp ~/work-image/bash_profile ~/.bash_profile
-RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
-RUN ln -s -f .tmux/.tmux.conf
-RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
-
-# install gcloud 
-RUN curl https://sdk.cloud.google.com > install.sh
-RUN chmod +x install.sh
-RUN ./install.sh --disable-prompts
-
-# start w/ thadbrown user
-USER thadbrown
-WORKDIR /go/src/gitlab.com/flywheel-io
+# # configure tcb user 
+# USER tcb
+# WORKDIR /home/tcb
+# 
+# # clone settings repo locally
+# RUN git clone https://github.com/tcbtcb/work-image.git
+# 
+# # install bash + tmux files
+# RUN cp ~/work-image/bashrc ~/.bashrc 
+# RUN cp ~/work-image/bash_profile ~/.bash_profile
+# RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
+# RUN ln -s -f .tmux/.tmux.conf
+# RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
+# 
+# # install gcloud 
+# RUN curl https://sdk.cloud.google.com > install.sh
+# RUN chmod +x install.sh
+# RUN ./install.sh --disable-prompts
+# 
+# # start w/ thadbrown user
+# USER thadbrown
+# WORKDIR /go/src/gitlab.com/flywheel-io
