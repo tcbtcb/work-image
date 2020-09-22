@@ -25,6 +25,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -323,3 +324,7 @@ let g:go_def_mapping_enabled = 0
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" GITGUTTER
+
+let g:gitgutter_git_executable = '/usr/bin/git'
