@@ -156,10 +156,6 @@ RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
 RUN cp /home/thadbrown/work-image/bash_profile /home/thadbrown/.bash_profile
 RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
 
-# RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
-# RUN ln -s -f .tmux/.tmux.conf
-# RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
-
 # install gcloud 
 RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
