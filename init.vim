@@ -26,6 +26,7 @@ Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'fatih/vim-go'
+Plug 'voldikss/vim-floaterm'
 
 call plug#end()
 
