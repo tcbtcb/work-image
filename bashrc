@@ -45,6 +45,7 @@ alias gcm='git checkout master && git pull'
 alias tmux='tmux -2'
 alias kc='kubectl'
 alias tf='terraform'
+alias vim='nvim'
 
 # gcloud aliases
 alias gcil='gcloud compute instances list'
