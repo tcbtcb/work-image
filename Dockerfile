@@ -5,7 +5,7 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-# install flywheel golang sdk + other tools
+# install flywheel golang sdk + other go tools
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
 RUN go get github.com/gohugoio/hugo
@@ -20,6 +20,7 @@ RUN go get github.com/tobgu/qframe
 RUN go get golang.org/x/tools/gopls@latest
 RUN go get github.com/spf13/viper
 RUN go get github.com/dnaeon/go-vcr/recorder
+RUN go get github.com/jesseduffield/lazygit
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git

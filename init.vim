@@ -328,3 +328,12 @@ autocmd FileType go nmap <leader>t  <Plug>(go-test)
 " GITGUTTER
 
 let g:gitgutter_git_executable = '/usr/bin/git'
+
+" FLOATERM
+
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+
+nmap '<F5>' :FloatermNew lazygit
