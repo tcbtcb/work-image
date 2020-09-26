@@ -105,6 +105,7 @@ RUN npm install --unsafe -g neovim dockerfile-language-server-nodejs
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
+RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
 # install hstr
 RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
@@ -121,11 +122,8 @@ RUN cd /root && git clone https://github.com/powerline/fonts && \
 
 # create users
 RUN useradd -m -s /bin/bash thadbrown
-RUN useradd -m -s /bin/bash tcb
 RUN echo "thadbrown ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN echo "tcb ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN groupadd golang
-RUN usermod -a -G golang tcb
 RUN usermod -a -G golang thadbrown
 RUN chgrp -R golang /go
 RUN chmod -R g+rwx /go
@@ -163,26 +161,3 @@ RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
 
 WORKDIR /go/src/gitlab.com/flywheel-io
-
-# # configure tcb user 
-# USER tcb
-# WORKDIR /home/tcb
-# 
-# # clone settings repo locally
-# RUN git clone https://github.com/tcbtcb/work-image.git
-# 
-# # install bash + tmux files
-# RUN cp ~/work-image/bashrc ~/.bashrc 
-# RUN cp ~/work-image/bash_profile ~/.bash_profile
-# RUN git clone https://github.com/gpakosz/.tmux.git && ln -s -f .tmux/.tmux.conf
-# RUN ln -s -f .tmux/.tmux.conf
-# RUN cp ~/work-image/tmux.conf.local ~/.tmux.conf.local
-# 
-# # install gcloud 
-# RUN curl https://sdk.cloud.google.com > install.sh
-# RUN chmod +x install.sh
-# RUN ./install.sh --disable-prompts
-# 
-# # start w/ thadbrown user
-# USER thadbrown
-# WORKDIR /go/src/gitlab.com/flywheel-io
