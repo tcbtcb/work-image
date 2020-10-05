@@ -333,8 +333,9 @@ let g:gitgutter_git_executable = '/usr/bin/git'
 " FLOATERM
 
 let g:floaterm_keymap_toggle = '<F1>'
-let g:floaterm_keymap_next   = '<F2>'
-let g:floaterm_keymap_prev   = '<F3>'
-let g:floaterm_keymap_new    = '<F4>'
+let g:floaterm_keymap_new    = '<F2>'
 
+let g:floaterm_shell = 'bash'
+
+nmap <F4> :FloatermNew ranger<CR>
 nmap <F5> :FloatermNew lazygit<CR>
