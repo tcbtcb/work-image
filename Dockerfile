@@ -120,6 +120,10 @@ RUN cd /root && git clone https://github.com/powerline/fonts && \
     ./install.sh && \
     fc-cache -vf /root/.fonts/
 
+# do some cleanup
+RUN apt-get clean && apt-get autoclean
+RUN rm -rf /root/.cache/
+
 # create users
 RUN useradd -m -s /bin/bash thadbrown
 RUN echo "thadbrown ALL=NOPASSWD: ALL" >> /etc/sudoers
