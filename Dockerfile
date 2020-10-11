@@ -110,15 +110,15 @@ RUN apt-get update
 RUN apt-get install -y hstr
 
 # get and install powerline fonts
-RUN cd /home/thadbrown && git clone https://github.com/powerline/fonts && \
+RUN cd /root && git clone https://github.com/powerline/fonts && \
     mv fonts .fonts && \
     cd .fonts && \
     ./install.sh && \
-    fc-cache -vf /home/thadbrown/.fonts/
+    fc-cache -vf /root/.fonts/
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
-RUN rm -rf /home/thadbrown/.cache/
+RUN rm -rf /root/.cache/
 
 # create users
 RUN useradd -m -s /bin/bash thadbrown
