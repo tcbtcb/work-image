@@ -23,17 +23,17 @@ RUN go get github.com/dnaeon/go-vcr/recorder
 RUN go get github.com/jesseduffield/lazygit
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
-RUN cd /root && git clone https://github.com/zaquestion/lab.git
-RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
+RUN cd /home/thadbrown && git clone https://github.com/zaquestion/lab.git
+RUN cd /home/thadbrown/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
 
 # install a version of tf
-RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /root/terraform && git checkout tags/v0.12.29 && go install
+RUN cd /home/thadbrown && git clone https://github.com/hashicorp/terraform.git 
+RUN cd /home/thadbrown/terraform && git checkout tags/v0.12.29 && go install
 
 # retrieve/install terraform-sops provider
 RUN go get github.com/carlpett/terraform-provider-sops && \
-  mkdir -p /root/.terraform.d/plugins/ && \
-  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
+  mkdir -p /home/thadbrown/.terraform.d/plugins/ && \
+  cp /go/bin/terraform-provider-sops /home/thadbrown/.terraform.d/plugins/
 
 FROM golang:1.15-buster
 COPY --from=gobuild /go/bin/* /go/bin/
@@ -86,10 +86,6 @@ RUN apt-get update && apt-get install -y \
 # update certs
 RUN update-ca-certificates
 
-# install hub
-RUN wget https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz
-RUN tar -xvf hub-linux-amd64-2.14.2.tgz && cd hub-linux-amd64-2.14.2 && sudo ./install 
-
 # install kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
@@ -97,7 +93,7 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo ansible awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib
+RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pyEX pandas matplotlib
 
 # install node and additional packages
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
@@ -114,15 +110,15 @@ RUN apt-get update
 RUN apt-get install -y hstr
 
 # get and install powerline fonts
-RUN cd /root && git clone https://github.com/powerline/fonts && \
+RUN cd /home/thadbrown && git clone https://github.com/powerline/fonts && \
     mv fonts .fonts && \
     cd .fonts && \
     ./install.sh && \
-    fc-cache -vf /root/.fonts/
+    fc-cache -vf /home/thadbrown/.fonts/
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
-RUN rm -rf /root/.cache/
+RUN rm -rf /home/thadbrown/.cache/
 
 # create users
 RUN useradd -m -s /bin/bash thadbrown
@@ -165,3 +161,35 @@ RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
 
 WORKDIR /go/src/gitlab.com/flywheel-io
+
+# configure root user 
+USER root
+WORKDIR /root
+
+# for some reason, manually set coc log location with env
+ENV NVIM_COC_LOG_FILE=/tmp/coc.log
+
+# clone settings repo locally
+RUN git clone https://github.com/tcbtcb/work-image.git
+
+# config/install vim plugins
+RUN mkdir -p /root/.config/nvim
+RUN cp /root/work-image/init.vim /root/.config/nvim/
+RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+RUN mkdir -p /root/.config/coc
+RUN nvim +'PlugInstall' +qa --headless
+RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qa --headless
+
+# # install bash + tmux files
+RUN cp /root/work-image/bashrc /root/.bashrc 
+RUN cp /root/work-image/bash_profile /root/.bash_profile
+RUN cp /root/work-image/tmux.conf /root/.tmux.conf
+
+# install gcloud 
+RUN curl https://sdk.cloud.google.com > install.sh
+RUN chmod +x install.sh
+RUN ./install.sh --disable-prompts
+
+WORKDIR /go/src/github.com/tcbtcb
+
