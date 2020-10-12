@@ -23,17 +23,17 @@ RUN go get github.com/dnaeon/go-vcr/recorder
 RUN go get github.com/jesseduffield/lazygit
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
-RUN cd /home/thadbrown && git clone https://github.com/zaquestion/lab.git
-RUN cd /home/thadbrown/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
+RUN cd /root && git clone https://github.com/zaquestion/lab.git
+RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
 
 # install a version of tf
-RUN cd /home/thadbrown && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /home/thadbrown/terraform && git checkout tags/v0.12.29 && go install
+RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
+RUN cd /root/terraform && git checkout tags/v0.12.29 && go install
 
 # retrieve/install terraform-sops provider
 RUN go get github.com/carlpett/terraform-provider-sops && \
-  mkdir -p /home/thadbrown/.terraform.d/plugins/ && \
-  cp /go/bin/terraform-provider-sops /home/thadbrown/.terraform.d/plugins/
+  mkdir -p /root/.terraform.d/plugins/ && \
+  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
 FROM golang:1.15-buster
 COPY --from=gobuild /go/bin/* /go/bin/
