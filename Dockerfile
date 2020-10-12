@@ -191,5 +191,6 @@ RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
 
+RUN rm /tmp/coc.log
 WORKDIR /go/src/github.com/tcbtcb
 
