@@ -21,6 +21,7 @@ RUN go get golang.org/x/tools/gopls@latest
 RUN go get github.com/spf13/viper
 RUN go get github.com/dnaeon/go-vcr/recorder
 RUN go get github.com/jesseduffield/lazygit
+RUN go get github.com/jonwho/go-iex/v4
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -134,9 +135,6 @@ WORKDIR /home/thadbrown
 
 # for some reason, manually set coc log location with env
 ENV NVIM_COC_LOG_FILE=/tmp/coc.log
-
-# install IEX SDK
-RUN go get github.com/jonwho/go-iex
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
