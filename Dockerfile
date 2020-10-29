@@ -95,10 +95,6 @@ RUN apt-get install -y kubectl
 # install some python stuff
 RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pandas matplotlib sklearn tensorflow
 
-# install node and additional packages
-RUN curl -sL install-node.now.sh/lts | bash -s -- -y
-RUN npm install --unsafe -g neovim dockerfile-language-server-nodejs
-
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
@@ -120,54 +116,9 @@ RUN cd /root && git clone https://github.com/powerline/fonts && \
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
 
-# create users
-RUN useradd -m -s /bin/bash thadbrown
-RUN echo "thadbrown ALL=NOPASSWD: ALL" >> /etc/sudoers
-RUN groupadd golang
-RUN usermod -a -G golang thadbrown
-RUN chgrp -R golang /go
-RUN chmod -R g+rwx /go
-
-# configure thadbrown user 
-USER thadbrown
-WORKDIR /home/thadbrown
-
-# for some reason, manually set coc log location with env
-ENV NVIM_COC_LOG_FILE=/tmp/coc.log
-
-# install IEX SDK
-RUN go get github.com/jonwho/go-iex
-
-# clone settings repo locally
-RUN git clone https://github.com/tcbtcb/work-image.git
-
-# config/install vim plugins
-RUN mkdir -p /home/thadbrown/.config/nvim
-RUN cp /home/thadbrown/work-image/init.vim /home/thadbrown/.config/nvim/
-RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-RUN mkdir -p /home/thadbrown/.config/coc
-RUN nvim +'PlugInstall' +qa --headless
-RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-emmet coc-css coc-html coc-prettier coc-json coc-tsserver' +qa --headless
-
-# # install bash + tmux files
-RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc 
-RUN cp /home/thadbrown/work-image/bash_profile /home/thadbrown/.bash_profile
-RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
-
-# install gcloud 
-RUN curl https://sdk.cloud.google.com > install.sh
-RUN chmod +x install.sh
-RUN ./install.sh --disable-prompts
-
-WORKDIR /go/src/gitlab.com/flywheel-io
-
 # configure root user 
 USER root
 WORKDIR /root
-
-# for some reason, manually set coc log location with env
-ENV NVIM_COC_LOG_FILE=/tmp/coc.log
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
@@ -191,6 +142,8 @@ RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
 
-RUN rm /tmp/coc.log
+# install kite 
+RUN yes | bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
+
 WORKDIR /go/src/github.com/tcbtcb
 
