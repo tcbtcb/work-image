@@ -14,13 +14,11 @@ RUN go get github.com/justjanne/powerline-go
 RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
-RUN go get github.com/mikefarah/yq/v3
-RUN go get github.com/derailed/k9s
-RUN go get github.com/tobgu/qframe
 RUN go get golang.org/x/tools/gopls@latest
 RUN go get github.com/spf13/viper
-RUN go get github.com/dnaeon/go-vcr/recorder
 RUN go get github.com/jesseduffield/lazygit
+RUN go get github.com/piquette/finance-go
+RUN go get github.com/jonwho/go-iex
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -74,6 +72,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libtool \
     libtool-bin \
     autoconf \
+    libopenblas-dev \
+    gfortran \
     automake \
     g++ \
     unzip \
@@ -93,7 +93,7 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli jedi pylint flywheel-sdk requests google-auth oauthclient PyYAML pandas matplotlib sklearn tensorflow
+RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib sklearn torch torchvision
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
