@@ -176,6 +176,9 @@ let g:terraform_fmt_on_save=1
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 
+" auto fmt on file write 
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
 " remap build/run/test
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
