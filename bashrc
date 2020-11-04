@@ -92,11 +92,11 @@ source /home/thadbrown/google-cloud-sdk/path.bash.inc
 source /home/thadbrown/google-cloud-sdk/completion.bash.inc
 
 # gcp creds for terraform
-if [ -h /home/thadbrown/.config/adc.json ]; then
-  export GOOGLE_APPLICATION_CREDENTIALS="/home/thadbrown/.config/adc.json"
+if [ -h /root/.config/adc.json ]; then
+  export GOOGLE_APPLICATION_CREDENTIALS="/root/.config/adc.json"
 else
-  ln -s /home/thadbrown/.config/gcloud/legacy_credentials/thadbrown\@flywheel.io/adc.json /home/thadbrown/.config/adc.json
-  export GOOGLE_APPLICATION_CREDENTIALS="/home/thadbrown/.config/adc.json"
+  ln -s /root/.config/gcloud/legacy_credentials/thadbrown\@flywheel.io/adc.json /root/.config/adc.json
+  export GOOGLE_APPLICATION_CREDENTIALS="/root/.config/adc.json"
 fi
 
 # GOPATH and powerline
