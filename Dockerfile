@@ -93,7 +93,7 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn torch torchvision
+RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
