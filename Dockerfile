@@ -93,7 +93,7 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn
+RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
@@ -124,7 +124,7 @@ WORKDIR /root
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
 # install some node lang servers
-RUN npm install --unsafe -g typescript-language-server python-language-server neovim vscode-css-languageserver-bin dockerfile-language-server-nodejs
+RUN npm install --unsafe -g typescript-language-server neovim vscode-css-languageserver-bin dockerfile-language-server-nodejs
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
@@ -145,9 +145,6 @@ RUN cp /root/work-image/tmux.conf /root/.tmux.conf
 RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts
-
-# install kite 
-RUN yes | bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 
 WORKDIR /go/src/github.com/tcbtcb
 
