@@ -120,6 +120,12 @@ RUN rm -rf /root/.cache/
 USER root
 WORKDIR /root
 
+# get nodejs
+RUN curl -sL install-node.now.sh/lts | bash -s -- -y
+
+# install some node lang servers
+RUN npm install --unsafe -g typescript-language-server python-language-server neovim vscode-css-languageserver-bin dockerfile-language-server-nodejs
+
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 

@@ -11,16 +11,13 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/goyo.vim'
 Plug 'hashivim/vim-terraform'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
-Plug 'fatih/vim-go'
 Plug 'voldikss/vim-floaterm'
-Plug 'kiteco/vim-plugin'
+Plug 'zxqfl/tabnine-vim'
 
 call plug#end()
 
@@ -170,20 +167,6 @@ nmap <leader>gl :Glog<CR>
 au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 let g:terraform_fmt_on_save=1
 
-" VIM-GO settings
-
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
-
-" auto fmt on file write 
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
-
-" remap build/run/test
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go nmap <leader>t  <Plug>(go-test)
-
 " GITGUTTER
 
 let g:gitgutter_git_executable = '/usr/bin/git'
@@ -197,7 +180,3 @@ let g:floaterm_shell = 'bash'
 
 nmap <F4> :FloatermNew ranger<CR>
 nmap <F5> :FloatermNew lazygit<CR>
-
-" KITE 
-let g:kite_supported_languages = ['python', 'javascript', 'go']
-
