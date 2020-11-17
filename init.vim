@@ -19,18 +19,34 @@ Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
+""""""""""""
+"  COLORS  "
+""""""""""""
+" Theme START
+syntax on
+colorscheme gruvbox
+set background=dark
+set cursorline
+set hidden
+set list
+set listchars=tab:»·,trail:·
+set number
+
+""""""""""""""""""""""
+"  PLUG-IN SETTINGS  "
+""""""""""""""""""""""
+
 " COC.VIM settings
 
 " status line
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Give more space for displaying messages.
-set cmdheight=4
+set cmdheight=2
 
 " update quicker
 set updatetime=300
 
-"
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -63,7 +79,6 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " FUGITIVE
-
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gd :Gdiff<CR>
@@ -76,16 +91,13 @@ nmap <leader>gbr :Gbrowse<CR>
 nmap <leader>gp :Gpush<CR>
 
 " TERRAFORM
-
 au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 let g:terraform_fmt_on_save=1
 
 " GITGUTTER
-
 let g:gitgutter_git_executable = '/usr/bin/git'
 
 " FLOATERM
-
 let g:floaterm_keymap_toggle = '<F1>'
 let g:floaterm_keymap_new    = '<F2>'
 
