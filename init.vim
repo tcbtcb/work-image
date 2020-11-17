@@ -4,150 +4,64 @@ call plug#begin()
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'raimondi/delimitmate'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/goyo.vim'
 Plug 'hashivim/vim-terraform'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'airblade/vim-gitgutter'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
-Plug 'ryanoasis/vim-devicons'
 Plug 'voldikss/vim-floaterm'
-Plug 'zxqfl/tabnine-vim'
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
-" temporarily trying the default leader key
-" let mapleader =','
+" COC.VIM settings
 
-set path+=**
-""""""""""""""""""""""
-"" General settings ""
-""""""""""""""""""""""
+" status line
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-set nobackup
-set nowritebackup
-set noswapfile
+" Give more space for displaying messages.
+set cmdheight=4
 
-set hidden
-set autoread
-set history=1000
-set backspace=indent,eol,start
+" update quicker
+set updatetime=300
 
-set scrolloff=3
-set splitright
-set splitbelow
-
-set t_vb=
-set noerrorbells
-set novisualbell
-set t_Co=256
-set ttyfast
-set lazyredraw
-set timeoutlen=500
-
-"""""""""""""""""""""""""
-"" Colors + formatting ""
-"""""""""""""""""""""""""
 "
-" Theme START
-syntax on
-colorscheme gruvbox
-set background=dark
-set cursorline
-set hidden
-set list
-set listchars=tab:»·,trail:·
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" let buffers be clickable
-let g:lightline#bufferline#clickable=1
-let g:lightline#bufferline#shorten_path=1
-let g:lightline#bufferline#min_buffer_count=1
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
-let g:lightline = {
-  \ 'colorscheme': 'jellybeans',
-  \ 'active': {
-  \   'left': [ [], [], [ 'relativepath' ] ],
-  \   'right': [ [], [], [ 'lineinfo', 'percent' ] ]
-  \ },
-  \ 'inactive': {
-  \   'left': [ [], [], [ 'relativepath' ] ],
-  \   'right': [ [], [], [ 'lineinfo', 'percent' ] ]
-  \ },
-  \ 'subseparator': {
-  \   'left': '', 'right': ''
-  \ },
-  \ 'tabline': {
-  \   'left': [ ['buffers'] ],
-  \   'right': [ [] ]
-  \ },
-  \ 'tabline_separator': {
-  \   'left': "", 'right': ""
-  \ },
-  \ 'tabline_subseparator': {
-  \   'left': "", 'right': ""
-  \ },
-  \ 'component_expand': {
-  \   'buffers': 'lightline#bufferline#buffers'
-  \ },
-  \ 'component_raw': {
-  \   'buffers': 1
-  \ },
-  \ 'component_type': {
-  \   'buffers': 'tabsel'
-  \ }
-  \ }
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" Theme END
-" remote traling whitespace in python 
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
-autocmd BufWritePre *.py %s/\s\+$//e 
+" cargo cult
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
-""""""""""""""
-"" Searches ""
-""""""""""""""
-
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set showmatch
-
-"""""""""""""""""""""
-"" Window movement ""
-"""""""""""""""""""""
-
-" set window moves to avoid the C-w key combo
-
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-
-""""""""""""""""""""""
-"" Language settings""
-""""""""""""""""""""""
-
-" python settings
-"
-au BufNewFile,BufRead *.py
-    \ set tabstop=4        |
-    \ set softtabstop=4    |
-    \ set shiftwidth=4     |
-    \ set textwidth=79     |
-    \ set expandtab        |
-    \ set autoindent       |
-    \ set fileformat=unix  
-
-"""""""""""""""""""""
-"" Plugin settings ""
-"""""""""""""""""""""
- 
 " FUGITIVE
 
 nmap <leader>gs :Gstatus<CR>
@@ -160,7 +74,6 @@ nmap <leader>gr :Gread<CR>
 nmap <leader>gw :Gwrite<CR>
 nmap <leader>gbr :Gbrowse<CR>
 nmap <leader>gp :Gpush<CR>
-nmap <leader>gl :Glog<CR>
 
 " TERRAFORM
 
@@ -180,3 +93,10 @@ let g:floaterm_shell = 'bash'
 
 nmap <F4> :FloatermNew ranger<CR>
 nmap <F5> :FloatermNew lazygit<CR>
+
+" EASY ALIGN
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)

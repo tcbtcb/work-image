@@ -135,6 +135,7 @@ RUN cp /root/work-image/init.vim /root/.config/nvim/
 RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN nvim +'PlugInstall' +qa --headless
+RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-css coc-html coc-prettier coc-json coc-tsserver' +qa --headless
 
 # # install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc 
