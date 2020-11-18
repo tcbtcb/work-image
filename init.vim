@@ -32,6 +32,9 @@ set list
 set listchars=tab:»·,trail:·
 set number
 
+imap jj <right>
+imap kk <left>
+
 """"""""""""""""""""""
 "  PLUG-IN SETTINGS  "
 """"""""""""""""""""""
