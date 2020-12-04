@@ -10,8 +10,7 @@ RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
 RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
-RUN go get github.com/justjanne/powerline-go
-RUN go get github.com/juliosueiras/terraform-lsp
+RUN go get github.com/justjanne/powerline-go RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
@@ -77,6 +76,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     automake \
     g++ \
     unzip \
+    zsh \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -137,10 +137,18 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
 RUN nvim +'PlugInstall' +qa --headless
 RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-css coc-html coc-prettier coc-json coc-tsserver coc-yaml coc-sh' +qa --headless
 
-# # install bash + tmux files
+# install bash + tmux files
 RUN cp /root/work-image/bashrc /root/.bashrc 
 RUN cp /root/work-image/bash_profile /root/.bash_profile
 RUN cp /root/work-image/tmux.conf /root/.tmux.conf
+
+# config zsh (experimental)
+RUN cp /root/work-image/zshrc /root/.zshrc
+RUN mkdir ~/.zsh && cd ~/.zsh && git clone git@github.com:zdharma/fast-syntax-highlighting.git \
+  wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh \
+  git clone git@github.com:zsh-users/zsh-autosuggestions.git
+
+WORKDIR /root
 
 # install gcloud 
 RUN curl https://sdk.cloud.google.com > install.sh
