@@ -10,7 +10,6 @@ RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
 RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
-RUN go get github.com/justjanne/powerline-go RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
