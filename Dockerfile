@@ -145,9 +145,9 @@ RUN cp /root/work-image/tmux.conf /root/.tmux.conf
 RUN cp /root/work-image/zshrc /root/.zshrc
 RUN mkdir ~/.zsh
 WORKDIR /root/.zsh
-RUN git clone git@github.com:zdharma/fast-syntax-highlighting.git
+RUN git clone https://github.com/zdharma/fast-syntax-highlighting.git
 RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh
-RUN git clone git@github.com:zsh-users/zsh-autosuggestions.git
+RUN git clone https://git@github.com/zsh-users/zsh-autosuggestions.git
 
 WORKDIR /root
 
