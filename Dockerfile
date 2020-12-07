@@ -150,7 +150,9 @@ RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/com
 RUN git clone https://git@github.com/zsh-users/zsh-autosuggestions.git
 
 # config starship prompt
-RUN curl -fsSL https://starship.rs/install.sh | yes bash 
+RUN curl -fsSL https://starship.rs/install.sh >> install.sh
+RUN chmod +x install.sh
+RUN ./install.sh -y
 RUN cp /root/work-image/starship.toml /root/.config/
 
 WORKDIR /root
