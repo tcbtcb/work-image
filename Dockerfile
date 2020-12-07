@@ -10,6 +10,7 @@ RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
 RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
+RUN go get github.com/justjanne/powerline-go RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
@@ -57,8 +58,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-powerline \
     man \
     less \
-    rsync \
-    bsdmainutils \
+    rsync \ bsdmainutils \
     jq \
     apt-transport-https \
     gnupg2 \
@@ -98,11 +98,11 @@ RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo python-language-se
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
-# # install hstr
-# RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
-# RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | apt-key add -
-# RUN apt-get update
-# RUN apt-get install -y hstr
+# install hstr
+RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
+RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | apt-key add -
+RUN apt-get update
+RUN apt-get install -y hstr
 
 # get and install powerline fonts
 RUN cd /root && git clone https://github.com/powerline/fonts && \
@@ -118,6 +118,9 @@ RUN rm -rf /root/.cache/
 # configure root user 
 USER root
 WORKDIR /root
+
+# change shell 
+RUN chsh --shell /usr/bin/zsh root
 
 # get nodejs
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
@@ -143,17 +146,9 @@ RUN cp /root/work-image/tmux.conf /root/.tmux.conf
 
 # config zsh (experimental)
 RUN cp /root/work-image/zshrc /root/.zshrc
-RUN mkdir ~/.zsh
-WORKDIR /root/.zsh
-RUN git clone https://github.com/zdharma/fast-syntax-highlighting.git
-RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh
-RUN git clone https://git@github.com/zsh-users/zsh-autosuggestions.git
-
-# config starship prompt
-RUN curl -fsSL https://starship.rs/install.sh >> install.sh
-RUN chmod +x install.sh
-RUN ./install.sh -y
-RUN cp /root/work-image/starship.toml /root/.config/
+RUN mkdir ~/.zsh && cd ~/.zsh && git clone git@github.com:zdharma/fast-syntax-highlighting.git \
+  wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh \
+  git clone git@github.com:zsh-users/zsh-autosuggestions.git
 
 WORKDIR /root
 
