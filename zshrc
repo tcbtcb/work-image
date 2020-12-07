@@ -1,8 +1,8 @@
 # Created by newuser for 5.8
 eval "$(starship init zsh)"
-source /Users/thadbrown/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source /Users/thadbrown/.zsh/completion.zsh
-source /Users/thadbrown/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /root/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /root/.zsh/completion.zsh
+source /root/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Initialize the completion system
 autoload -Uz compinit
