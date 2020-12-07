@@ -149,6 +149,10 @@ RUN git clone https://github.com/zdharma/fast-syntax-highlighting.git
 RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh
 RUN git clone https://git@github.com/zsh-users/zsh-autosuggestions.git
 
+# config starship prompt
+RUN curl -fsSL https://starship.rs/install.sh | yes bash 
+RUN cp /root/work-image/starship.toml /root/.config/
+
 WORKDIR /root
 
 # install gcloud 
