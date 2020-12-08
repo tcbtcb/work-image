@@ -77,6 +77,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     unzip \
     zsh \
+    fonts-firacode \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -93,24 +94,17 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 # install some python stuff
-RUN pip3 install ranger-fm pynvim pipenv flywheel-cli pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN pip3 install ranger-fm pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
 # install hstr
-RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
+RUN echo "deb http://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
 RUN wget -qO - http://www.mindforger.com/gpgpubkey.txt | apt-key add -
 RUN apt-get update
 RUN apt-get install -y hstr
-
-# get and install powerline fonts
-RUN cd /root && git clone https://github.com/powerline/fonts && \
-    mv fonts .fonts && \
-    cd .fonts && \
-    ./install.sh && \
-    fc-cache -vf /root/.fonts/
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
