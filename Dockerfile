@@ -106,6 +106,12 @@ RUN wget -qO - http://www.mindforger.com/gpgpubkey.txt | apt-key add -
 RUN apt-get update
 RUN apt-get install -y hstr
 
+# install lf (experimental)
+RUN wget https://github.com/gokcehan/lf/releases/download/r17/lf-linux-amd64.tar.gz
+RUN tar -xzf lf-linux-amd64.tar.gz 
+RUN mv lf /usr/bin/
+RUN rm lf-linux-amd64.tar.gz 
+
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
