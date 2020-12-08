@@ -101,7 +101,7 @@ RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
 # install hstr
 RUN echo "deb https://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
-RUN wget -qO - https://www.mindforger.com/gpgpubkey.txt | apt-key add -
+RUN wget -qO - http://www.mindforger.com/gpgpubkey.txt | apt-key add -
 RUN apt-get update
 RUN apt-get install -y hstr
 
