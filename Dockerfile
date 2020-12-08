@@ -146,6 +146,11 @@ WORKDIR /root/.zsh
 RUN git clone https://github.com/zdharma/fast-syntax-highlighting.git
 RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions.git
+## install starship prompt
+RUN curl -fsSL https://starship.rs/install.sh >> install.sh
+RUN chmod +x install.sh
+RUN ./install.sh -y
+RUN rm install.sh
 
 WORKDIR /root
 
