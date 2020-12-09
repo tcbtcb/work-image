@@ -59,6 +59,17 @@ bindkey -s '^o' 'lfcd\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# HSTR configuration 
+alias hh=hstr                    # hh to be alias for hstr
+export HSTR_CONFIG=hicolor       # get more colors
+# In ~/.zshrc
+export HISTFILESIZE=10000000
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+export HISTFILE=~/.zsh_history
+
+setopt HIST_FIND_NO_DUPS
+
 # Load aliases and shortcuts if existent.
 #[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 # [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
