@@ -106,7 +106,7 @@ alias glp='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset 
 alias gcm='git checkout master && git pull'
 
 # misc aliases
-alias tmux='tmux -2'
+alias tmux='tmux -2 -u'
 alias kc='kubectl'
 alias tf='terraform'
 
