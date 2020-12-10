@@ -77,5 +77,60 @@ setopt HIST_FIND_NO_DUPS
 #[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 # [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
+# aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias lsh='ls -lhGFr'
+alias lsa='ls -lhaGFr'
+alias reload='source ~/.bashrc'
+
+# git aliases
+alias gm='git merge --no-ff --no-commit'
+alias gmc='git ls-files --unmerged | cut -f2 | uniq' 
+alias ga='git commit -a --amend --no-edit'
+alias gap='git add -p'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit --verbose'
+alias gca='git commit --all --verbose'
+alias gd='git diff'
+alias gco='git checkout'
+alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias gpom='git push origin master'
+alias gra='git rebase --abort'
+alias grc='git rebase --continue'
+alias grd='git rm $(git ls-files -d)'   
+alias grq='git rebase --interactive --autosquash'
+alias gs='git status -b -s --ignore-submodules=dirty'
+alias gl='git log --pretty=format:"%C(yellow)%h%C(reset)|%C(bold blue)%an%C(reset)|%s" | column -s "|" -t | less -FXRS'
+alias glp='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gcm='git checkout master && git pull'
+
+# misc aliases
+alias tmux='tmux -2 -u'
+alias kc='kubectl'
+alias tf='terraform'
+
+# gcloud aliases
+alias gcil='gcloud compute instances list'
+alias gcsp='gcloud config set project'
+alias gcpl='gcloud projects list'
+alias gad='gcloud app deploy'
+
+# dir aliass
+alias cdf='cd /go/src/gitlab.com/flywheel-io'
+alias cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
+alias cdc='cd /go/src/gitlab.com/flywheel-io/customers'
+alias cdt='cd /go/src/github.com/tcbtcb'
+
+# ssh aliases
+alias rpenn='gcloud compute ssh upenn-production-gitlab-runner --project upenn-flywheel --zone=us-east1-b'
+alias rfin='gcloud compute ssh finance --zone southamerica-east2-a --project tcb-financeb5477b6c'
+
+# docker aliases
+alias mini-hugo='docker run --rm -p 1313:1313 -v $PWD:/mnt/site gcr.io/tcb-web/mini-hugo'
+
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
