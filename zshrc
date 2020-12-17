@@ -135,5 +135,9 @@ alias rfin='gcloud compute ssh finance --zone southamerica-east2-a --project tcb
 # docker aliases
 alias mini-hugo='docker run --rm -p 1313:1313 -v $PWD:/mnt/site gcr.io/tcb-web/mini-hugo'
 
+# set path and source completion for gcloud
+export PATH=$PATH:/opt/gcloud/google-cloud-sdk/bin
+source /opt/gcloud/google-cloud-sdk/completion.zsh.inc
+
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null

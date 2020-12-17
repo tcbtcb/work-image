@@ -163,11 +163,11 @@ RUN chmod +x install.sh
 RUN ./install.sh -y
 RUN rm install.sh
 
-WORKDIR /root
-
 # install gcloud 
+RUN mkdir /opt/gcloud
+WORKDIR /opt/gcloud
 RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
-RUN ./install.sh --disable-prompts
+RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
 
 WORKDIR /go/src/github.com/tcbtcb
