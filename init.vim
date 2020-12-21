@@ -34,6 +34,7 @@ set number
 
 imap jj <right>
 imap kk <left>
+let mapleader=" "
 
 """"""""""""""""""""""
 "  PLUG-IN SETTINGS  "
