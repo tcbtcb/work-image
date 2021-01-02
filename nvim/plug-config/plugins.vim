@@ -9,8 +9,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/goyo.vim'
 Plug 'hashivim/vim-terraform'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'airblade/vim-gitgutter'
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'morhetz/gruvbox'
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/vim-easy-align'
@@ -21,5 +21,6 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
+Plug 'SirVer/ultisnips'
 
 call plug#end()
