@@ -1,50 +1,15 @@
 set nocompatible              " be iMproved, required
 
-call plug#begin()
-
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-jdaddy'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-commentary'
-Plug 'junegunn/goyo.vim'
-Plug 'hashivim/vim-terraform'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'airblade/vim-gitgutter'
-Plug 'morhetz/gruvbox'
-Plug 'voldikss/vim-floaterm'
-Plug 'junegunn/vim-easy-align'
-
-call plug#end()
-
-""""""""""""
-"  COLORS  "
-""""""""""""
-" Theme START
-syntax on
-colorscheme gruvbox
-set background=dark
-set cursorline
-set hidden
-set list
-set listchars=tab:»·,trail:·
-set number
-
-imap jj <right>
-imap kk <left>
-let mapleader=" "
+source /root/.config/nvim/plug-config/plugins.vim
+source /root/.config/nvim/general.vim
+source /root/.config/nvim/plug-config/coc/coc.vim
+source /root/.config/nvim/plug-config/coc/coc-extensions.vim
 
 """"""""""""""""""""""
 "  PLUG-IN SETTINGS  "
 """"""""""""""""""""""
 
 " COC.VIM settings
-
-" status line
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " Give more space for displaying messages.
 set cmdheight=2
 
@@ -70,6 +35,13 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
+" definition shortcuts 
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 " cargo cult
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -83,16 +55,17 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " FUGITIVE
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gd :Gdiff<CR>
-nmap <leader>ge :Gedit<CR>
-nmap <leader>gbl :Gblame<CR>
-nmap <leader>gv :Gvsplit<CR>
-nmap <leader>gr :Gread<CR>
-nmap <leader>gw :Gwrite<CR>
-nmap <leader>gbr :Gbrowse<CR>
-nmap <leader>gp :Gpush<CR>
+nmap <leader>fs :Gstatus<CR>
+nmap <leader>fc :Gcommit<CR>
+nmap <leader>fd :Gdiff<CR>
+nmap <leader>fe :Gedit<CR>
+nmap <leader>fbl :Gblame<CR>
+nmap <leader>fv :Gvsplit<CR>
+nmap <leader>fr :Gread<CR>
+nmap <leader>fw :Gwrite<CR>
+nmap <leader>fbr :Gbrowse<CR>
+nmap <leader>fp :Gpush<CR>
+nmap <leader>mm :<c-u>:Gwrite<bar>Gcommit -m WIP<bar>Gpush mini main<cr>
 
 " TERRAFORM
 au BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform

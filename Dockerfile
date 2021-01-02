@@ -129,23 +129,18 @@ RUN chsh --shell /usr/bin/zsh root
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
 # install some node lang servers
-RUN npm install --unsafe -g typescript-language-server neovim vscode-css-languageserver-bin dockerfile-language-server-nodejs bash-language-server
+RUN npm install --unsafe -g neovim bash-language-server gatsby react react-dom prettier
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
-RUN mkdir -p /root/.config/nvim
-RUN cp /root/work-image/init.vim /root/.config/nvim/
+RUN mkdir -p /root/.config
+RUN cp -r /root/work-image/nvim /root/.config/
 RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN nvim +'PlugInstall' +qa --headless
-RUN nvim +'CocInstall -sync coc-snippets coc-go coc-python coc-css coc-html coc-prettier coc-json coc-tsserver coc-yaml coc-sh' +qa --headless
-
-## install bash + tmux files
-#RUN cp /root/work-image/bashrc /root/.bashrc 
-#RUN cp /root/work-image/bash_profile /root/.bash_profile
-#RUN cp /root/work-image/tmux.conf /root/.tmux.conf
+RUN nvim +'CocInstall' +qa --headless
 
 # config zsh (experimental)
 RUN cp /root/work-image/zshrc /root/.zshrc
