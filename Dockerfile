@@ -131,6 +131,11 @@ RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 # install some node lang servers
 RUN npm install --unsafe -g neovim gatsby react react-dom prettier
 
+# get yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get isntall -y yarn
+
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
@@ -140,7 +145,7 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
-RUN nvim +'CocInstall' +qa --headless
+RUN timeout 1m nvim --headless +CocInstall; exit
 
 # config zsh (experimental)
 RUN cp /root/work-image/zshrc /root/.zshrc
