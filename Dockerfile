@@ -89,12 +89,6 @@ RUN apt-get update && apt-get install -y \
 # update certs
 RUN update-ca-certificates
 
-# install kubectl
-RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-RUN apt-get update
-RUN apt-get install -y kubectl
-
 # install some python stuff
 RUN pip3 install ranger-fm pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
@@ -102,11 +96,15 @@ RUN pip3 install ranger-fm pynvim pipenv pymongo python-language-server awscli f
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
-# install hstr
+# install hstr, kubectl, and yarn
 RUN echo "deb http://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
 RUN wget -qO - http://www.mindforger.com/gpgpubkey.txt | apt-key add -
-RUN apt-get update
-RUN apt-get install -y hstr
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y yarn hstr kubectl
+
 
 # install lf (experimental)
 RUN wget https://github.com/gokcehan/lf/releases/download/r17/lf-linux-amd64.tar.gz
@@ -131,11 +129,6 @@ RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 # install some node lang servers
 RUN npm install --unsafe -g neovim gatsby react react-dom prettier
 
-# get yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install -y yarn
-
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
@@ -145,7 +138,7 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
-RUN nvim +CocInstall +qa --headless || true
+RUN nvim +'CocInstall' +qa --headless || true
 
 # config zsh (experimental)
 RUN cp /root/work-image/zshrc /root/.zshrc
