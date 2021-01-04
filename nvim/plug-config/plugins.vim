@@ -22,5 +22,6 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
