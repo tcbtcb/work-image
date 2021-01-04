@@ -138,7 +138,7 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
-RUN nvim +'CocInstall' +qa --headless || true
+RUN timeout 90 nvim --headless
 
 # config zsh (experimental)
 RUN cp /root/work-image/zshrc /root/.zshrc
