@@ -77,6 +77,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     unzip \
     zsh \
+    libxext-dev \
+    ranger \
     fonts-firacode \
     zsh-autosuggestions \
     zsh-syntax-highlighting \
@@ -90,7 +92,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install ranger-fm pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN pip3 install ueberzug pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
@@ -150,11 +152,15 @@ RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/com
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions.git
 RUN cp /root/work-image/tmux.conf /root/.tmux.conf
 
-## install starship prompt
+# install starship prompt
 RUN curl -fsSL https://starship.rs/install.sh >> install.sh
 RUN chmod +x install.sh
 RUN ./install.sh -y
 RUN rm install.sh
+
+# ranger config 
+RUN git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+RUN cp /root/work-image/rc.conf /root/.config/ranger/rc.conf
 
 # install gcloud 
 RUN mkdir /opt/gcloud

@@ -21,7 +21,7 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
-Plug 'SirVer/ultisnips'
 Plug 'easymotion/vim-easymotion'
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
 call plug#end()
