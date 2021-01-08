@@ -23,5 +23,6 @@ Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+Plug 'towolf/vim-helm'
 
 call plug#end()
