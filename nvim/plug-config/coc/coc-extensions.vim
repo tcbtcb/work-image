@@ -1,6 +1,7 @@
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-actions',
+  \ 'coc-python',
   \ 'coc-sh',
   \ 'coc-lists',
   \ 'coc-emmet',
@@ -22,4 +23,4 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-marketplace',
   \ 'coc-go'
-  \ ]
+  ]
