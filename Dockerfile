@@ -18,6 +18,7 @@ RUN go get github.com/spf13/viper
 RUN go get github.com/jesseduffield/lazygit
 RUN go get github.com/piquette/finance-go
 RUN go get github.com/jonwho/go-iex
+RUN go get firebase.google.com/go
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -39,6 +40,7 @@ COPY --from=gobuild /go/bin/* /go/bin/
 ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
+
 
 # install some basics
 RUN apt-get update && apt-get install -y --no-install-recommends \
