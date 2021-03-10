@@ -94,7 +94,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install black iexfinance fredapi pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN pip3 install black iexfinance pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
@@ -108,13 +108,6 @@ RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/a
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn hstr kubectl
-
-
-# install lf (experimental)
-RUN wget https://github.com/gokcehan/lf/releases/download/r17/lf-linux-amd64.tar.gz
-RUN tar -xzf lf-linux-amd64.tar.gz 
-RUN mv lf /usr/bin/
-RUN rm lf-linux-amd64.tar.gz 
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
