@@ -3,9 +3,12 @@ set nocompatible              " be iMproved, required
 source /root/.config/nvim/plug-config/plugins.vim
 source /root/.config/nvim/general.vim
 
+" lsp
+source /root/.config/nvim/plug-config/compe-config.vim
+source /root/.config/nvim/plug-config/lsp-config.vim
+source /root/.config/nvim/plug-config/lsp/lsp.lua
+
 " plugin specific settings
-source /root/.config/nvim/plug-config/coc/coc.vim
-source /root/.config/nvim/plug-config/coc/coc-extensions.vim
 source /root/.config/nvim/plug-config/fugitive.vim
 source /root/.config/nvim/plug-config/terraform.vim
 source /root/.config/nvim/plug-config/gitgutter.vim

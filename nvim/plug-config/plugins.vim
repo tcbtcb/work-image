@@ -10,7 +10,6 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/goyo.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'airblade/vim-gitgutter'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'morhetz/gruvbox'
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/vim-easy-align'
@@ -24,5 +23,7 @@ Plug 'mattn/emmet-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 Plug 'towolf/vim-helm'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
 
 call plug#end()

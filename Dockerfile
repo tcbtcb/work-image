@@ -109,6 +109,11 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn hstr kubectl
 
+# install terraformls
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install terraform-ls
+
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
@@ -124,7 +129,7 @@ RUN chsh --shell /usr/bin/zsh root
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
 # install some node lang servers
-RUN npm install --unsafe -g neovim gatsby react react-dom prettier
+RUN npm install --unsafe -g neovim gatsby react react-dom prettier vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
