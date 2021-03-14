@@ -110,9 +110,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/so
 RUN apt-get update && apt-get install -y yarn hstr kubectl
 
 # install terraformls
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt-get update && sudo apt-get install terraform-ls
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+RUN sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+RUN sudo apt-get update && sudo apt-get install terraform-ls
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
@@ -136,10 +136,7 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
 RUN mkdir -p /root/.config
-RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
-RUN nvim +'PlugInstall' +qa --headless
 RUN timeout 180 nvim --headless || :
 
 # config zsh (experimental)
