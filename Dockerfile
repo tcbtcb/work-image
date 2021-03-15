@@ -10,7 +10,7 @@ RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
 # RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
-RUN go get github.com/juliosueiras/terraform-lsp
+RUN go get github.com/hashicorp/terraform-ls
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
@@ -108,11 +108,6 @@ RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/a
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn hstr kubectl
-
-# install terraformls
-RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-RUN sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-RUN sudo apt-get update && sudo apt-get install terraform-ls
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
