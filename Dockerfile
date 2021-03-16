@@ -9,7 +9,7 @@ ENV GO111MODULE=on \
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
 RUN go get github.com/labstack/echo
-RUN go get github.com/juliosueiras/terraform-lsp
+RUN go get github.com/hashicorp/terraform-ls
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
@@ -17,7 +17,6 @@ RUN go get github.com/spf13/viper
 RUN go get github.com/jesseduffield/lazygit
 RUN go get github.com/piquette/finance-go
 RUN go get github.com/jonwho/go-iex
-RUN go get firebase.google.com/go
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -78,6 +77,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     unzip \
     zsh \
+    lsb-release \
     libxext-dev \
     ranger \
     fonts-firacode \
@@ -123,17 +123,14 @@ RUN chsh --shell /usr/bin/zsh root
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
 # install some node lang servers
-RUN npm install --unsafe -g neovim gatsby react react-dom prettier
+RUN npm install --unsafe -g neovim gatsby react react-dom prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
 RUN mkdir -p /root/.config
-RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
-RUN nvim +'PlugInstall' +qa --headless
 RUN timeout 180 nvim --headless || :
 
 # config zsh (experimental)
