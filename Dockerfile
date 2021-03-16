@@ -8,7 +8,6 @@ ENV GO111MODULE=on \
 # install flywheel golang sdk + other go tools
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
-# RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
 RUN go get github.com/juliosueiras/terraform-lsp
 RUN go get github.com/cespare/reflex
@@ -156,6 +155,10 @@ RUN rm install.sh
 # ranger config 
 RUN git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 RUN cp /root/work-image/rc.conf /root/.config/ranger/rc.conf
+
+# install alternate neovim for testing 
+# shout out https://github.com/ChristianChiarulli/nvcode
+RUN ./work-image/install-nv-code.sh
 
 # install gcloud 
 RUN mkdir /opt/gcloud
