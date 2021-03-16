@@ -130,6 +130,8 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
 RUN mkdir -p /root/.config
+RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
 RUN timeout 90 nvim --headless || :
