@@ -131,7 +131,8 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 # config/install vim plugins
 RUN mkdir -p /root/.config
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
-RUN timeout 180 nvim --headless || :
+RUN nvim +'PlugInstall' +qa --headless
+RUN timeout 90 nvim --headless || :
 
 # config zsh (experimental)
 RUN cp /root/work-image/zshrc /root/.zshrc
