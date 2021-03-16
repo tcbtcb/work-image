@@ -155,7 +155,7 @@ RUN cp /root/work-image/rc.conf /root/.config/ranger/rc.conf
 
 # install alternate neovim for testing 
 # shout out https://github.com/ChristianChiarulli/nvcode
-RUN ./work-image/install-nv-code.sh
+RUN bash /root/work-image/install-nv-code.sh
 
 # install gcloud 
 RUN mkdir /opt/gcloud
