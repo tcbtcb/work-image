@@ -8,7 +8,7 @@ ENV GO111MODULE=on \
 # install flywheel golang sdk + other go tools
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
-# RUN go get github.com/gohugoio/hugo
+RUN go get github.com/gohugoio/hugo
 RUN go get github.com/labstack/echo
 RUN go get github.com/hashicorp/terraform-ls
 RUN go get github.com/cespare/reflex
