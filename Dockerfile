@@ -154,6 +154,9 @@ RUN rm install.sh
 RUN git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 RUN cp /root/work-image/rc.conf /root/.config/ranger/rc.conf
 
+# install out of box nvim
+RUN work-image/nv-install.sh
+
 # install gcloud 
 RUN mkdir /opt/gcloud
 WORKDIR /opt/gcloud
