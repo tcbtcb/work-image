@@ -123,7 +123,7 @@ RUN chsh --shell /usr/bin/zsh root
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
 # install some node lang servers
-RUN npm install --unsafe -g neovim gatsby prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
+RUN npm install --unsafe -g neovim prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
