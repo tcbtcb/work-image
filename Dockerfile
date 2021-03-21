@@ -76,13 +76,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     automake \
     g++ \
     unzip \
-    zsh \
     lsb-release \
     libxext-dev \
     ranger \
     fonts-firacode \
-    zsh-autosuggestions \
-    zsh-syntax-highlighting \
+    bash-completion \ 
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -136,15 +134,9 @@ RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
 RUN timeout 90 nvim --headless || :
 
-# config zsh (experimental)
-RUN cp /root/work-image/zshrc /root/.zshrc
-RUN cp /root/work-image/starship.toml /root/.config/
-RUN mkdir /root/.zsh
-WORKDIR /root/.zsh
-RUN git clone https://github.com/zdharma/fast-syntax-highlighting.git
-RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/lib/completion.zsh
-RUN git clone https://github.com/zsh-users/zsh-autosuggestions.git
-RUN cp /root/work-image/tmux.conf /root/.tmux.conf
+# config bash
+RUN cp /root/work-image/bashrc /root/.bashrc
+RUN kubectl completion bash >/etc/bash_completion.d/kubectl
 
 # install starship prompt
 RUN curl -fsSL https://starship.rs/install.sh >> install.sh
