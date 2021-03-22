@@ -136,13 +136,14 @@ RUN timeout 90 nvim --headless || :
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
-RUN kubectl completion bash >/etc/bash_completion.d/kubectl
+RUN kubectl completion bash >> /etc/bash_completion.d/kubectl
 
 # install starship prompt
 RUN curl -fsSL https://starship.rs/install.sh >> install.sh
 RUN chmod +x install.sh
 RUN ./install.sh -y
 RUN rm install.sh
+RUN cp /root/work-image/starship.toml /root/.config/starship.toml
 
 # ranger config 
 RUN git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
@@ -154,5 +155,6 @@ WORKDIR /opt/gcloud
 RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
+RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
 WORKDIR /go/src/github.com/tcbtcb
