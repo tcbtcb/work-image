@@ -1,4 +1,4 @@
-FROM golang:1.15-buster as gobuild
+FROM golang:1.16-buster as gobuild
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
@@ -17,6 +17,8 @@ RUN go get github.com/spf13/viper
 RUN go get github.com/jesseduffield/lazygit
 RUN go get github.com/piquette/finance-go
 RUN go get github.com/jonwho/go-iex
+RUN go get gorm.io/gorm
+RUN go get gorm.io/driver/postgres
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
@@ -91,7 +93,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install black iexfinance pynvim pipenv pymongo python-language-server awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN pip3 install psycopg2 black iexfinance pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
@@ -113,9 +115,6 @@ RUN rm -rf /root/.cache/
 # configure root user 
 USER root
 WORKDIR /root
-
-# change shell 
-RUN chsh --shell /usr/bin/zsh root
 
 # get nodejs
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
