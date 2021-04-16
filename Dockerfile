@@ -82,6 +82,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxext-dev \
     ranger \
     fonts-firacode \
+    postgresql-client \
+    libpq-dev \
     bash-completion \ 
   && apt-get clean
 
