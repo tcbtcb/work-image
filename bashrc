@@ -88,8 +88,6 @@ export PATH=/opt/gcloud/google-cloud-sdk/bin:/go/bin:/usr/local/go/bin:/usr/loca
 export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
-source /root/google-cloud-sdk/path.bash.inc
-source /root/google-cloud-sdk/completion.bash.inc
 
 # gcp creds for terraform
 if [ -h /root/.config/adc.json ]; then
