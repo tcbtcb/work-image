@@ -95,7 +95,7 @@ RUN apt-get update && apt-get install -y \
 RUN update-ca-certificates
 
 # install some python stuff
-RUN pip3 install psycopg2 black iexfinance pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN pip3 install psycopg2 black pynvim iexfinance pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
