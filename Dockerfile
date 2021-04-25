@@ -33,7 +33,7 @@ RUN go get github.com/carlpett/terraform-provider-sops && \
   mkdir -p /root/.terraform.d/plugins/ && \
   cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
-FROM golang:1.15-buster
+FROM golang:1.16-buster
 COPY --from=gobuild /go/bin/* /go/bin/
 
 # set modules on and platform for golang
@@ -102,8 +102,6 @@ RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BU
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
 # install hstr, kubectl, and yarn
-RUN echo "deb http://www.mindforger.com/debian stretch main" >> /etc/apt/sources.list
-RUN wget -qO - http://www.mindforger.com/gpgpubkey.txt | apt-key add -
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
