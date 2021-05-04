@@ -108,5 +108,8 @@ export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
     . /usr/share/bash-completion/bash_completion
 source <(kubectl completion bash)
 
+# mcfly
+eval "$(mcfly init bash)"
+
 # starship prompt
 eval "$(starship init bash)"

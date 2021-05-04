@@ -104,13 +104,16 @@ RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 # install hstr, kubectl, and yarn
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install -y yarn hstr kubectl
+RUN apt-get update && apt-get install kubectl
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
+
+# install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+RUN source /root/.cargo/env
+RUN git clone https://github.com/cantino/mcfly && cd mcfly && cargo install --path .
 
 # configure root user 
 USER root
