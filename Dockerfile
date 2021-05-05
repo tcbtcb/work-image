@@ -113,7 +113,7 @@ RUN rm -rf /root/.cache/
 # install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
 RUN export PATH="$HOME/.cargo/bin:$PATH"
-RUN git clone https://github.com/cantino/mcfly && cd mcfly && cargo install --path .
+RUN git clone https://github.com/cantino/mcfly && cd mcfly && /root/.cargo/bin/cargo  install --path .
 
 # configure root user 
 USER root
