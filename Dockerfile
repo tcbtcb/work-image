@@ -111,7 +111,7 @@ RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
 
 # install rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -q -y
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
 RUN source /root/.cargo/env
 RUN git clone https://github.com/cantino/mcfly && cd mcfly && cargo install --path .
 
