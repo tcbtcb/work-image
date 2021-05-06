@@ -66,6 +66,10 @@ alias rfin='gcloud compute ssh finance --zone southamerica-east2-a --project tcb
 # docker aliases
 alias mini-hugo='docker run --rm -p 1313:1313 -v $PWD:/mnt/site gcr.io/tcb-web/mini-hugo'
 
+# history file 
+HISTFILE=/root/.zsh_history
+HISTFILESIZE=10000
+
 # Go modules
 export GO111MODULE=on
 
