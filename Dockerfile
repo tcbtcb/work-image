@@ -20,6 +20,12 @@ RUN go get github.com/jonwho/go-iex
 RUN go get gorm.io/gorm
 RUN go get gorm.io/driver/postgres
 
+# install telport
+RUN git clone https://github.com/gravitational/teleport.git
+RUN cd teleport/
+RUN make 
+RUN cp -r ./build/tsh/* /go/bin/
+
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
 RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
