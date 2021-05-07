@@ -22,9 +22,8 @@ RUN go get gorm.io/driver/postgres
 
 # install telport
 RUN git clone https://github.com/gravitational/teleport.git
-RUN cd teleport/
-RUN make 
-RUN cp -r ./build/tsh/* /go/bin/
+RUN cd teleport/ && make
+RUN cp -r /telport/build/tsh/* /go/bin/
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
