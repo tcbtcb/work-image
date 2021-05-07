@@ -135,7 +135,8 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
 RUN cd /root/.config/nvim/plugged/coc.nvim && npm install && npm run build
-RUN timeout 180 nvim --headless || :
+RUN timeout 120 nvim --headless || :
+RUN timeout 60 nvim --headless || :
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
