@@ -167,4 +167,4 @@ RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
 RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
-WORKDIR /go/src/github.com/tcbtcb
+WORKDIR /go/src/gitlab.com/flywheel-io/
