@@ -86,6 +86,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     lsb-release \
     libxext-dev \
     ranger \
+    fzf \
     fonts-firacode \
     postgresql-client \
     libpq-dev \
