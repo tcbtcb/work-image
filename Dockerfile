@@ -86,6 +86,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-firacode \
     postgresql-client \
     libpq-dev \
+    locales \
     bash-completion \ 
   && apt-get clean
 
@@ -115,6 +116,9 @@ RUN rm -rf /root/.cache/
 # configure root user 
 USER root
 WORKDIR /root
+
+# locales
+RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 
 # get nodejs
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
