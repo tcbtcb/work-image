@@ -5,4 +5,4 @@ steps:
     args: ['build', '--no-cache', '-t', 'gcr.io/tcb-web/work-image', '.']
 
 images: ['gcr.io/tcb-web/work-image']
-timeout: 60m
+timeout: 90m
