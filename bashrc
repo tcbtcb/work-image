@@ -94,12 +94,9 @@ GOPATH=/go
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
 # auto-completion
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-    . /usr/share/bash-completion/bash_completion
-source <(kubectl completion bash)
-
-# mcfly
-eval "$(mcfly init bash)"
+if [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
 
 # starship prompt
 eval "$(starship init bash)"

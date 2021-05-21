@@ -29,10 +29,6 @@ RUN cp -r /root/teleport/build/* /go/bin/
 RUN cd /root && git clone https://github.com/zaquestion/lab.git
 RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
 
-# install a version of tf
-RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /root/terraform && git checkout tags/v0.12.29 && go install
-
 # retrieve/install terraform-sops provider
 RUN go get github.com/carlpett/terraform-provider-sops && \
   mkdir -p /root/.terraform.d/plugins/ && \
@@ -114,11 +110,6 @@ RUN apt-get update && apt-get install -y kubectl yarn
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
-
-# install rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
-RUN export PATH="$HOME/.cargo/bin:$PATH"
-RUN git clone https://github.com/cantino/mcfly && cd mcfly && /root/.cargo/bin/cargo  install --path .
 
 # configure root user 
 USER root
