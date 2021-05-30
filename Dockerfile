@@ -88,6 +88,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     locales \
     bash-completion \ 
+    libssl-dev \
   && apt-get clean
 
 RUN apt-get update && apt-get install -y \
@@ -97,8 +98,12 @@ RUN apt-get update && apt-get install -y \
 # update certs
 RUN update-ca-certificates
 
+# install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
+RUN export PATH="$HOME/.cargo/bin:$PATH"
+
 # install some python stuff
-RUN pip3 install pynvim jedi psycopg2 black iexfinance pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN pip3 install pynvim jedi psycopg2 black iexfinance td-ameritrade-python-api pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
