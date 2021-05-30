@@ -100,7 +100,7 @@ RUN update-ca-certificates
 
 # install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
-RUN export PATH="$HOME/.cargo/bin:$PATH"
+RUN source /root/.cargo/env
 
 # install some python stuff
 RUN pip3 install pynvim jedi psycopg2 black iexfinance td-ameritrade-python-api pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
