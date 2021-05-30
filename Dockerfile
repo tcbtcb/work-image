@@ -138,6 +138,7 @@ RUN nvim +'PlugInstall' +qa --headless
 RUN cd /root/.config/nvim/plugged/coc.nvim && npm install && npm run build
 RUN timeout 120 nvim --headless || :
 RUN timeout 60 nvim --headless || :
+RUN timeout 60 nvim --headless || :
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
