@@ -20,7 +20,11 @@ RUN go get github.com/jonwho/go-iex
 RUN go get gorm.io/gorm
 RUN go get gorm.io/driver/postgres
 
-# install telport
+# install a version of tf
+RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
+RUN cd /root/terraform && git checkout tags/v0.12.29 && go install
+
+# install teleport
 RUN cd /root && git clone https://github.com/gravitational/teleport.git
 RUN cd /root/teleport/ && make
 RUN cp -r /root/teleport/build/* /go/bin/
