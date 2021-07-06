@@ -4,7 +4,6 @@ let g:floaterm_keymap_new    = '<F2>'
 let g:floaterm_shell = 'zsh'
 
 nmap <F3> :FloatermNew lf<CR>
-nmap <F4> :FloatermNew ranger<CR>
 nmap <F5> :FloatermNew lazygit<CR>
 
 " Floaterm
