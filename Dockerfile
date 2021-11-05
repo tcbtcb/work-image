@@ -1,4 +1,4 @@
-FROM golang:1.17-buster as gobuild
+FROM golang:1.16-buster as gobuild
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
@@ -102,9 +102,14 @@ RUN apt-get update && apt-get install -y \
 # update certs
 RUN update-ca-certificates
 
+# install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
+RUN . /root/.cargo/env
+
 # install some python stuff
+<<<<<<< HEAD
 RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install pynvim jedi psycopg2 black iexfinance pipenv pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib scipy sklearn statsmodels
+RUN python3 -m pip install pynvim jedi black pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
@@ -143,8 +148,8 @@ RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
 RUN cd /root/.config/nvim/plugged/coc.nvim && npm install && npm run build
 RUN timeout 120 nvim --headless || :
-RUN timeout 120 nvim --headless || :
-RUN timeout 120 nvim --headless || :
+RUN timeout 60 nvim --headless || :
+RUN timeout 60 nvim --headless || :
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
@@ -157,6 +162,10 @@ RUN chmod +x install.sh
 RUN ./install.sh -y
 RUN rm install.sh
 RUN cp /root/work-image/starship.toml /root/.config/starship.toml
+
+# ranger config 
+RUN git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+RUN cp /root/work-image/rc.conf /root/.config/ranger/rc.conf
 
 # install gcloud 
 RUN mkdir /opt/gcloud
