@@ -107,7 +107,6 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
 RUN . /root/.cargo/env
 
 # install some python stuff
-<<<<<<< HEAD
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install pynvim jedi black pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib
 
