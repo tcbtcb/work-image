@@ -1,7 +1,7 @@
 let g:floaterm_keymap_toggle = '<F1>'
 let g:floaterm_keymap_new    = '<F2>'
 
-let g:floaterm_shell = 'zsh'
+let g:floaterm_shell = 'bash'
 
 nmap <F3> :FloatermNew lf<CR>
 nmap <F5> :FloatermNew lazygit<CR>
