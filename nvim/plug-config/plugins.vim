@@ -7,6 +7,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
+Plug 'rbong/vim-flog'
 Plug 'junegunn/goyo.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'airblade/vim-gitgutter'
@@ -23,7 +24,6 @@ Plug 'mattn/emmet-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 Plug 'towolf/vim-helm'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'Shougo/echodoc.vim'
 
 call plug#end()
