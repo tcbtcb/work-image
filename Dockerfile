@@ -7,8 +7,6 @@ ENV GO111MODULE=on \
 
 # install flywheel golang sdk + other go tools
 RUN go get github.com/flywheel-io/sdk/api
-RUN go get -u github.com/spf13/cobra/cobra@v1.0.0
-RUN go get github.com/labstack/echo
 RUN go get github.com/hashicorp/terraform-ls
 RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
@@ -17,8 +15,7 @@ RUN go get github.com/spf13/viper
 RUN go get github.com/jesseduffield/lazygit
 RUN go get github.com/piquette/finance-go
 RUN go get github.com/jonwho/go-iex
-RUN go get gorm.io/gorm
-RUN go get gorm.io/driver/postgres
+RUN go get github.com/influxdata/influxdb-client-go/v2
 
 # install a version of tf
 RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
@@ -101,10 +98,6 @@ RUN apt-get update && apt-get install -y \
 
 # update certs
 RUN update-ca-certificates
-
-# install rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
-RUN . /root/.cargo/env
 
 # install some python stuff
 RUN python3 -m pip install --upgrade pip
