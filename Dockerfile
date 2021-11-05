@@ -6,16 +6,16 @@ ENV GO111MODULE=on \
     GOARCH=amd64
 
 # install flywheel golang sdk + other go tools
-RUN go install github.com/flywheel-io/sdk/api
-RUN go install github.com/hashicorp/terraform-ls
-RUN go install github.com/cespare/reflex
-RUN go install go.mozilla.org/sops/v3/cmd/sops
-RUN go install golang.org/x/tools/gopls@latest
-RUN go install github.com/spf13/viper
-RUN go install github.com/jesseduffield/lazygit
-RUN go install github.com/piquette/finance-go
-RUN go install github.com/jonwho/go-iex
-RUN go install github.com/influxdata/influxdb-client-go/v2
+RUN go get github.com/flywheel-io/sdk/api
+RUN go get github.com/hashicorp/terraform-ls
+RUN go get github.com/cespare/reflex
+RUN go get go.mozilla.org/sops/v3/cmd/sops
+RUN go get golang.org/x/tools/gopls@latest
+RUN go get github.com/spf13/viper
+RUN go get github.com/jesseduffield/lazygit
+RUN go get github.com/piquette/finance-go
+RUN go get github.com/jonwho/go-iex
+RUN go get github.com/influxdata/influxdb-client-go/v2
 
 # install a version of tf
 RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
