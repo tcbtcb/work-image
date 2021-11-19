@@ -173,13 +173,15 @@ RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
-# config/install vim plugins
+#  config/install vim plugins
 RUN mkdir -p /home/thadbrown/.config
 RUN sh -c 'curl -fLo /home/thadbrown/.local/share/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
+RUN rm /home/thadbrown/work-image/nvim/init.vim
+RUN cp /home/thadbrown/work-image/nvim/thadbrown-init.vim /home/thadbrown/work-image/nvim/init.vim
 RUN nvim +'PlugInstall' +qa --headless
-RUN cd /home/thadbrown/.config/nvim/plugged/coc.nvim && npm install && npm run build
+RUN cd /home/thadbrown/.config/nvim/plugged/ && npm install && npm run build
 RUN timeout 120 nvim --headless || :
 RUN timeout 60 nvim --headless || :
 RUN timeout 60 nvim --headless || :
