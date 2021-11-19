@@ -181,10 +181,10 @@ RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
 RUN rm /home/thadbrown/work-image/nvim/init.vim
 RUN cp /home/thadbrown/work-image/nvim/thadbrown-init.vim /home/thadbrown/.config/nvim/init.vim
 RUN nvim +'PlugInstall' +qa --headless
-RUN cd /home/thadbrown/.config/nvim/plugged/ && npm install && npm run build
-RUN timeout 120 nvim --headless || :
-RUN timeout 60 nvim --headless || :
-RUN timeout 60 nvim --headless || :
+# RUN cd /home/thadbrown/.config/nvim/plugged/ && npm install && npm run build
+# RUN timeout 120 nvim --headless || :
+# RUN timeout 60 nvim --headless || :
+# RUN timeout 60 nvim --headless || :
 
 # config bash
 RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
