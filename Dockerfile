@@ -8,11 +8,8 @@ ENV GO111MODULE=on \
 # install flywheel golang sdk + other go tools
 RUN go get github.com/flywheel-io/sdk/api
 RUN go get github.com/hashicorp/terraform-ls
-RUN go get github.com/cespare/reflex
 RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
-RUN go get github.com/spf13/viper
-RUN go get github.com/jesseduffield/lazygit
 RUN go get github.com/piquette/finance-go
 RUN go get github.com/jonwho/go-iex
 RUN go get github.com/influxdata/influxdb-client-go/v2
@@ -35,7 +32,7 @@ RUN go get github.com/carlpett/terraform-provider-sops && \
   mkdir -p /root/.terraform.d/plugins/ && \
   cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
 
-FROM golang:1.16-buster
+FROM golang:1.17-buster
 COPY --from=gobuild /go/bin/* /go/bin/
 
 # set modules on and platform for golang
@@ -155,10 +152,6 @@ RUN ./install.sh -y
 RUN rm install.sh
 RUN cp /root/work-image/starship.toml /root/.config/starship.toml
 
-# ranger config 
-RUN git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
-RUN cp /root/work-image/rc.conf /root/.config/ranger/rc.conf
-
 # install gcloud 
 RUN mkdir /opt/gcloud
 WORKDIR /opt/gcloud
@@ -166,5 +159,40 @@ RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
 RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
+
+WORKDIR /go/src/gitlab.com/flywheel-io/
+
+# configure thadbrown user 
+RUN useradd -m -s /bin/bash -u 501 thadbrown
+USER thadbrown
+WORKDIR /hom/thadbrown
+
+# locales
+RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
+
+# clone settings repo locally
+RUN git clone https://github.com/tcbtcb/work-image.git
+
+# config/install vim plugins
+RUN mkdir -p /root/.config
+RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
+RUN nvim +'PlugInstall' +qa --headless
+RUN cd /root/.config/nvim/plugged/coc.nvim && npm install && npm run build
+RUN timeout 120 nvim --headless || :
+RUN timeout 60 nvim --headless || :
+RUN timeout 60 nvim --headless || :
+
+# config bash
+RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
+RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
+
+# install starship prompt
+RUN curl -fsSL https://starship.rs/install.sh >> install.sh
+RUN chmod +x install.sh
+RUN ./install.sh -y
+RUN rm install.sh
+RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
