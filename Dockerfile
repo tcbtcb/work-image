@@ -179,7 +179,7 @@ RUN sh -c 'curl -fLo /home/thadbrown/.local/share/nvim/site/autoload/plug.vim --
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
 RUN rm /home/thadbrown/work-image/nvim/init.vim
-RUN cp /home/thadbrown/work-image/nvim/thadbrown-init.vim /home/thadbrown/work-image/nvim/init.vim
+RUN cp /home/thadbrown/work-image/nvim/thadbrown-init.vim /home/thadbrown/.config/nvim/init.vim
 RUN nvim +'PlugInstall' +qa --headless
 RUN cd /home/thadbrown/.config/nvim/plugged/ && npm install && npm run build
 RUN timeout 120 nvim --headless || :
