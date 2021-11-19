@@ -175,7 +175,7 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # config/install vim plugins
 RUN mkdir -p /home/thadbrown/.config
-RUN sh -c 'curl -fLo /home/thadbrown.local/share/nvim/site/autoload/plug.vim --create-dirs \
+RUN sh -c 'curl -fLo /home/thadbrown/.local/share/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
