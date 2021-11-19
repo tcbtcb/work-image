@@ -165,7 +165,7 @@ WORKDIR /go/src/gitlab.com/flywheel-io/
 # configure thadbrown user 
 RUN useradd -m -s /bin/bash -u 501 thadbrown
 USER thadbrown
-WORKDIR /hom/thadbrown
+WORKDIR /home/thadbrown
 
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
