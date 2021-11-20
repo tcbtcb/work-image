@@ -164,9 +164,9 @@ WORKDIR /go/src/gitlab.com/flywheel-io/
 
 # configure thadbrown user 
 RUN useradd -m -s /bin/bash -u 501 thadbrown
+RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
 USER thadbrown
 WORKDIR /home/thadbrown
-RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
 
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
