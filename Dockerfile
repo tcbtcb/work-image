@@ -160,11 +160,12 @@ RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
 RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
+RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
+
 WORKDIR /go/src/gitlab.com/flywheel-io/
 
 # configure thadbrown user 
 RUN useradd -m -s /bin/bash -u 501 thadbrown
-RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
 USER thadbrown
 WORKDIR /home/thadbrown
 
