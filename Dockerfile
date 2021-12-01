@@ -16,7 +16,7 @@ RUN go get github.com/influxdata/influxdb-client-go/v2
 
 # install a version of tf
 RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /root/terraform && git checkout tags/v0.12.29 && go install
+RUN cd /root/terraform && git checkout tags/v0.12.31 && go install
 
 # install teleport
 RUN cd /root && git clone https://github.com/gravitational/teleport.git
