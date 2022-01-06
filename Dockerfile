@@ -20,7 +20,8 @@ RUN cd /root/terraform && git checkout tags/v0.12.31 && go install
 
 # install teleport
 RUN cd /root && git clone https://github.com/gravitational/teleport.git
-RUN cd /root/teleport/ && make
+RUN cd /root/teleport && git checkout v8.0.7
+RUN cd /root/teleport/ && make full
 RUN cp -r /root/teleport/build/* /go/bin/
 
 # install gitlab lab cli (per the somewhat strange instructions on the github page)
