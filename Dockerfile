@@ -165,39 +165,39 @@ RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
 
-# configure thadbrown user 
-RUN useradd -m -s /bin/bash -u 501 thadbrown
-USER thadbrown
-WORKDIR /home/thadbrown
-
-# locales
-RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
-
-# clone settings repo locally
-RUN git clone https://github.com/tcbtcb/work-image.git
-
-#  config/install vim plugins
-RUN mkdir -p /home/thadbrown/.config
-RUN sh -c 'curl -fLo /home/thadbrown/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
-RUN rm /home/thadbrown/work-image/nvim/init.vim
-RUN cp /home/thadbrown/work-image/nvim/thadbrown-init.vim /home/thadbrown/.config/nvim/init.vim
-RUN nvim +'PlugInstall' +qa --headless
+# # configure thadbrown user 
+# RUN useradd -m -s /bin/bash -u 501 thadbrown
+# USER thadbrown
+# WORKDIR /home/thadbrown
+# 
+# # locales
+# RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
+# 
+# # clone settings repo locally
+# RUN git clone https://github.com/tcbtcb/work-image.git
+# 
+# #  config/install vim plugins
+# RUN mkdir -p /home/thadbrown/.config
+# RUN sh -c 'curl -fLo /home/thadbrown/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+#        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# RUN rsync -aPh /home/thadbrown/work-image/nvim/ /home/thadbrown/.config/nvim/
+# RUN rm /home/thadbrown/work-image/nvim/init.vim
+# RUN cp /home/thadbrown/work-image/nvim/thadbrown-init.vim /home/thadbrown/.config/nvim/init.vim
+# RUN nvim +'PlugInstall' +qa --headless
 # RUN cd /home/thadbrown/.config/nvim/plugged/ && npm install && npm run build
 # RUN timeout 120 nvim --headless || :
 # RUN timeout 60 nvim --headless || :
 # RUN timeout 60 nvim --headless || :
-
-# config bash
-RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
-RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
-
-# install starship prompt
-RUN curl -fsSL https://starship.rs/install.sh >> install.sh
-RUN chmod +x install.sh
-RUN ./install.sh -y
-RUN rm install.sh
-RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
-
-WORKDIR /go/src/gitlab.com/flywheel-io/
+# 
+# # config bash
+# RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
+# RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
+# 
+# # install starship prompt
+# RUN curl -fsSL https://starship.rs/install.sh >> install.sh
+# RUN chmod +x install.sh
+# RUN ./install.sh -y
+# RUN rm install.sh
+# RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
+# 
+# WORKDIR /go/src/gitlab.com/flywheel-io/
