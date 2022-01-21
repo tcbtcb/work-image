@@ -136,7 +136,7 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
-RUN cd /root/.config/nvim/plugged/coc.nvim && npm install && npm run build
+RUN cd /root/.config/nvim/plugged/coc.nvim && npm install
 RUN timeout 120 nvim --headless || :
 RUN timeout 60 nvim --headless || :
 RUN timeout 60 nvim --headless || :
@@ -161,7 +161,7 @@ RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
 RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
-RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
+# RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
 
