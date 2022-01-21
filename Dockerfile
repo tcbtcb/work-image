@@ -124,6 +124,9 @@ RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 # get nodejs
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
+# install yarn (to build coc from source)
+RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+
 # install some node lang servers
 RUN npm install --unsafe -g neovim prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
 
