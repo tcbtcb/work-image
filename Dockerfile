@@ -6,33 +6,33 @@ ENV GO111MODULE=on \
     GOARCH=amd64
 
 # install flywheel golang sdk + other go tools
-RUN go get github.com/flywheel-io/sdk/api
-RUN go get github.com/hashicorp/terraform-ls
-RUN go get go.mozilla.org/sops/v3/cmd/sops
+# RUN go get github.com/flywheel-io/sdk/api
+# RUN go get github.com/hashicorp/terraform-ls
+# RUN go get go.mozilla.org/sops/v3/cmd/sops
 RUN go get golang.org/x/tools/gopls@latest
-RUN go get github.com/piquette/finance-go
-RUN go get github.com/jonwho/go-iex
-RUN go get github.com/influxdata/influxdb-client-go/v2
+# RUN go get github.com/piquette/finance-go
+# RUN go get github.com/jonwho/go-iex
+# RUN go get github.com/influxdata/influxdb-client-go/v2
 
-# install a version of tf
-RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-RUN cd /root/terraform && git checkout tags/v0.12.31 && go install
-
-# install teleport
-RUN cd /root && git clone https://github.com/gravitational/teleport.git
-RUN cd /root/teleport && git checkout v8.0.7
-RUN cd /root/teleport/ && make full
-RUN cp -r /root/teleport/build/* /go/bin/
-
-# install gitlab lab cli (per the somewhat strange instructions on the github page)
-RUN cd /root && git clone https://github.com/zaquestion/lab.git
-RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
-
-# retrieve/install terraform-sops provider
-RUN go get github.com/carlpett/terraform-provider-sops && \
-  mkdir -p /root/.terraform.d/plugins/ && \
-  cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
-
+# # install a version of tf
+# RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
+# RUN cd /root/terraform && git checkout tags/v0.12.31 && go install
+# 
+# # install teleport
+# RUN cd /root && git clone https://github.com/gravitational/teleport.git
+# RUN cd /root/teleport && git checkout v8.0.7
+# RUN cd /root/teleport/ && make full
+# RUN cp -r /root/teleport/build/* /go/bin/
+# 
+# # install gitlab lab cli (per the somewhat strange instructions on the github page)
+# RUN cd /root && git clone https://github.com/zaquestion/lab.git
+# RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
+# 
+# # retrieve/install terraform-sops provider
+# RUN go get github.com/carlpett/terraform-provider-sops && \
+#   mkdir -p /root/.terraform.d/plugins/ && \
+#   cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
+# 
 FROM golang:1.17-buster
 COPY --from=gobuild /go/bin/* /go/bin/
 
@@ -124,12 +124,12 @@ RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 # get nodejs
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
-# install yarn (to build coc from source)
-RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
-
-# install some node lang servers
-RUN npm install --unsafe -g neovim prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
-
+# # install yarn (to build coc from source)
+# RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+# 
+# # install some node lang servers
+# RUN npm install --unsafe -g neovim prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
+# 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
@@ -137,32 +137,32 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 RUN mkdir -p /root/.config
 RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
+# RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
 RUN nvim +'PlugInstall' +qa --headless
 # RUN timeout 120 nvim --headless || :
 # RUN timeout 60 nvim --headless || :
 # RUN timeout 60 nvim --headless || :
-RUN cd /root/.local/share/plugged/coc.nvim && npm install
+# RUN cd /root/.local/share/plugged/coc.nvim && npm install
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN kubectl completion bash >> /etc/bash_completion.d/kubectl
 RUN cp /root/work-image/tmux.conf /root/.tmux.conf
 
-# install starship prompt
-RUN curl -fsSL https://starship.rs/install.sh >> install.sh
-RUN chmod +x install.sh
-RUN ./install.sh -y
-RUN rm install.sh
-RUN cp /root/work-image/starship.toml /root/.config/starship.toml
+# # install starship prompt
+# RUN curl -fsSL https://starship.rs/install.sh >> install.sh
+# RUN chmod +x install.sh
+# RUN ./install.sh -y
+# RUN rm install.sh
+# RUN cp /root/work-image/starship.toml /root/.config/starship.toml
 
-# install gcloud 
-RUN mkdir /opt/gcloud
-WORKDIR /opt/gcloud
-RUN curl https://sdk.cloud.google.com > install.sh
-RUN chmod +x install.sh
-RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
-RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
+# # install gcloud 
+# RUN mkdir /opt/gcloud
+# WORKDIR /opt/gcloud
+# RUN curl https://sdk.cloud.google.com > install.sh
+# RUN chmod +x install.sh
+# RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
+# RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
 # RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
 
