@@ -147,6 +147,32 @@ function M.setup()
       requires = { "kyazdani42/nvim-web-devicons" },
     }
 
+    -- better netwr
+    use {"tpope/vim-vinegar"}
+    
+    -- Auto pairs
+    use {
+      "windwp/nvim-autopairs",
+      config = function()
+        require("config.autopairs").setup()
+      end,
+    }
+
+
+    -- LSP
+    use {
+      "neovim/nvim-lspconfig",
+      opt = true,
+      event = "BufReadPre",
+      wants = { "nvim-lsp-installer"  },
+      config = function()
+        require("config.lsp").setup()
+      end,
+      requires = {
+        "williamboman/nvim-lsp-installer",
+      },
+    }
+    
     -- Git
     use {
       "TimUntersberger/neogit",
