@@ -92,6 +92,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN apt-get update && apt-get install -y \
     python3-pip \
+    python3-venv \
   && apt-get clean
 
 # update certs
@@ -133,17 +134,28 @@ RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
-# config/install vim plugins
-RUN mkdir -p /root/.config
-RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-# RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
-RUN nvim +'PlugInstall' +qa --headless
-# RUN timeout 120 nvim --headless || :
-# RUN timeout 60 nvim --headless || :
-# RUN timeout 60 nvim --headless || :
-# RUN cd /root/.local/share/plugged/coc.nvim && npm install
+# set up nvim
+RUN mkdir -p /root/.config/nvim
+RUN mv /root/work-image/lua-vim/config/bootstrap_packer.tar /root/.config/nvim/
+RUN cd /root/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
+RUN nvim +qa --headless
+RUN rm -rf /root/.config/nvim/*
+RUN rsync -aPh /root/work-image/lua-vim/config.bak/nvim/ /root/.config/nvim/
+RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+RUN timeout 120 nvim --headless || :
 
+# 
+# # config/install vim plugins
+# RUN mkdir -p /root/.config
+# RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+#        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# # RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
+# RUN nvim +'PlugInstall' +qa --headless
+# # RUN timeout 120 nvim --headless || :
+# # RUN timeout 60 nvim --headless || :
+# # RUN timeout 60 nvim --headless || :
+# # RUN cd /root/.local/share/plugged/coc.nvim && npm install
+# 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN kubectl completion bash >> /etc/bash_completion.d/kubectl

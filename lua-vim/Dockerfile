@@ -3,7 +3,7 @@ FROM golang:1.17-bullseye
 RUN apt-get update 
 
 # build neovim from source
-RUN apt-get install -y vim python3-venv ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen rsync
+RUN apt-get install -y vim python3-pip python3-venv ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen rsync
 RUN cd /root && git clone https://github.com/neovim/neovim
 RUN cd /root/neovim && make
 RUN cd /root/neovim && make install
