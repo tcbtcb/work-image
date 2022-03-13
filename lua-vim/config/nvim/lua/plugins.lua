@@ -164,7 +164,7 @@ function M.setup()
       "neovim/nvim-lspconfig",
       opt = true,
       event = "BufReadPre",
-      wants = { "nvim-lsp-installer"  },
+      wants = { "nvim-lsp-installer", "coq_nvim"  },
       config = function()
         require("config.lsp").setup()
       end,
@@ -173,6 +173,23 @@ function M.setup()
       },
     }
     
+    -- Completion
+    use {
+      "ms-jpq/coq_nvim",
+      branch = "coq",
+      event = "InsertEnter",
+      opt = true,
+      run = ":COQdeps",
+      config = function()
+        require("config.coq").setup()
+      end,
+      requires = {
+        { "ms-jpq/coq.artifacts", branch = "artifacts" },
+        { "ms-jpq/coq.thirdparty", branch = "3p", module = "coq_3p" },
+      },
+      disable = false,
+    }
+
     -- Git
     use {
       "TimUntersberger/neogit",
