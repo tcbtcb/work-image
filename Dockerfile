@@ -83,6 +83,11 @@ RUN rm -rf /root/.cache/
 USER root
 WORKDIR /root
 
+# get go tools 
+RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools.tar
+RUN tar -xf tcb-gotools.tar 
+RUN rsync -aPh home/tcb/go/bin/ /go/bin/
+
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 
