@@ -1,40 +1,4 @@
-FROM golang:1.17-buster as gobuild
-
-# set modules on and platform for golang
-ENV GO111MODULE=on \
-    GOOS=linux \
-    GOARCH=amd64
-
-# install flywheel golang sdk + other go tools
-# RUN go get github.com/flywheel-io/sdk/api
-# RUN go get github.com/hashicorp/terraform-ls
-# RUN go get go.mozilla.org/sops/v3/cmd/sops
-RUN go get golang.org/x/tools/gopls@latest
-# RUN go get github.com/piquette/finance-go
-# RUN go get github.com/jonwho/go-iex
-# RUN go get github.com/influxdata/influxdb-client-go/v2
-
-# # install a version of tf
-# RUN cd /root && git clone https://github.com/hashicorp/terraform.git 
-# RUN cd /root/terraform && git checkout tags/v0.12.31 && go install
-# 
-# # install teleport
-# RUN cd /root && git clone https://github.com/gravitational/teleport.git
-# RUN cd /root/teleport && git checkout v8.0.7
-# RUN cd /root/teleport/ && make full
-# RUN cp -r /root/teleport/build/* /go/bin/
-# 
-# # install gitlab lab cli (per the somewhat strange instructions on the github page)
-# RUN cd /root && git clone https://github.com/zaquestion/lab.git
-# RUN cd /root/lab && go install -ldflags "-X \"main.version=$(git  rev-parse --short=10 HEAD)\"" .
-# 
-# # retrieve/install terraform-sops provider
-# RUN go get github.com/carlpett/terraform-provider-sops && \
-#   mkdir -p /root/.terraform.d/plugins/ && \
-#   cp /go/bin/terraform-provider-sops /root/.terraform.d/plugins/
-# 
 FROM golang:1.17-buster
-COPY --from=gobuild /go/bin/* /go/bin/
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
