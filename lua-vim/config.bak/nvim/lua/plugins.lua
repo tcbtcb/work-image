@@ -44,9 +44,9 @@ function M.setup()
 
     -- Colorscheme
     use {
-      "sainnhe/everforest",
+      "ellisonleao/gruvbox.nvim", 
       config = function()
-        vim.cmd "colorscheme everforest"
+        vim.cmd "colorscheme gruvbox"
       end,
     }
 
