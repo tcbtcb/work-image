@@ -100,6 +100,15 @@ RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 # # install some node lang servers
 # RUN npm install --unsafe -g neovim prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
 # 
+
+# get newer python by hand
+RUN apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
+RUN wget https://www.python.org/ftp/python/3.9.10/Python-3.9.10.tgz
+RUN tar xvf Python-3.9.10.tgz 
+RUN cd Python-3.9.10/  \
+    && ./configure --enable-optimizations \ 
+    && make install
+
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
@@ -112,6 +121,7 @@ RUN rm -rf /root/.config/nvim/*
 RUN ls /root/.config/nvim/
 RUN rsync -aPh /root/work-image/lua-vim/config.bak/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+RUN cd /root/.local/share/nvim/site/pack/packer/opt/coq_nvim/ && pip3 install -r requirements.txt 
 RUN timeout 120 nvim --headless || :
 
 # 
