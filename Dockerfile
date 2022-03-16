@@ -114,12 +114,12 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # set up nvim
 RUN mkdir -p /root/.config/nvim
-RUN mv /root/work-image/lua-vim/config/bootstrap_packer.tar /root/.config/nvim/
+RUN mv /root/work-image/nvim/bootstrap_packer.tar /root/.config/nvim/
 RUN cd /root/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
 RUN nvim +qa --headless
 RUN rm -rf /root/.config/nvim/*
 RUN ls /root/.config/nvim/
-RUN rsync -aPh /root/work-image/lua-vim/config.bak/nvim/ /root/.config/nvim/
+RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN cd /root/.local/share/nvim/site/pack/packer/opt/coq_nvim/ && pip3 install -r requirements.txt 
 RUN timeout 120 nvim --headless || :
