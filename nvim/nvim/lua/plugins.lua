@@ -6,11 +6,11 @@ function M.setup()
 
   -- packer.nvim configuration
   local conf = {
-
     profile = {
       enable = true,
-      threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+      threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
     },
+
     display = {
       open_fn = function()
         return require("packer.util").float { border = "rounded" }
@@ -22,7 +22,6 @@ function M.setup()
   -- Run PackerCompile if there are changes in this file
   local function packer_init()
     local fn = vim.fn
-
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     if fn.empty(fn.glob(install_path)) > 0 then
       packer_bootstrap = fn.system {
@@ -42,6 +41,18 @@ function M.setup()
   local function plugins(use)
     use { "wbthomason/packer.nvim" }
 
+    -- Load only when require
+    use { "nvim-lua/plenary.nvim", module = "plenary" }
+
+    -- Notification
+    use {
+      "rcarriga/nvim-notify",
+      event = "VimEnter",
+      config = function()
+        vim.notify = require "notify"
+      end,
+    }
+    
     -- Colorscheme
     use {
       "ellisonleao/gruvbox.nvim", 
@@ -50,17 +61,35 @@ function M.setup()
       end,
     }
 
-  -- WhichKey
-  use {
-     "folke/which-key.nvim",
-     event = "VimEnter",
-     config = function()
-       require("config.whichkey").setup()
-     end,
-  }
+    -- Better Netrw
+    use { "tpope/vim-vinegar" }
 
-    -- Load only when require
-    use { "nvim-lua/plenary.nvim", module = "plenary" }
+    -- Git
+    use {
+      "TimUntersberger/neogit",
+      cmd = "Neogit",
+      config = function()
+        require("config.neogit").setup()
+      end,
+    }
+
+    -- WhichKey
+    use {
+      "folke/which-key.nvim",
+      event = "VimEnter",
+      config = function()
+        require("config.whichkey").setup()
+      end,
+    }
+
+    -- IndentLine
+    use {
+      "lukas-reineke/indent-blankline.nvim",
+      event = "BufReadPre",
+      config = function()
+        require("config.indentblankline").setup()
+      end,
+    }
 
     -- Better icons
     use {
@@ -74,23 +103,29 @@ function M.setup()
     -- Better Comment
     use {
       "numToStr/Comment.nvim",
-      opt = true,
       keys = { "gc", "gcc", "gbc" },
       config = function()
         require("Comment").setup {}
       end,
     }
 
-    -- Easy hopping
+    -- Better surround
+    use { "tpope/vim-surround", event = "InsertEnter" }
+
+    -- Motions
+    use { "andymass/vim-matchup", event = "CursorMoved" }
+    use { "wellle/targets.vim", event = "CursorMoved" }
+    use { "unblevable/quick-scope", event = "CursorMoved", disable = false }
+    use { "chaoren/vim-wordmotion", opt = true, fn = { "<Plug>WordMotion_w" } }
+
     use {
       "phaazon/hop.nvim",
       cmd = { "HopWord", "HopChar1" },
       config = function()
         require("hop").setup {}
       end,
+      disable = true,
     }
-
-    -- Easy motion
     use {
       "ggandor/lightspeed.nvim",
       keys = { "s", "S", "f", "F", "t", "T" },
@@ -98,7 +133,7 @@ function M.setup()
         require("lightspeed").setup {}
       end,
     }
-		
+
     -- Markdown
     use {
       "iamcco/markdown-preview.nvim",
@@ -109,75 +144,130 @@ function M.setup()
       cmd = { "MarkdownPreview" },
     }
 
-    -- Lualine
+    -- Status line
     use {
       "nvim-lualine/lualine.nvim",
-      event = "VimEnter",
+      after = "nvim-treesitter",
       config = function()
-       require("config.lualine").setup()
+        require("config.lualine").setup()
       end,
-      requires = { "nvim-web-devicons" },
+      wants = "nvim-web-devicons",
     }
-
-    -- Nvim GPS
     use {
       "SmiteshP/nvim-gps",
       requires = "nvim-treesitter/nvim-treesitter",
       module = "nvim-gps",
+      wants = "nvim-treesitter",
       config = function()
         require("nvim-gps").setup()
       end,
     }
 
-    -- treesitter
+    -- Treesitter
     use {
       "nvim-treesitter/nvim-treesitter",
-       run = ":TSUpdate",
-       config = function()
-         require("config.treesitter").setup()
-       end,
-    }
-
-    -- fzf 
-    use { "junegunn/fzf" }  
-    use { "junegunn/fzf.vim" }
-
-    use {
-     "ibhagwan/fzf-lua",
-      requires = { "kyazdani42/nvim-web-devicons" },
-    }
-
-    -- better netwr
-    use {"tpope/vim-vinegar"}
-    
-    -- Auto pairs
-    use {
-      "windwp/nvim-autopairs",
-      config = function()
-        require("config.autopairs").setup()
-      end,
-    }
-
-
-    -- LSP
-    use {
-      "neovim/nvim-lspconfig",
       opt = true,
-      event = "BufReadPre",
-      wants = { "nvim-lsp-installer", "coq_nvim"  },
+      event = "BufRead",
+      run = ":TSUpdate",
       config = function()
-        require("config.lsp").setup()
+        require("config.treesitter").setup()
       end,
       requires = {
-        "williamboman/nvim-lsp-installer",
+        { "nvim-treesitter/nvim-treesitter-textobjects" },
       },
     }
-    
+
+    if PLUGINS.fzf_lua.enabled then
+      -- FZF
+      -- use { "junegunn/fzf", run = "./install --all", event = "VimEnter" } -- You don't need to install this if you already have fzf installed
+      -- use { "junegunn/fzf.vim", event = "BufEnter" }
+
+      -- FZF Lua
+      use {
+        "ibhagwan/fzf-lua",
+        event = "BufEnter",
+        wants = "nvim-web-devicons",
+        requires = { "junegunn/fzf", run = "./install --all" },
+      }
+    end
+
+    if PLUGINS.telescope.enabled then
+      use {
+        "nvim-telescope/telescope.nvim",
+        opt = true,
+        config = function()
+          require("config.telescope").setup()
+        end,
+        cmd = { "Telescope" },
+        module = "telescope",
+        keys = { "<leader>f", "<leader>p" },
+        wants = {
+          "plenary.nvim",
+          "popup.nvim",
+          "telescope-fzf-native.nvim",
+          "telescope-project.nvim",
+          "telescope-repo.nvim",
+          "telescope-file-browser.nvim",
+          "project.nvim",
+          "trouble.nvim",
+        },
+        requires = {
+          "nvim-lua/popup.nvim",
+          "nvim-lua/plenary.nvim",
+          { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+          "nvim-telescope/telescope-project.nvim",
+          "cljoly/telescope-repo.nvim",
+          "nvim-telescope/telescope-file-browser.nvim",
+          {
+            "ahmedkhalf/project.nvim",
+            config = function()
+              require("project_nvim").setup {}
+            end,
+          },
+        },
+      }
+    end
+
+    -- nvim-tree
+    use {
+      "kyazdani42/nvim-tree.lua",
+      wants = "nvim-web-devicons",
+      cmd = { "NvimTreeToggle", "NvimTreeClose" },
+      module = "nvim-tree",
+      config = function()
+        require("config.nvimtree").setup()
+      end,
+    }
+
+    -- Buffer line
+    use {
+      "akinsho/nvim-bufferline.lua",
+      event = "BufReadPre",
+      wants = "nvim-web-devicons",
+      config = function()
+        require("config.bufferline").setup()
+      end,
+    }
+
+    -- User interface
+    use {
+      "stevearc/dressing.nvim",
+      event = "BufEnter",
+      config = function()
+        require("dressing").setup {
+          select = {
+            backend = { "telescope", "fzf", "builtin" },
+          },
+        }
+      end,
+      disable = true,
+    }
+
     -- Completion
     use {
       "ms-jpq/coq_nvim",
       branch = "coq",
-      event = "InsertEnter",
+      event = "VimEnter",
       opt = true,
       run = ":COQdeps",
       config = function()
@@ -187,27 +277,140 @@ function M.setup()
         { "ms-jpq/coq.artifacts", branch = "artifacts" },
         { "ms-jpq/coq.thirdparty", branch = "3p", module = "coq_3p" },
       },
-      disable = false,
+      disable = not PLUGINS.coq.enabled,
     }
 
-    -- Git
     use {
-      "TimUntersberger/neogit",
-      cmd = "Neogit",
-      requires = "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+      event = "InsertEnter",
+      opt = true,
       config = function()
-        require("config.neogit").setup()
+        require("config.cmp").setup()
+      end,
+      wants = { "LuaSnip" },
+      requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lua",
+        "ray-x/cmp-treesitter",
+        "hrsh7th/cmp-cmdline",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        -- "onsails/lspkind-nvim",
+        -- "hrsh7th/cmp-calc",
+        -- "f3fora/cmp-spell",
+        -- "hrsh7th/cmp-emoji",
+        {
+          "L3MON4D3/LuaSnip",
+          wants = "friendly-snippets",
+          config = function()
+            require("config.luasnip").setup()
+          end,
+        },
+        "rafamadriz/friendly-snippets",
+      },
+      disable = not PLUGINS.nvim_cmp.enabled,
+    }
+
+    -- Auto pairs
+    use {
+      "windwp/nvim-autopairs",
+      wants = "nvim-treesitter",
+      module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+      config = function()
+        require("config.autopairs").setup()
       end,
     }
 
+    -- Auto tag
+    use {
+      "windwp/nvim-ts-autotag",
+      wants = "nvim-treesitter",
+      event = "InsertEnter",
+      config = function()
+        require("nvim-ts-autotag").setup { enable = true }
+      end,
+    }
+
+    -- End wise
+    use {
+      "RRethy/nvim-treesitter-endwise",
+      wants = "nvim-treesitter",
+      event = "InsertEnter",
+      disable = false,
+    }
+
+    -- LSP
+    if PLUGINS.nvim_cmp.enabled then
+      use {
+        "neovim/nvim-lspconfig",
+        opt = true,
+        event = "BufReadPre",
+        -- wants = { "nvim-lsp-installer", "lsp_signature.nvim", "cmp-nvim-lsp" },
+        wants = { "nvim-lsp-installer", "cmp-nvim-lsp", "lua-dev.nvim", "vim-illuminate" },
+        config = function()
+          require("config.lsp").setup()
+        end,
+        requires = {
+          "williamboman/nvim-lsp-installer",
+          "folke/lua-dev.nvim",
+          "RRethy/vim-illuminate",
+          -- "ray-x/lsp_signature.nvim",
+        },
+      }
+    end
+
+    if PLUGINS.coq.enabled then
+      use {
+        "neovim/nvim-lspconfig",
+        opt = true,
+        event = "BufReadPre",
+        wants = { "nvim-lsp-installer", "lsp_signature.nvim", "coq_nvim", "vim-illuminate" }, -- for coq.nvim
+        config = function()
+          require("config.lsp").setup()
+        end,
+        requires = {
+          "williamboman/nvim-lsp-installer",
+          "ray-x/lsp_signature.nvim",
+          "folke/lua-dev.nvim",
+          "RRethy/vim-illuminate",
+        },
+      }
+    end
+
+    -- trouble.nvim
+    use {
+      "folke/trouble.nvim",
+      event = "BufReadPre",
+      wants = "nvim-web-devicons",
+      cmd = { "TroubleToggle", "Trouble" },
+      config = function()
+        require("trouble").setup {
+          use_diagnostic_signs = true,
+        }
+      end,
+    }
+
+    -- lspsaga.nvim
+    use {
+      "tami5/lspsaga.nvim",
+      event = "VimEnter",
+      cmd = { "Lspsaga" },
+      config = function()
+        require("lspsaga").setup {}
+      end,
+    }
+
+    -- Bootstrap Neovim
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()
     end
   end
 
+  -- Init and start packer
   packer_init()
-
   local packer = require "packer"
   packer.init(conf)
   packer.startup(plugins)
