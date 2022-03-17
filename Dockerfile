@@ -125,7 +125,6 @@ RUN timeout 120 nvim --headless || :
 RUN timeout 60 nvim --headless || :
 RUN timeout 60 nvim --headless || :
 
-# 
 # # config/install vim plugins
 # RUN mkdir -p /root/.config
 # RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -136,7 +135,8 @@ RUN timeout 60 nvim --headless || :
 # # RUN timeout 60 nvim --headless || :
 # # RUN timeout 60 nvim --headless || :
 # # RUN cd /root/.local/share/plugged/coc.nvim && npm install
-# 
+# # trigger CI 
+
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
 RUN kubectl completion bash >> /etc/bash_completion.d/kubectl
