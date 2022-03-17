@@ -121,8 +121,9 @@ RUN rm -rf /root/.config/nvim/*
 RUN ls /root/.config/nvim/
 RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-RUN cd /root/.local/share/nvim/site/pack/packer/opt/coq_nvim/ && pip3 install -r requirements.txt 
 RUN timeout 120 nvim --headless || :
+RUN timeout 60 nvim --headless || :
+RUN timeout 60 nvim --headless || :
 
 # 
 # # config/install vim plugins
