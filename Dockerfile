@@ -111,6 +111,7 @@ RUN cd Python-3.9.10/  \
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
+RUN yarn global add yaml-language-server
 
 # set up nvim
 RUN mkdir -p /root/.config/nvim
@@ -122,8 +123,7 @@ RUN ls /root/.config/nvim/
 RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN timeout 120 nvim --headless || :
-RUN timeout 60 nvim --headless || :
-RUN timeout 60 nvim --headless || :
+RUN timeout 60 nvim /root/work-image/nvim/test.py
 
 # # config/install vim plugins
 # RUN mkdir -p /root/.config

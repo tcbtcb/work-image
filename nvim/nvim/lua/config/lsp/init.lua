@@ -1,6 +1,8 @@
 local M = {}
 
 local servers = {
+  yamlls = {},
+  terraformls = {},
   gopls = {},
   html = {},
   jsonls = {},
