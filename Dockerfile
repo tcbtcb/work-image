@@ -122,7 +122,7 @@ RUN ls /root/.config/nvim/
 RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN timeout 120 nvim --headless || :
-RUN timeout 60 nvim /root/work-image/nvim/test.py
+RUN timeout 60 nvim --headless /root/work-image/nvim/test.py
 
 # # config/install vim plugins
 # RUN mkdir -p /root/.config
