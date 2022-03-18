@@ -111,7 +111,6 @@ RUN cd Python-3.9.10/  \
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
-RUN yarn global add yaml-language-server
 
 # set up nvim
 RUN mkdir -p /root/.config/nvim
