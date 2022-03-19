@@ -17,7 +17,7 @@ function M.setup()
       "lua",
       "python",
       "regex",
-      "rust".
+      "rust",
       "scss",
       "toml",
       "typescript",
