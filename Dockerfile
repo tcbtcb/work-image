@@ -122,19 +122,6 @@ RUN ls /root/.config/nvim/
 RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN timeout 120 nvim --headless || :
-# RUN timeout 60 nvim --headless /root/work-image/nvim/test.py
-
-# # config/install vim plugins
-# RUN mkdir -p /root/.config
-# RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-#        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-# # RUN rsync -aPh /root/work-image/nvim/ /root/.config/nvim/
-# RUN nvim +'PlugInstall' +qa --headless
-# # RUN timeout 120 nvim --headless || :
-# # RUN timeout 60 nvim --headless || :
-# # RUN timeout 60 nvim --headless || :
-# # RUN cd /root/.local/share/plugged/coc.nvim && npm install
-# # trigger CI 
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
@@ -149,13 +136,14 @@ RUN rm install.sh
 RUN cp /root/work-image/starship.toml /root/.config/starship.toml
 
 # # install gcloud 
-# RUN mkdir /opt/gcloud
-# WORKDIR /opt/gcloud
-# RUN curl https://sdk.cloud.google.com > install.sh
-# RUN chmod +x install.sh
-# RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
-# RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
+RUN mkdir /opt/gcloud
+WORKDIR /opt/gcloud
+RUN curl https://sdk.cloud.google.com > install.sh
+RUN chmod +x install.sh
+RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
+RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
-# RUN echo 'thadbrown ALL=NOPASSWD: ALL' >> /etc/sudoers
+# clean up homedir
+RUN rm -rf /root/*
 
- WORKDIR /go/src/gitlab.com/flywheel-io/
+WORKDIR /go/src/gitlab.com/flywheel-io/
