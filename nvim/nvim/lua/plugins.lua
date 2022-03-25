@@ -386,6 +386,14 @@ function M.setup()
       end,
     }
 
+    use {
+      "akinsho/toggleterm.nvim",
+      cmd = {"ToggleTerm"},
+      config = function()
+        require("config.toggleterm").setup()
+      end,
+    }
+
     -- lspsaga.nvim
     use {
       "tami5/lspsaga.nvim",

@@ -37,3 +37,7 @@ keymap("n", "<Left>", ":vertical resize +1<CR>", default_opts)
 keymap("n", "<Right>", ":vertical resize -1<CR>", default_opts)
 keymap("n", "<Up>", ":resize -1<CR>", default_opts)
 keymap("n", "<Down>", ":resize +1<CR>", default_opts)
+
+-- terminal stuff
+keymap("n", "<F2>", ":ToggleTermM<CR>", default_opts)
+keymap("t", "<F4>", "<C-\\><C-n>", default_opts)
