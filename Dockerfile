@@ -161,10 +161,6 @@ RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
 RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
 
 # install starship prompt
-RUN curl -fsSL https://starship.rs/install.sh >> install.sh
-RUN chmod +x install.sh
-RUN ./install.sh -y
-RUN rm install.sh
 RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
