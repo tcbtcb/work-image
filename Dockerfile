@@ -46,6 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxext-dev \
     ranger \
     fzf \
+    ripgrep \
     fonts-firacode \
     postgresql-client \
     libpq-dev \
@@ -94,21 +95,6 @@ RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 # get nodejs
 RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
-# # install yarn (to build coc from source)
-# RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
-# 
-# # install some node lang servers
-# RUN npm install --unsafe -g neovim prettier pyright vscode-css-languageserver-bin bash-language-server vscode-html-languageserver-bin dockerfile-language-server-nodejs typescript typescript-language-server yaml-language-server vscode-json-languageserver
-# 
-
-# get newer python by hand
-RUN apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
-RUN wget https://www.python.org/ftp/python/3.9.10/Python-3.9.10.tgz
-RUN tar xvf Python-3.9.10.tgz 
-RUN cd Python-3.9.10/  \
-    && ./configure --enable-optimizations \ 
-    && make install
-
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
@@ -145,5 +131,40 @@ RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/c
 
 # clean up homedir
 RUN rm -rf /root/*
+
+WORKDIR /go/src/gitlab.com/flywheel-io/
+
+# configure thadbrown user 
+RUN useradd -m -s /bin/bash -u 501 thadbrown
+USER thadbrown
+WORKDIR /home/thadbrown
+
+# locales
+RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
+
+# clone settings repo locally
+RUN git clone https://github.com/tcbtcb/work-image.git
+
+# set up nvim
+RUN mkdir -p /home/thadbrown/.config/nvim
+RUN mv /home/thadbrown/work-image/nvim/bootstrap_packer.tar /homethadbrown/.config/nvim/
+RUN cd /home/thadbrown/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
+RUN nvim +qa --headless
+RUN rm -rf /home/thadbrown/.config/nvim/*
+RUN rsync -aPh /home/thadbrown/work-image/nvim/nvim/ /home/thadbrown/.config/nvim/
+RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+RUN timeout 120 nvim --headless || :
+
+
+# config bash
+RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
+RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
+
+# install starship prompt
+RUN curl -fsSL https://starship.rs/install.sh >> install.sh
+RUN chmod +x install.sh
+RUN ./install.sh -y
+RUN rm install.sh
+RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
