@@ -153,7 +153,8 @@ RUN nvim +qa --headless
 RUN rm -rf /home/thadbrown/.config/nvim/*
 RUN rsync -aPh /home/thadbrown/work-image/nvim/nvim/ /home/thadbrown/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-RUN timeout 120 nvim --headless || :
+RUN echo "i = 42" >> whelp.js
+RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
 
 
 # config bash
