@@ -147,7 +147,7 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 
 # set up nvim
 RUN mkdir -p /home/thadbrown/.config/nvim
-RUN mv /home/thadbrown/work-image/nvim/bootstrap_packer.tar /homethadbrown/.config/nvim/
+RUN mv /home/thadbrown/work-image/nvim/bootstrap_packer.tar /home/thadbrown/.config/nvim/
 RUN cd /home/thadbrown/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
 RUN nvim +qa --headless
 RUN rm -rf /home/thadbrown/.config/nvim/*
