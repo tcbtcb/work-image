@@ -156,6 +156,12 @@ RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN echo "i = 42" >> whelp.js
 RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
 
+# try to set up gopls without the damn go get install
+RUN mkdir -p /home/thadbrown/.local/share/nvim/lsp_servers/go
+RUN cp /go/bin/gopls /home/thadbrown/.local/share/nvim/lsp_servers/go/
+RUN cp /home/thadbrown/work-image/nvim/nvim-lsp-installer-receipt.json /home/thadbrown/.local/share/nvim/lsp_servers/go/
+
+
 
 # config bash
 RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc

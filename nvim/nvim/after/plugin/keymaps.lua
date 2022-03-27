@@ -39,5 +39,10 @@ keymap("n", "<Up>", ":resize -1<CR>", default_opts)
 keymap("n", "<Down>", ":resize +1<CR>", default_opts)
 
 -- terminal stuff
-keymap("n", "<F2>", ":ToggleTerm<CR>", default_opts)
-keymap("t", "<F4>", "<C-\\><C-n>", default_opts)
+keymap("n", "<Leader>tt", ":ToggleTerm<CR>", default_opts)
+keymap("n", "<Leader>tf", ":ToggleTerm direction=float<CR>", default_opts)
+keymap("t", "<esc>", "<C-\\><C-n>", default_opts)
+keymap('t', '<C-h>', [[<C-\><C-n><C-W>h]], default_opts)
+keymap('t', '<C-j>', [[<C-\><C-n><C-W>j]], default_opts)
+keymap('t', '<C-k>', [[<C-\><C-n><C-W>k]], default_opts)
+keymap('t', '<C-l>', [[<C-\><C-n><C-W>l]], default_opts)
