@@ -107,7 +107,13 @@ RUN rm -rf /root/.config/nvim/*
 RUN ls /root/.config/nvim/
 RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-RUN timeout 120 nvim --headless || :
+RUN echo "i = 42" >> whelp.js
+RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
+
+# try to set up gopls without the damn go get install
+RUN mkdir -p /root/.local/share/nvim/lsp_servers/go
+RUN cp /go/bin/gopls /root/.local/share/nvim/lsp_servers/go/
+RUN cp /root/work-image/nvim/nvim-lsp-installer-receipt.json /home/thadbrown/.local/share/nvim/lsp_servers/go/
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
@@ -161,8 +167,6 @@ RUN mkdir -p /home/thadbrown/.local/share/nvim/lsp_servers/go
 RUN cp /go/bin/gopls /home/thadbrown/.local/share/nvim/lsp_servers/go/
 RUN cp /home/thadbrown/work-image/nvim/nvim-lsp-installer-receipt.json /home/thadbrown/.local/share/nvim/lsp_servers/go/
 
-
-
 # config bash
 RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
 RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
@@ -170,4 +174,5 @@ RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
 # install starship prompt
 RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
 
+USER root
 WORKDIR /go/src/gitlab.com/flywheel-io/
