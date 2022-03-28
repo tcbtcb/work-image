@@ -65,9 +65,6 @@ function M.setup()
       D = { "<Cmd>%bd|e#|bd#<Cr>", "Delete All Buffers" },
     },
 
-    f = keymaps_f,
-    p = keymaps_p,
-
     z = {
       name = "Packer",
       c = { "<cmd>PackerCompile<cr>", "Compile" },

@@ -386,6 +386,13 @@ function M.setup()
       end,
     }
 
+     use {
+       'lewis6991/gitsigns.nvim',
+       config = function()
+         require('config.gitsigns').setup()
+       end
+     }
+
     use {
       "akinsho/toggleterm.nvim",
       cmd = {"ToggleTerm"},
@@ -393,7 +400,7 @@ function M.setup()
         require("config.toggleterm").setup()
       end,
     }
-
+    
     -- lspsaga.nvim
     use {
       "tami5/lspsaga.nvim",

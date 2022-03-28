@@ -48,3 +48,7 @@ keymap('t', '<C-h>', [[<C-\><C-n><C-W>h]], default_opts)
 keymap('t', '<C-j>', [[<C-\><C-n><C-W>j]], default_opts)
 keymap('t', '<C-k>', [[<C-\><C-n><C-W>k]], default_opts)
 keymap('t', '<C-l>', [[<C-\><C-n><C-W>l]], default_opts)
+
+-- explorer
+
+keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", default_opts)
