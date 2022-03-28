@@ -113,7 +113,7 @@ RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
 # try to set up gopls without the damn go get install
 RUN mkdir -p /root/.local/share/nvim/lsp_servers/go
 RUN cp /go/bin/gopls /root/.local/share/nvim/lsp_servers/go/
-RUN cp /root/work-image/nvim/nvim-lsp-installer-receipt.json /home/thadbrown/.local/share/nvim/lsp_servers/go/
+RUN cp /root/work-image/nvim/nvim-lsp-installer-receipt.json /root/.local/share/nvim/lsp_servers/go/
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
