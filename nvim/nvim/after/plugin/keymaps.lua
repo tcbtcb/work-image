@@ -2,13 +2,15 @@ local keymap = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 local expr_opts = { noremap = true, expr = true, silent = true }
 
--- Better escape using jk in insert and terminal mode
-keymap("i", "jk", "<ESC>", default_opts)
-keymap("t", "jk", "<C-\\><C-n>", default_opts)
-
 -- Center search results
 keymap("n", "n", "nzz", default_opts)
 keymap("n", "N", "Nzz", default_opts)
+
+-- Better window navigation
+keymap("n", "<C-h>", "<C-w>h", default_opts)
+keymap("n", "<C-j>", "<C-w>j", default_opts)
+keymap("n", "<C-k>", "<C-w>k", default_opts)
+keymap("n", "<C-l>", "<C-w>l", default_opts)
 
 -- Visual line wraps
 keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_opts)
@@ -39,5 +41,14 @@ keymap("n", "<Up>", ":resize -1<CR>", default_opts)
 keymap("n", "<Down>", ":resize +1<CR>", default_opts)
 
 -- terminal stuff
-keymap("n", "<F2>", ":ToggleTerm<CR>", default_opts)
-keymap("t", "<F4>", "<C-\\><C-n>", default_opts)
+keymap("n", "<Leader>tt", ":ToggleTerm<CR>", default_opts)
+keymap("n", "<Leader>tf", ":ToggleTerm direction=float<CR>", default_opts)
+keymap("t", "<esc>", "<C-\\><C-n>", default_opts)
+keymap('t', '<C-h>', [[<C-\><C-n><C-W>h]], default_opts)
+keymap('t', '<C-j>', [[<C-\><C-n><C-W>j]], default_opts)
+keymap('t', '<C-k>', [[<C-\><C-n><C-W>k]], default_opts)
+keymap('t', '<C-l>', [[<C-\><C-n><C-W>l]], default_opts)
+
+-- explorer
+
+keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", default_opts)
