@@ -64,15 +64,6 @@ function M.setup()
     -- Better Netrw
     use { "tpope/vim-vinegar" }
 
-    -- Git
-    use {
-      "TimUntersberger/neogit",
-      cmd = "Neogit",
-      config = function()
-        require("config.neogit").setup()
-      end,
-    }
-
     -- WhichKey
     use {
       "folke/which-key.nvim",
