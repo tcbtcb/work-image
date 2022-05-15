@@ -2,6 +2,7 @@ local M = {}
 
 local servers = {
   yamlls = {},
+  bashls = {},
   terraformls = {},
   gopls = {},
   html = {},
