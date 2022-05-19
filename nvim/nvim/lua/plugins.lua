@@ -391,6 +391,16 @@ function M.setup()
         require("config.toggleterm").setup()
       end,
     }
+
+    use {
+      "renerocksai/telekasten.nvim",
+      config = function()
+        require("config.telekasten").setup()
+      end,
+    }
+
+    use {"renerocksai/calendar-vim"}
+
     
     -- lspsaga.nvim
     use {
