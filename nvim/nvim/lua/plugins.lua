@@ -61,9 +61,6 @@ function M.setup()
       end,
     }
 
-    -- Better Netrw
-    use { "tpope/vim-vinegar" }
-
     -- WhichKey
     use {
       "folke/which-key.nvim",
