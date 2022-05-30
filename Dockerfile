@@ -71,10 +71,11 @@ RUN python3 -m pip install pynvim jedi black pymongo awscli flywheel-sdk request
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
-# install hstr, kubectl, and yarn
+# install hstr, kubectl, yarn, and poetry
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN apt-get update && apt-get install -y kubectl yarn
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
