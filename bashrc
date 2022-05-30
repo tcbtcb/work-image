@@ -74,7 +74,7 @@ HISTFILESIZE=10000
 export GO111MODULE=on
 
 # PATH and tmux stuff
-export PATH=/root/.cargo/bin:/opt/gcloud/google-cloud-sdk/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local:/usr/share:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/root/.local/bin:/root/.cargo/bin:/opt/gcloud/google-cloud-sdk/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local:/usr/share:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
