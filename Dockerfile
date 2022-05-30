@@ -77,6 +77,13 @@ RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/a
 RUN apt-get update && apt-get install -y kubectl yarn
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
+# install lazygit as a binary
+RUN wget https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
+RUN gunzip lazygit_0.34_Linux_x86_64.tar.gz
+RUN tar -xvf lazygit_0.34_Linux_x86_64.tar
+RUN mv lazygit /usr/local/bin/
+RUN rm -rf *
+
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/

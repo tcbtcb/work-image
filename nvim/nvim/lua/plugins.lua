@@ -64,15 +64,6 @@ function M.setup()
     -- Better Netrw
     use { "tpope/vim-vinegar" }
 
-    -- Git
-    use {
-      "TimUntersberger/neogit",
-      cmd = "Neogit",
-      config = function()
-        require("config.neogit").setup()
-      end,
-    }
-
     -- WhichKey
     use {
       "folke/which-key.nvim",
@@ -400,6 +391,16 @@ function M.setup()
         require("config.toggleterm").setup()
       end,
     }
+
+    use {
+      "renerocksai/telekasten.nvim",
+      config = function()
+        require("config.telekasten").setup()
+      end,
+    }
+
+    use {"renerocksai/calendar-vim"}
+
     
     -- lspsaga.nvim
     use {
