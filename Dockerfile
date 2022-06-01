@@ -100,7 +100,7 @@ RUN rsync -aPh home/tcb/go/bin/ /go/bin/
 # install tfenv
 RUN git clone https://github.com/tfutils/tfenv.git
 RUN cp tfenv/bin/* /go/bin/
-RUN rm -tf tfenv
+RUN rm -rf tfenv
  
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
