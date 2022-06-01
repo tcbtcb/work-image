@@ -88,11 +88,6 @@ RUN rm -rf *
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
 
-# install tfenv
-RUN git clone https://github.com/tfutils/tfenv.git
-RUN cp tfenv/bin/* /go/bin/
-RUN rm -tf tfenv
- 
 # configure root user 
 USER root
 WORKDIR /root
@@ -102,6 +97,11 @@ RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools.tar
 RUN tar -xf tcb-gotools.tar 
 RUN rsync -aPh home/tcb/go/bin/ /go/bin/
 
+# install tfenv
+RUN git clone https://github.com/tfutils/tfenv.git
+RUN cp tfenv/bin/* /go/bin/
+RUN rm -tf tfenv
+ 
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 
