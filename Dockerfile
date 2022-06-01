@@ -88,6 +88,11 @@ RUN rm -rf *
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
 
+# install tfenv
+RUN git clone https://github.com/tfutils/tfenv.git
+RUN cp tfenv/bin/* /go/bin/
+RUN rm -tf tfenv
+ 
 # configure root user 
 USER root
 WORKDIR /root
