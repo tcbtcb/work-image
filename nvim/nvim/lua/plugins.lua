@@ -61,6 +61,9 @@ function M.setup()
       end,
     }
 
+   -- add tokyo color scheme
+     use {"folke/tokyonight.nvim"}
+
     -- WhichKey
     use {
       "folke/which-key.nvim",
