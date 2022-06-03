@@ -1,6 +1,6 @@
 local M = {}
 
-local home = vim.fn.expand("~/zettelkasten")
+local home = vim.fn.expand("~/kettelmans")
 
 function M.setup()
   local status_ok, telekasten = pcall(require, "telekasten")
