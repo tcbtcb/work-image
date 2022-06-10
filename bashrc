@@ -74,7 +74,7 @@ HISTFILESIZE=10000
 export GO111MODULE=on
 
 # PATH and tmux stuff
-export PATH=/root/.local/bin:/root/.cargo/bin:/opt/gcloud/google-cloud-sdk/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local:/usr/share:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/root/.tfenv/bin:/root/.local/bin:/root/.cargo/bin:/opt/gcloud/google-cloud-sdk/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local:/usr/share:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TERM=xterm
 export LANG=en_US.UTF-8
 export EDITOR=vim
@@ -97,30 +97,6 @@ export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
-
-# set fzf for CTRL-R
-bind '"\C-r": "\C-x1\e^\er"'
-bind -x '"\C-x1": __fzf_history';
-
-__fzf_history ()
-{
-__ehc $(history | fzf --tac --tiebreak=index | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
-}
-
-__ehc()
-{
-if
-        [[ -n $1 ]]
-then
-        bind '"\er": redraw-current-line'
-        bind '"\e^": magic-space'
-        READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
-        READLINE_POINT=$(( READLINE_POINT + ${#1} ))
-else
-        bind '"\er":'
-        bind '"\e^":'
-fi
-}
 
 # starship prompt
 eval "$(starship init bash)"

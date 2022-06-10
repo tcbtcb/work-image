@@ -93,14 +93,15 @@ USER root
 WORKDIR /root
 
 # get go tools 
-RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools.tar
-RUN tar -xf tcb-gotools.tar 
+RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools2.tar
+RUN tar -xf tcb-gotools2.tar 
 RUN rsync -aPh home/tcb/go/bin/ /go/bin/
 
 # install tfenv
-RUN git clone https://github.com/tfutils/tfenv.git
-RUN cp tfenv/bin/* /go/bin/
-RUN rm -rf tfenv
+RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv
+RUN export PATH=/root/.tfenv/bin:$PATH
+RUN tfenv install 0.13.7
+RUN tfenv use 0.13.7
  
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
@@ -153,39 +154,3 @@ RUN rm -rf /root/*
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
 
-# configure thadbrown user 
-RUN useradd -m -s /bin/bash -u 501 thadbrown
-USER thadbrown
-WORKDIR /home/thadbrown
-
-# locales
-RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
-
-# clone settings repo locally
-RUN git clone https://github.com/tcbtcb/work-image.git
-
-# set up nvim
-RUN mkdir -p /home/thadbrown/.config/nvim
-RUN mv /home/thadbrown/work-image/nvim/bootstrap_packer.tar /home/thadbrown/.config/nvim/
-RUN cd /home/thadbrown/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
-RUN nvim +qa --headless
-RUN rm -rf /home/thadbrown/.config/nvim/*
-RUN rsync -aPh /home/thadbrown/work-image/nvim/nvim/ /home/thadbrown/.config/nvim/
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-RUN echo "i = 42" >> whelp.js
-RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
-
-# try to set up gopls without the damn go get install
-RUN mkdir -p /home/thadbrown/.local/share/nvim/lsp_servers/go
-RUN cp /go/bin/gopls /home/thadbrown/.local/share/nvim/lsp_servers/go/
-RUN cp /home/thadbrown/work-image/nvim/nvim-lsp-installer-receipt.json /home/thadbrown/.local/share/nvim/lsp_servers/go/
-
-# config bash
-RUN cp /home/thadbrown/work-image/bashrc /home/thadbrown/.bashrc
-RUN cp /home/thadbrown/work-image/tmux.conf /home/thadbrown/.tmux.conf
-
-# install starship prompt
-RUN cp /home/thadbrown/work-image/starship.toml /home/thadbrown/.config/starship.toml
-
-USER root
-WORKDIR /go/src/gitlab.com/flywheel-io/
