@@ -96,13 +96,11 @@ WORKDIR /root
 RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools2.tar
 RUN tar -xf tcb-gotools2.tar 
 RUN rsync -aPh home/tcb/go/bin/ /go/bin/
-
-# install tfenv
+# 
+# # install tfenv
 RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv
-RUN export PATH=/root/.tfenv/bin:$PATH
-RUN tfenv install 0.13.7
-RUN tfenv use 0.13.7
- 
+RUN export PATH=/root/.tfenv/bin:$PATH && tfenv install 0.13.7 
+
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
 
