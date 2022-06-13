@@ -1,6 +1,8 @@
 local M = {}
 
 local servers = {
+  marksman = {},
+  dockerls = {},
   yamlls = {},
   bashls = {},
   terraformls = {},
