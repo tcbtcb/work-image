@@ -93,6 +93,9 @@ GOPATH=/go
 # change highlight colors (temp workaround)
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
+# set toke for glab
+export GITLAB_TOKEN=$(cat /root/.config/labtoken)
+
 # auto-completion
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
