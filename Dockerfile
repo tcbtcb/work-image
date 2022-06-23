@@ -145,7 +145,6 @@ WORKDIR /opt/gcloud
 RUN curl https://sdk.cloud.google.com > install.sh
 RUN chmod +x install.sh
 RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
-RUN cp /opt/gcloud/google-cloud-sdk/completion.bash.inc /etc/bash_completion.d/completion.bash.inc
 
 # install glab
 RUN curl -s https://raw.githubusercontent.com/profclems/glab/trunk/scripts/install.sh | sh
