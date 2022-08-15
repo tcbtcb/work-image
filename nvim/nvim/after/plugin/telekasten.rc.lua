@@ -1,9 +1,9 @@
 local status, telekasten = pcall(require, "telekasten")
 if ( not status ) then return end 
 
-local home = vim.fn.expane("~/kettelmans")
+local home = vim.fn.expand("~/kettelmans")
 
-telkasten.setup {
+telekasten.setup {
     home         = home,
 
     -- if true, telekasten will be enabled when opening a note within the configured home
