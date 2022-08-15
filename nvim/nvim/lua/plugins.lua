@@ -33,6 +33,9 @@ packer.startup(function(use)
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'lewis6991/gitsigns.nvim'
   use "akinsho/toggleterm.nvim"
+  use "renerocksai/telekasten.nvim"
+  use "renerocksai/calendar-vim"
+  use "folke/tokyonight.nvim"
   use({
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
