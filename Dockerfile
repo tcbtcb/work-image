@@ -65,7 +65,7 @@ RUN update-ca-certificates
 
 # install some python stuff
 RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install pynvim jedi black pymongo awscliv2 flywheel-sdk requests PyYAML pandas matplotlib
+RUN python3 -m pip install pynvim jedi black pymongo flywheel-sdk requests PyYAML pandas matplotlib
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
@@ -138,6 +138,12 @@ RUN chmod +x install.sh
 RUN ./install.sh -y
 RUN rm install.sh
 RUN cp /root/work-image/starship.toml /root/.config/starship.toml
+
+# install AWS CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+RUN rm -rf aws*
 
 # install gcloud 
 RUN mkdir /opt/gcloud
