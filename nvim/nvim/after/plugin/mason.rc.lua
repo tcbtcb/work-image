@@ -3,11 +3,9 @@ if (not status) then return end
 local status2, lspconfig = pcall(require, "mason-lspconfig")
 if (not status2) then return end
 
-mason.setup({
-
-})
+mason.setup({})
 
 lspconfig.setup {
-	ensure_installed = { "marksman", "json-lsp", "jq", "terraform-ls", "yamllint", "sumneko_lua", "pyright", "bashls",
-		"gopls", "yaml-language-server" },
+        ensure_installed = { "marksman", "jsonls", "terraformls", "yamlls", "sumneko_lua", "pyright", "bashls",
+                "gopls"},
 }
