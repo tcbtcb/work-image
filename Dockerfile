@@ -65,7 +65,7 @@ RUN update-ca-certificates
 
 # install some python stuff
 RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install pynvim jedi black pymongo awscli flywheel-sdk requests PyYAML pandas matplotlib
+RUN python3 -m pip install pynvim jedi black pymongo awscliv2 flywheel-sdk requests PyYAML pandas matplotlib
 
 # get and build neovim
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
