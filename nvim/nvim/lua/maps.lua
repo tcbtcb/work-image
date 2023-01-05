@@ -41,3 +41,7 @@ keymap.set('t', '<C-h>', [[<C-\><C-n><C-W>h]])
 keymap.set('t', '<C-j>', [[<C-\><C-n><C-W>j]])
 keymap.set('t', '<C-k>', [[<C-\><C-n><C-W>k]])
 keymap.set('t', '<C-l>', [[<C-\><C-n><C-W>l]])
+
+-- colorscheme
+keymap.set('n', 'cst', ':colorscheme tokyonight<CR>')
+keymap.set('n', 'csi', ':colorscheme iceberg<CR>')
