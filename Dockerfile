@@ -93,8 +93,8 @@ USER root
 WORKDIR /root
 
 # get go tools 
-RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools2.tar
-RUN tar -xf tcb-gotools2.tar 
+RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools3.tar
+RUN tar -xf tcb-gotools3.tar 
 RUN rsync -aPh home/tcb/go/bin/ /go/bin/
 RUN rm -rf home/tcb/go/bin 
 
