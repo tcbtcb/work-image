@@ -140,7 +140,7 @@ RUN ./aws/install
 RUN rm -rf aws*
 
 # install azure CLI
-RUN curl -L https://aka.ms/InstallAzureCli | bash
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # install gcloud 
 RUN mkdir /opt/gcloud
