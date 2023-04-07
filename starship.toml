@@ -33,4 +33,4 @@ utc_time_offset = "-5"
 [env_var]
 format = "[$env_value]($style)"
 variable = "SESSION_NAME"
-style = "blod blue"
+style = "bold blue"
