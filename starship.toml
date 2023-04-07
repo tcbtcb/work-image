@@ -1,9 +1,9 @@
 format = """
-$env_var\
 $directory\
 $git_branch\
 $git_status\
 $time\
+$env_var\
 \n$character"""
 
 
@@ -32,5 +32,5 @@ utc_time_offset = "-5"
 
 [env_var]
 format = "[$env_value]($style)"
-variable = "STARSHIP"
-style = "bold red"
+variable = "SESSION_NAME"
+style = "blod blue"
