@@ -6,6 +6,6 @@ if (not status2) then return end
 mason.setup({})
 
 lspconfig.setup {
-        ensure_installed = { "marksman", "jsonls", "terraformls", "yamlls", "sumneko_lua", "pyright", "bashls",
-                "gopls"},
+  ensure_installed = { "marksman", "jsonls", "terraformls", "yamlls", "lua_ls", "pyright", "bashls",
+    "gopls" },
 }

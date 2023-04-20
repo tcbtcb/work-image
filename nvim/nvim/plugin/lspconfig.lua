@@ -74,7 +74,7 @@ nvim_lsp.gopls.setup {
   capabilities = capabilities
 }
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
   settings = {
     Lua = {
