@@ -55,13 +55,19 @@ alias gad='gcloud app deploy'
 # dir aliass
 alias cdf='cd /go/src/gitlab.com/flywheel-io'
 alias cdi='cd /go/src/gitlab.com/flywheel-io/infrastructure'
-alias cdc='cd /go/src/gitlab.com/flywheel-io/customers'
+alias cdc='cd /go/src/gitlab.com/flywheel-io/customers/tf-customers'
 alias cdt='cd /go/src/github.com/tcbtcb'
+alias cdh='cd /go/src/gitlab.com/flywheel-io/content/content/'
+alias nt='nvim /go/src/gitlab.com/flywheel-io/content/content/local-drafts/to-do.md'
 
 # ssh aliases
 alias rpenn='gcloud compute ssh upenn-production-gitlab-runner --project upenn-flywheel --zone=us-east1-b'
 alias rfin='gcloud compute ssh finance --zone southamerica-east2-a --project tcb-financeb5477b6c'
 
+# logbook aliases
+ alias logt="grep -R -i '@tcb' *"
+ alias logr="grep -R -i '@robin' *"
+ alias loge="grep -R -i '@eden' *"
 
 # docker aliases
 alias mini-hugo='docker run --rm -p 1313:1313 -v $PWD:/mnt/site gcr.io/tcb-web/mini-hugo'
