@@ -55,6 +55,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
   && apt-get clean
 
+# install python 3.11 by hand
+RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
+RUN tar -xvf Python-3.11.1.tgz
+RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make altinstall
+
+# clea up a bit 
+RUN rm -rf Python-3.11.1
+
 RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv \
