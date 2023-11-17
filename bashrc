@@ -60,10 +60,6 @@ alias cdt='cd /go/src/github.com/tcbtcb'
 alias cdh='cd /go/src/gitlab.com/flywheel-io/content/content/'
 alias nt='nvim /go/src/gitlab.com/flywheel-io/content/content/local-drafts/to-do.md'
 
-# ssh aliases
-alias rpenn='gcloud compute ssh upenn-production-gitlab-runner --project upenn-flywheel --zone=us-east1-b'
-alias rfin='gcloud compute ssh finance --zone southamerica-east2-a --project tcb-financeb5477b6c'
-
 # logbook aliases
  alias logt="grep -R -i '@tcb' *"
  alias logr="grep -R -i '@robin' *"
@@ -99,13 +95,16 @@ GOPATH=/go
 # change highlight colors (temp workaround)
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
-# set toke for glab
+# set token for glab
 export GITLAB_TOKEN=$(cat /root/.config/labtoken)
 
 # auto-completion
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
+
+# gcloud auto-completion
+source /opt/gcloud/google-cloud-sdk/completion.bash.inc
 
 # starship prompt
 eval "$(starship init bash)"

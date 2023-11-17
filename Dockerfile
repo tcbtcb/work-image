@@ -53,6 +53,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
     bash-completion \ 
     libssl-dev \
+    libsqlite3-dev \
+    libffi-dev \
   && apt-get clean
 
 # install python 3.11 by hand
@@ -62,6 +64,10 @@ RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make 
 
 # clea up a bit 
 RUN rm -rf Python-3.11.1
+
+# configure python3 to use 3.11
+RUN unlink /usr/bin/python3
+RUN ln -s /usr/local/bin/python3.11 /usr/bin/python3
 
 RUN apt-get update && apt-get install -y \
     python3-pip \
@@ -96,8 +102,8 @@ WORKDIR /root
 # get go tools 
 RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools3.tar
 RUN tar -xf tcb-gotools3.tar 
-RUN rsync -aPh home/tcb/go/bin/ /go/bin/
-RUN rm -rf home/tcb/go/bin 
+RUN rsync -aPh /root/go/bin/ /go/bin/
+RUN rm -rf /root/go/bin/
 
 # # install tfenv
 RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv
