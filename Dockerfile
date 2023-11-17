@@ -1,4 +1,4 @@
-FROM golang:1.17-buster
+FROM golang:1.21-buster
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
