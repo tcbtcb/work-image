@@ -158,7 +158,7 @@ RUN rm -rf aws*
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg
 RUN touch /etc/apt/sources.list.d/azure-cli.list
 RUN echo 'deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main' >> /etc/apt/sources.list.d/azure-cli.list
-RUN apt-get update && apt-get instally -y azure-cli
+RUN apt-get update && apt-get install -y azure-cli
 
 # install gcloud 
 RUN mkdir /opt/gcloud
