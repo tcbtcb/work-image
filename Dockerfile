@@ -102,8 +102,8 @@ WORKDIR /root
 # get go tools 
 RUN wget https://storage.googleapis.com/rsj-episodes/tcb-gotools3.tar
 RUN tar -xf tcb-gotools3.tar 
-RUN rsync -aPh /root/go/bin/ /go/bin/
-RUN rm -rf /root/go/bin/
+RUN rsync -aPh /root/home/tcb/go/bin/ /go/bin/
+RUN rm -rf /root/home/tcb
 
 # # install tfenv
 RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv
