@@ -1,4 +1,4 @@
-FROM golang:1.21-buster
+FROM golang:1.21-bullseye
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
@@ -157,7 +157,7 @@ RUN rm -rf aws*
 # RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg
 RUN touch /etc/apt/sources.list.d/azure-cli.list
-RUN echo 'deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main' >> /etc/apt/sources.list.d/azure-cli.list
+RUN echo 'deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bullseye main' >> /etc/apt/sources.list.d/azure-cli.list
 RUN apt-get update && apt-get install -y azure-cli
 
 # install gcloud 
