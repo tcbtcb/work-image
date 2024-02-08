@@ -170,8 +170,11 @@ RUN ./install.sh --disable-prompts --install-dir=/opt/gcloud
 # install glab
 RUN curl -s https://raw.githubusercontent.com/profclems/glab/trunk/scripts/install.sh | sh
 
-# set up git permissions
+# set up git
 RUN git config --global safe.directory '*'
+RUN git config --global user.email "thadbrown@flywheel.io"
+RUN git config --global user.name "Thad Brown"
+RUN git config --global pull.rebase false
 
 # clean up homedir
 RUN rm -rf /root/*
