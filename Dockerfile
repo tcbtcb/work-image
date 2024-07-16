@@ -1,4 +1,4 @@
-FROM arm64v8/golang:1.22-bullseye
+FROM golang:1.22-bullseye
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
