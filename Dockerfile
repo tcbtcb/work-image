@@ -87,7 +87,7 @@ RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
 # install hstr, kubectl, yarn, and poetry
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-bullseye main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN apt-get update && apt-get install -y kubectl yarn
 # RUN curl -sSL https://install.python-poetry.org | python3 -
 
