@@ -130,8 +130,6 @@ RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
-RUN kubectl completion bash >> /etc/bash_completion.d/kubectl
-RUN cp /root/work-image/tmux.conf /root/.tmux.conf
 
 # install starship prompt
 RUN curl -fsSL https://starship.rs/install.sh >> install.sh
