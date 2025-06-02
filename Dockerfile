@@ -117,7 +117,7 @@ RUN mkdir -p /root/.config/nvim
 RUN cp /root/work-image/nvim-lazy-blink.tar $HOME/.config/
 RUN cd $HOME/.config && tar -xvf nvim-lazy-blink.tar
 RUN nvim --headless "+Lazy sync" +qa
-n
+
 # RUN mv /root/work-image/nvim/bootstrap_packer.tar /root/.config/nvim/
 # RUN cd /root/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
 # RUN nvim +qa --headless
