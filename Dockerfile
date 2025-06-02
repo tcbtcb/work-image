@@ -1,4 +1,5 @@
-FROM golang:1.23-bookworm
+FROM golang:1.24-bookworm
+SHELL ["/bin/bash", "-c"]
 
 # set modules on and platform for golang
 ENV GO111MODULE=on \
@@ -17,7 +18,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tmux \
     ca-certificates \
     nmap \
-    cmake \
     libncurses5-dev \
     apt-utils \
     fontconfig \
@@ -31,8 +31,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 \
     pkg-config \
     libfreetype6-dev \
-    ninja-build \ 
-    gettext \
     libtool \
     libtool-bin \
     autoconf \
@@ -61,7 +59,7 @@ RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
 RUN tar -xvf Python-3.11.1.tgz
 RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make altinstall
 
-# clea up a bit 
+# clean up a bit 
 RUN rm -rf Python-3.11.1
 
 # configure python3 to use 3.11
@@ -81,6 +79,7 @@ RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install yamllint pynvim jedi black pymongo flywheel-sdk requests PyYAML pandas matplotlib
 
 # get and build neovim
+RUN apt install -y ninja-build gettext cmake curl unzip
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
@@ -102,26 +101,32 @@ RUN rm -rf /root/home/tcb
 RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv
 RUN export PATH=/root/.tfenv/bin:$PATH && tfenv install 0.13.7 
 
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+RUN export NVM_DIR=/root/.nvm
+RUN bash -c "source /root/.nvm/nvm.sh && nvm install 22"
+RUN bash -c "source /root/.bashrc && npm install bash-language-server"
+
 # locales
 RUN LANG=en_US.UTF-8 locale-gen --purge en_US.UTF-8
-
-# get nodejs
-RUN curl -sL install-node.now.sh/lts | bash -s -- -y
 
 # clone settings repo locally
 RUN git clone https://github.com/tcbtcb/work-image.git
 
 # set up nvim
 RUN mkdir -p /root/.config/nvim
-RUN mv /root/work-image/nvim/bootstrap_packer.tar /root/.config/nvim/
-RUN cd /root/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
-RUN nvim +qa --headless
-RUN rm -rf /root/.config/nvim/*
-RUN ls /root/.config/nvim/
-RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-RUN echo "i = 42" >> whelp.js
-RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
+RUN cp /root/work-image/nvim-lazy-blink.tar $HOME/.config/
+RUN cd $HOME/.config && tar -xvf nvim-lazy-blink.tar
+RUN nvim --headless "+Lazy sync" +qa
+n
+# RUN mv /root/work-image/nvim/bootstrap_packer.tar /root/.config/nvim/
+# RUN cd /root/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
+# RUN nvim +qa --headless
+# RUN rm -rf /root/.config/nvim/*
+# RUN ls /root/.config/nvim/
+# RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
+# RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+# RUN echo "i = 42" >> whelp.js
+# RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
 
 # try to set up gopls without the damn go get install
 # RUN mkdir -p /root/.local/share/nvim/lsp_servers/go
