@@ -59,19 +59,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
 #RUN tar -xvf Python-3.11.1.tgz
 #RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make altinstall
-
-# clean up a bit 
-RUN rm -rf Python-3.11.1
-
-# configure python3 to use 3.11
-RUN unlink /usr/bin/python3
-RUN ln -s /usr/local/bin/python3.11 /usr/bin/python3
-
-RUN apt-get update && apt-get install -y \
-    python3-pip \
-    python3-venv \
-  && apt-get clean
-
+#
+## clean up a bit 
+#RUN rm -rf Python-3.11.1
+#
+## configure python3 to use 3.11
+#RUN unlink /usr/bin/python3
+#RUN ln -s /usr/local/bin/python3.11 /usr/bin/python3
+#
+#RUN apt-get update && apt-get install -y \
+#    python3-pip \
+#    python3-venv \
+#  && apt-get clean
+#
 # update certs
 RUN update-ca-certificates
 
