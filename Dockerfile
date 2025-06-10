@@ -53,7 +53,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsqlite3-dev \
     libffi-dev \
     python3 \
-  && apt-get clean
+    python3-pip \
+    python3-venv \  
+    && apt-get clean
 
 ## install python 3.11 by hand
 #RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
@@ -72,6 +74,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #    python3-venv \
 #  && apt-get clean
 #
+
 # update certs
 RUN update-ca-certificates
 
