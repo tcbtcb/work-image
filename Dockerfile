@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libsqlite3-dev \
     libffi-dev \
-    python-3 \
+    python3 \
   && apt-get clean
 
 ## install python 3.11 by hand
