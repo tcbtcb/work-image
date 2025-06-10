@@ -80,7 +80,7 @@ RUN update-ca-certificates
 
 # install some python stuff
 # RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install yamllint pynvim jedi black pymongo flywheel-sdk requests PyYAML pandas matplotlib
+RUN python3 -m pip install --break-system-packages yamllint pynvim jedi black pymongo flywheel-sdk requests PyYAML pandas matplotlib
 
 # get and build neovim
 RUN apt install -y ninja-build gettext cmake curl unzip
