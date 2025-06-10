@@ -83,6 +83,11 @@ RUN apt install -y ninja-build gettext cmake curl unzip
 RUN git clone https://github.com/neovim/neovim.git && cd neovim && make CMAKE_BUILD_TYPE=Release && make install
 RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
+# install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
+RUN source /root/.cargo/env
+RUN git clone git@github.com:gitui-org/gitui.git && cd gitui && cargo install gitui --locked
+
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
 RUN rm -rf /root/.cache/
@@ -117,21 +122,6 @@ RUN mkdir -p /root/.config/nvim
 RUN cp /root/work-image/nvim.tar $HOME/.config/
 RUN cd $HOME/.config && tar -xvf nvim-lazy-blink.tar
 RUN nvim --headless "+Lazy sync" +qa
-
-# RUN mv /root/work-image/nvim/bootstrap_packer.tar /root/.config/nvim/
-# RUN cd /root/.config/nvim && tar -xvf bootstrap_packer.tar && mv works/* . 
-# RUN nvim +qa --headless
-# RUN rm -rf /root/.config/nvim/*
-# RUN ls /root/.config/nvim/
-# RUN rsync -aPh /root/work-image/nvim/nvim/ /root/.config/nvim/
-# RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-# RUN echo "i = 42" >> whelp.js
-# RUN timeout 120 nvim whelp.js -c ":LspInstall tsserver" || :
-
-# try to set up gopls without the damn go get install
-# RUN mkdir -p /root/.local/share/nvim/lsp_servers/go
-# RUN cp /go/bin/gopls /root/.local/share/nvim/lsp_servers/go/
-# RUN cp /root/work-image/nvim/nvim-lsp-installer-receipt.json /root/.local/share/nvim/lsp_servers/go/
 
 # config bash
 RUN cp /root/work-image/bashrc /root/.bashrc
