@@ -90,7 +90,7 @@ RUN ln -s /usr/local/bin/nvim /usr/local/bin/vim
 # install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -q -y
 RUN source /root/.cargo/env
-RUN git clone https://github.com/gitui-org/gitui.git && cd gitui && cargo install gitui --locked
+RUN export PATH=$PATH:$HOME/.cargo/bin && git clone https://github.com/gitui-org/gitui.git && cd gitui && cargo install gitui --locked
 
 # do some cleanup
 RUN apt-get clean && apt-get autoclean
