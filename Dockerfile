@@ -52,12 +52,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libsqlite3-dev \
     libffi-dev \
+    python-3 \
   && apt-get clean
 
-# install python 3.11 by hand
-RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
-RUN tar -xvf Python-3.11.1.tgz
-RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make altinstall
+## install python 3.11 by hand
+#RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
+#RUN tar -xvf Python-3.11.1.tgz
+#RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make altinstall
 
 # clean up a bit 
 RUN rm -rf Python-3.11.1
