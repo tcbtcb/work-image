@@ -124,7 +124,7 @@ RUN git clone https://github.com/tcbtcb/work-image.git
 # set up nvim
 RUN mkdir -p /root/.config/nvim
 RUN cp /root/work-image/nvim.tar $HOME/.config/
-RUN cd $HOME/.config && tar -xvf nvim-lazy-blink.tar
+RUN cd $HOME/.config && tar -xvf nvim.tar
 RUN nvim --headless "+Lazy sync" +qa
 
 # config bash
