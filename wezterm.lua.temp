@@ -1,0 +1,43 @@
+local wezterm = require 'wezterm';
+local act = wezterm.action
+
+return {
+  font = wezterm.font("FuraMono Nerd Font"),
+  color_scheme = "VSCodeDark+",
+  leader = { key = " ", mods = "CTRL", timeout_milleseconds = 500 },
+  exit_behavior = "Close",
+  enable_scroll_bar = true,
+  keys = {
+    { key = "%", mods = "LEADER", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+    { key = "-", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
+    { key = "[", mods = "CTRL", action = act.ActivateTabRelative(-1) },
+    { key = "]", mods = "CTRL", action = act.ActivateTabRelative(1) },
+    { key = "]", mods = "LEADER", action = act.ActivatePaneDirection "Next" },
+    { key = "[", mods = "LEADER", action = act.ActivatePaneDirection "Prev" },
+    { key = "LeftArrow", mods = "ALT", action = act.AdjustPaneSize { "Left", 2 } },
+    { key = "RightArrow", mods = "ALT", action = act.AdjustPaneSize { "Right", 2 } },
+    { key = "UpArrow", mods = "ALT", action = act.AdjustPaneSize { "Up", 1 } },
+    { key = "DownArrow", mods = "ALT", action = act.AdjustPaneSize { "Down", 1 } },
+
+    { key = "LeftArrow", mods = "SUPER", action = act.ActivatePaneDirection "Left" },
+    { key = "RightArrow", mods = "SUPER", action = act.ActivatePaneDirection "Right" },
+    { key = "UpArrow", mods = "SUPER", action = act.ActivatePaneDirection "Up" },
+    { key = "DownArrow", mods = "SUPER", action = act.ActivatePaneDirection "Down" },
+    { key = "y", mods = "LEADER", action = act.ActivateCopyMode },
+    { key = "c", mods = "LEADER", action = act.CopyTo 'Clipboard' },
+    { key = "v", mods = "LEADER", action = act.PasteFrom 'Clipboard' },
+  },
+  quick_select_patterns = {
+    "flywheel[0-9a-z-_]{1,70}",
+    "tsh[0-9a-z-_@/:]{1,200}",
+    "pvc[0-9a-z-_]{1,70}",
+    "gke[0-9a-z-_]{1,70}",
+    "gs://[0-9a-z-_]{1,70}",
+    "s3://[0-9a-z-_]{1,70}",
+    "[0-9a-z-_]{1,70}runner",
+    "[0-9a-z-_]{1,70}connector",
+    "[0-9a-z-_]{1,70}engine[0-9a-z-_]{1,20}",
+    "[0-9a-z-_]{1,70}controller[0-9a-z-_]{1,20}",
+    "[0-9a-z-_]{1,70}nginx[0-9a-z-_]{1,20}"
+  }
+}
