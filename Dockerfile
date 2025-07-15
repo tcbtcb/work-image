@@ -57,24 +57,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-venv \  
     && apt-get clean
 
-## install python 3.11 by hand
-#RUN wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
-#RUN tar -xvf Python-3.11.1.tgz
-#RUN cd Python-3.11.1 && ./configure --enable-optimizations && make -j 2 && make altinstall
-#
-## clean up a bit 
-#RUN rm -rf Python-3.11.1
-#
-## configure python3 to use 3.11
-#RUN unlink /usr/bin/python3
-#RUN ln -s /usr/local/bin/python3.11 /usr/bin/python3
-#
-#RUN apt-get update && apt-get install -y \
-#    python3-pip \
-#    python3-venv \
-#  && apt-get clean
-#
-
 # update certs
 RUN update-ca-certificates
 
@@ -137,19 +119,6 @@ RUN ./install.sh -y
 RUN rm install.sh
 RUN cp /root/work-image/starship.toml /root/.config/starship.toml
 
-# install AWS CLI
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-RUN unzip awscliv2.zip
-RUN ./aws/install
-RUN rm -rf aws*
-
-# install azure CLI
-# RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg
-RUN touch /etc/apt/sources.list.d/azure-cli.list
-RUN echo 'deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bookworm main' >> /etc/apt/sources.list.d/azure-cli.list
-RUN apt-get update && apt-get install -y azure-cli
-
 # install gcloud 
 RUN mkdir /opt/gcloud
 WORKDIR /opt/gcloud
@@ -170,4 +139,3 @@ RUN git config --global pull.rebase false
 RUN rm -rf /root/*
 
 WORKDIR /go/src/gitlab.com/flywheel-io/
-
